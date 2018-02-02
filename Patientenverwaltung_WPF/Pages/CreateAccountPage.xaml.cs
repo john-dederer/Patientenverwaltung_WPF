@@ -23,6 +23,8 @@ namespace Patientenverwaltung_WPF
         public CreateAccountPage()
         {
             InitializeComponent();
+
+            DataContext = CurrentContext.GetUser();
         }
 
         private void btnBackToLogin_Click(object sender, RoutedEventArgs e)
@@ -44,7 +46,10 @@ namespace Patientenverwaltung_WPF
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
+            // First we have to check if username already exists
 
+            // To not breakt the MVVM pattern we hash the password asap
+            CurrentContext.GetUser().Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
         }
     }
 }

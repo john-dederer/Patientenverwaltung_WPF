@@ -13,17 +13,11 @@ namespace Patientenverwaltung_WPF
         public const string LoginPageUri = "LoginPage.xaml";
         public const string CreateAccountPageUri = "CreateAccountPage.xaml";
         public const string InitialSettingsPageUri = "InitialSettingsPage.xaml";
+        public const string MainWindowUri = "MainWindow.xaml";
+        public const string AskToCreateAccountPageUri = "AskToCreateAccountPage.xaml";
 
         public const string Storagetype_JSON = "JSON";
         public const string Storagetype_SQL = "SQL";
-        public const string Storagetype_XML = "XML";
-
-        private static Settings Settings;
-        
-        public static ref Settings GetSettings()
-        {
-            if (Settings == null) Settings = new Settings();
-            return ref Settings;
-        }
+        public const string Storagetype_XML = "XML";        
     }
 }

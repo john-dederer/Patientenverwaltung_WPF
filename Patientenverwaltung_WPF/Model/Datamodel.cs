@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Patientenverwaltung_WPF
 {
-    public class Datamodel
+    public abstract class Datamodel
     {
         public long Id { get; set; }
         public string LastChange { get; set; }

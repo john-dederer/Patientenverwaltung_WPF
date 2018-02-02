@@ -12,12 +12,12 @@ namespace Patientenverwaltung_WPF.Pages
         {
             InitializeComponent();
 
-            DataContext = Constants.GetSettings();
+            DataContext = CurrentContext.GetSettings();
         }
 
         private void btnSaveSettings_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Constants.GetSettings().UpdateJSON();
+            CurrentContext.GetSettings().UpdateJSON();
 
             // Get back to login page
             MainWindow.UpdatePage(Constants.LoginPageUri);
@@ -29,7 +29,7 @@ namespace Patientenverwaltung_WPF.Pages
 
             if (folderBrowserDialog.ShowDialog() != DialogResult.OK) return;
 
-            txtBoxSaveloaction.Text = folderBrowserDialog.SelectedPath;
+            txtBoxSaveloaction.Text = $@"{folderBrowserDialog.SelectedPath}\";
         }
 
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)

@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Datastorage\Connector.cs" />
+    <Compile Include="Datastorage\CurrentContext.cs" />
     <Compile Include="Datastorage\Factory.cs" />
     <Compile Include="Model\Datamodel.cs" />
     <Compile Include="Model\Healthinsurance.cs" />
@@ -69,6 +70,9 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Constants\Base.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Pages\AskToCreateAccountPage.xaml.cs">
+      <DependentUpon>AskToCreateAccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\CreateAccountPage.xaml.cs">
       <DependentUpon>CreateAccountPage.xaml</DependentUpon>
     </Compile>
@@ -78,10 +82,15 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PasswordStorage\PasswordStorage.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Page Include="Pages\AskToCreateAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\CreateAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +158,8 @@
   <ItemGroup>
     <Resource Include="64x64.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="PasswordStorage\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

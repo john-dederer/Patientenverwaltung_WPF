@@ -29,14 +29,17 @@ namespace Patientenverwaltung_WPF.Pages
 
             // Initialize settings
             InitializeSettings();
+
+            // Set DataContext
+            DataContext = CurrentContext.GetUser();
         }
 
         private void InitializeSettings()
         {
-            if (!Constants.GetSettings().SettingsJSONExist())
+            if (!CurrentContext.GetSettings().SettingsJSONExist())
             {
                 // Create Settings.json file at exe file location
-                Constants.GetSettings().CreateSettingsJSON();
+                CurrentContext.GetSettings().CreateSettingsJSON();
 
                 // Load Initial Settings page
                 MainWindow.UpdatePage(Constants.InitialSettingsPageUri);
@@ -44,13 +47,30 @@ namespace Patientenverwaltung_WPF.Pages
             else
             {
                 // Read settings from file
-                Constants.GetSettings().SetSettings(true);
+                CurrentContext.GetSettings().SetSettings(true);
             }
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+            // Check if username exist
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetUser(), out User returned))
+            {
+                // check hashes
+                if (PasswordStorage.VerifyPassword(passwordBox.Password, returned.Passwordhash))
+                {
+                    // Login verified
+                }
+                else
+                {
+                    // Show login credentials do differ
+                }
+            }
+            else
+            {
+                // User does not exist yet
+                MainWindow.UpdatePage(Constants.AskToCreateAccountPageUri);
+            }
         }
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
