@@ -28,7 +28,7 @@ namespace Patientenverwaltung_WPF
             InitializeComponent();
             PageFrame = pageFrame;
 
-            UpdatePage("Pages/LoginPage.xaml");
+            UpdatePage(Constants.LoginPageUri);
         }
 
         public static void UpdatePage(string pageUri)

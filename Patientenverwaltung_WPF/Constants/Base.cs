@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Patientenverwaltung_WPF
 {
-    static class Constants
+    class Base
     {
-        public const string LoginPageUri = "LoginPage.xaml";
-        public const string CreateAccountPageUri = "CreateAccountPage.xaml";
     }
 }
