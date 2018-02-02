@@ -1,0 +1,20 @@
+[
+  {
+    "UserId": 0,
+    "Title": "Dr",
+    "Name": "John Dederer",
+    "Username": "john",
+    "Passwordhash": "sha1:64000:18:Pa0N9BlUmI9jPw0/OGkLSZKNPB5DPq1x:OnOPriQ+m0RgEi/c6KJY2djf",
+    "Error": null,
+    "LastChange": "2018-02-02|john"
+  },
+  {
+    "UserId": 0,
+    "Title": "test",
+    "Name": "test",
+    "Username": "test",
+    "Passwordhash": "sha1:64000:18:sNdmZtgjEjHb96XQGgWhajOnOQ4JQ2bO:ldx3JtxFDqxePIAFLHzLhd6T",
+    "Error": null,
+    "LastChange": "2018-02-02|test"
+  }
+]

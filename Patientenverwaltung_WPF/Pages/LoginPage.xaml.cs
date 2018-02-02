@@ -53,17 +53,32 @@ namespace Patientenverwaltung_WPF.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            if (txtBoxUsername.Text == string.Empty)
+            {
+                lblInfo.Content = "Benutzername fehlt";
+                return;
+            }
+            else if (passwordBox.SecurePassword.Length == 0)
+            {
+                lblInfo.Content = "Passwort fehlt";
+                return;
+            }
+
             // Check if username exist
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetUser(), out User returned))
             {
+                if (returned == null) return;
+
                 // check hashes
                 if (PasswordStorage.VerifyPassword(passwordBox.Password, returned.Passwordhash))
                 {
                     // Login verified
+                    lblInfo.Content = "Login erfolgreich";
                 }
                 else
                 {
                     // Show login credentials do differ
+                    lblInfo.Content = "Zugangsdaten stimmen nicht überein";
                 }
             }
             else

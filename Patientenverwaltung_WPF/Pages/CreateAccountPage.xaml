@@ -132,7 +132,7 @@
             <ColumnDefinition Width="160.862"/>
             <ColumnDefinition Width="49.978"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,219.828,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" TabIndex="3" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,219.828,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" TabIndex="3" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxUsername_TextChanged">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -170,8 +170,8 @@
         </Button>
         <Button x:Name="btnBackToLogin" Content="Zurück" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="86.84,506.09,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="147.751" Background="#FF0414AE" Foreground="White" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Click="btnBackToLogin_Click" TabIndex="6"/>
         <local:Test Grid.ColumnSpan="2" Grid.Column="1" Margin="135.751,28.667,136.111,472.423"/>
-        <PasswordBox x:Name="passwordBox" Grid.Column="1" HorizontalAlignment="Left" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="321.862" Grid.ColumnSpan="2" Height="31.268" VerticalContentAlignment="Center" AutomationProperties.IsRequiredForForm="True" TabIndex="4"/>
-        <TextBox x:Name="txtBoxName" HorizontalAlignment="Right" Height="31.236" Margin="0,153.788,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="2" Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <PasswordBox x:Name="passwordBox" Grid.Column="1" HorizontalAlignment="Left" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="321.862" Grid.ColumnSpan="2" Height="31.268" VerticalContentAlignment="Center" AutomationProperties.IsRequiredForForm="True" TabIndex="4" PasswordChanged="passwordBox_PasswordChanged"/>
+        <TextBox x:Name="txtBoxName" HorizontalAlignment="Right" Height="31.236" Margin="0,153.788,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="2" Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxName_TextChanged">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -190,7 +190,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBlock.RenderTransform></TextBlock>
-        <TextBox x:Name="txtBoxTitle" HorizontalAlignment="Right" Height="31.236" Margin="0,91.121,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="1" Text="{Binding Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+        <TextBox x:Name="txtBoxTitle" HorizontalAlignment="Right" Height="31.236" Margin="0,91.121,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="1" Text="{Binding Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxTitle_TextChanged">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -209,5 +209,6 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBlock.RenderTransform></TextBlock>
+        <Label x:Name="lblInfo" Content="" Grid.Column="1" HorizontalAlignment="Center" Margin="94.763,420.833,87.271,0" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="34.627" Width="139.828" Background="#00000000" Foreground="Red" HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

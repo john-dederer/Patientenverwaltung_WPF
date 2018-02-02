@@ -8,7 +8,6 @@ namespace Patientenverwaltung_WPF
 {
     public abstract class Datamodel
     {
-        public long Id { get; set; }
         public string LastChange { get; set; }
 
         public void SetValues(Datamodel datamodel)
@@ -23,6 +22,11 @@ namespace Patientenverwaltung_WPF
                     if (field.Name.Equals(fieldsCurrentModel.Name)) field.SetValue(fieldsCurrentModel, fieldsCurrentModel.Name);
                 }
             }
+        }
+
+        public void SetLogData()
+        {
+            LastChange = $@"{DateTime.Now.ToString("yyyy-MM-dd")}|{CurrentContext.GetUser().Username}";
         }
     }
 }

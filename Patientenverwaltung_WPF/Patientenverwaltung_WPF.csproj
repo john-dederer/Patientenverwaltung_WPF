@@ -63,6 +63,7 @@
     <Compile Include="Datastorage\Connector.cs" />
     <Compile Include="Datastorage\CurrentContext.cs" />
     <Compile Include="Datastorage\Factory.cs" />
+    <Compile Include="Datastorage\IdCounter.cs" />
     <Compile Include="Model\Datamodel.cs" />
     <Compile Include="Model\Healthinsurance.cs" />
     <Compile Include="Model\Patient.cs" />

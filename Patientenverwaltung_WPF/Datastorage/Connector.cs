@@ -18,6 +18,13 @@ namespace Patientenverwaltung_WPF
         public abstract bool Create(Datamodel datamodel);
 
         /// <summary>
+        /// Tries to create the user in storage
+        /// </summary>
+        /// <param name="datamodel"></param>
+        /// <returns>If creation failed or not</returns>
+        public abstract bool Create(User user);
+
+        /// <summary>
         /// If more than one dataset is found for given dataModel then the ref is null, otherwise fill the ref dataModel
         /// </summary>
         /// <param name="datamodelOut"></param>
@@ -54,9 +61,56 @@ namespace Patientenverwaltung_WPF
         private const string TreatmentPath = "Treatment.json";
         private const string HealthinsurancePath = "Healthinsurance.json";
 
+        public Connector_JSON()
+        {
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+            {
+                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}");
+            }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"))
+            {
+                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}");
+            }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+            {
+                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}");
+            }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"))
+            {
+                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}");
+            }
+        }
+
         public override bool Create(Datamodel datamodel)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Create(User user)
+        {
+            // safety measurement: check if  user exists
+            if (Select(user, out User temp)) return false;
+
+            var list = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"));
+            if (list == null) list = new List<User>();
+
+            // Set id
+            user.UserId = CurrentContext.GetIdCounter().GetId("user");
+
+            // Set log data
+            user.SetLogData();
+
+            // Add to list
+            list.Add(user);
+
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
+
+            return true;
         }
 
         public override bool Delete(Datamodel datamodel)
@@ -110,6 +164,11 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
+        public override bool Create(User user)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
         {
             throw new NotImplementedException();
@@ -134,6 +193,11 @@ namespace Patientenverwaltung_WPF
     public class Connector_XML : Connector
     {
         public override bool Create(Datamodel datamodel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Create(User user)
         {
             throw new NotImplementedException();
         }

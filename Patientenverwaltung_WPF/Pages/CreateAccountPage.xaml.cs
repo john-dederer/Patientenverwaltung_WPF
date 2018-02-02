@@ -25,6 +25,7 @@ namespace Patientenverwaltung_WPF
             InitializeComponent();
 
             DataContext = CurrentContext.GetUser();
+
         }
 
         private void btnBackToLogin_Click(object sender, RoutedEventArgs e)
@@ -46,10 +47,91 @@ namespace Patientenverwaltung_WPF
 
         private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            // First we have to check if username already exists
+            if (txtBoxTitle.Text == string.Empty || txtBoxName.Text == string.Empty || txtBoxUsername.Text == string.Empty || passwordBox.SecurePassword.Length == 0)
+            {
+                lblInfo.Content = "Bitte alle Felder ausfüllen";
+                return;
+            }
+            else
+            {
+                lblInfo.Content = "";
+            }
 
-            // To not breakt the MVVM pattern we hash the password asap
-            CurrentContext.GetUser().Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
+            // First we have to check if username already exists
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetUser(), out User returned))
+            {
+                if (returned == null) return;
+
+                if (CurrentContext.GetUser().Username == returned.Username)
+                {
+                    // Show username already exists
+                    lblInfo.Content = $@"{txtBoxUsername.Text} existiert bereits";
+                }
+            }
+            else
+            {
+                // To not breakt the MVVM pattern we hash the password asap
+                CurrentContext.GetUser().Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
+
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetUser()))
+                {
+                    // Successfully created
+                    lblInfo.Content = "Account erfolgreich angelegt";
+                }
+                else
+                {
+                    // Username already exists
+                    lblInfo.Content = $@"{txtBoxUsername.Text} existiert bereits";
+                }
+            }
+        }
+
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (passwordBox.SecurePassword.Length == 0)
+            {
+                btnCreateAccount.IsEnabled = false;
+            }
+            else
+            {
+                btnCreateAccount.IsEnabled = true;
+            }
+        }
+
+        private void txtBoxTitle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtBoxTitle.Text))
+            {
+                btnCreateAccount.IsEnabled = false;
+            }
+            else
+            {
+                btnCreateAccount.IsEnabled = true;
+            }
+        }
+
+        private void txtBoxName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtBoxName.Text))
+            {
+                btnCreateAccount.IsEnabled = false;
+            }
+            else
+            {
+                btnCreateAccount.IsEnabled = true;
+            }
+        }
+
+        private void txtBoxUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtBoxUsername.Text))
+            {
+                btnCreateAccount.IsEnabled = false;
+            }
+            else
+            {
+                btnCreateAccount.IsEnabled = true;
+            }
         }
     }
 }

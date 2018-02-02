@@ -10,6 +10,7 @@ namespace Patientenverwaltung_WPF
     {
         private static Settings Settings;
         private static User User;
+        private static IdCounter IdCounter;
 
         public static ref Settings GetSettings()
         {
@@ -21,6 +22,12 @@ namespace Patientenverwaltung_WPF
         {
             if (User == null) User = new User();
             return ref User;
+        }
+
+        public static ref IdCounter GetIdCounter()
+        {
+            if (IdCounter == null) IdCounter = new IdCounter();
+            return ref IdCounter;
         }
     }
 }
