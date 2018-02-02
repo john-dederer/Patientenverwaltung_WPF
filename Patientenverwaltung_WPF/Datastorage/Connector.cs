@@ -125,7 +125,38 @@ namespace Patientenverwaltung_WPF
 
         public override bool Update(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            if (datamodel.GetType() == typeof(User))
+            {
+                var userToUpdate = (User)datamodel;
+
+                var list = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"));
+
+                var listCopy = list;
+
+                foreach (var user in list)
+                {
+                    if (user.Username == userToUpdate.Username)
+                    {
+                        var index = list.IndexOf(user);
+
+                        if (index != -1)
+                        {
+                            list[index].Passwordhash = userToUpdate.Passwordhash;
+                            list[index].SetLogData();
+                        }
+                    }
+                }
+
+                if (listCopy.Equals(list)) return false;
+
+                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+                File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
+
+                return true;
+            }
+
+            return false;
         }
 
         internal override bool Select(User user, out User returned)

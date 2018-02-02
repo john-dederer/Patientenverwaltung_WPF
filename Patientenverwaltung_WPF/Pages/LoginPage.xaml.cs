@@ -95,7 +95,7 @@ namespace Patientenverwaltung_WPF.Pages
 
         private void btnPasswordForgotten_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.UpdatePage(Constants.ResetPasswordPageUri);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Patientenverwaltung_WPF
         public const string InitialSettingsPageUri = "InitialSettingsPage.xaml";
         public const string MainWindowUri = "MainWindow.xaml";
         public const string AskToCreateAccountPageUri = "AskToCreateAccountPage.xaml";
+        public const string ResetPasswordPageUri = "ResetPasswordPage.xaml";
 
         public const string Storagetype_JSON = "JSON";
         public const string Storagetype_SQL = "SQL";
