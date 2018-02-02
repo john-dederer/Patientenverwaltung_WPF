@@ -10,5 +10,11 @@ namespace Patientenverwaltung_WPF
     {
         public const string LoginPageUri = "LoginPage.xaml";
         public const string CreateAccountPageUri = "CreateAccountPage.xaml";
+
+
+        public const string Storagetype_JSON = "JSON";
+        public const string Storagetype_SQL = "SQL";
+        public const string Storagetype_XML = "XML";
+
     }
 }
