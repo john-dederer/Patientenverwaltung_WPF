@@ -11,7 +11,7 @@
 
     <Grid x:Name="Login">
         <Grid.Background>
-            <SolidColorBrush Color="#FF0414AE"/>
+            <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50.249"/>
