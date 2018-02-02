@@ -1,5 +1,4 @@
-﻿using Patientenverwaltung_WPF.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,25 +16,13 @@ using System.Windows.Shapes;
 namespace Patientenverwaltung_WPF
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für Test.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Test : UserControl
     {
-        private static Frame PageFrame;
-
-        public MainWindow()
+        public Test()
         {
             InitializeComponent();
-            PageFrame = pageFrame;
-
-            UpdatePage("Pages/LoginPage.xaml");
-        }
-
-        public static void UpdatePage(string pageUri)
-        {
-            if (PageFrame != null) PageFrame.Source = new Uri(pageUri, UriKind.RelativeOrAbsolute);
         }
     }
-
-    
 }
