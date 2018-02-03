@@ -5,6 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
         mc:Ignorable="d"
-        Title="Login" Height="588.5" Width="430" ResizeMode="NoResize" Background="{x:Null}">
-    <Frame x:Name="pageFrame" Content="Frame" HorizontalAlignment="Stretch" Width="424.25" NavigationUIVisibility="Hidden" Margin="0,-4,-0.25,0" VerticalAlignment="Stretch"/>
+        Title="Login" Background="{x:Null}" SizeToContent="WidthAndHeight" SizeChanged="LoginWindow_SizeChanged" ResizeMode="NoResize">
+    <Window.Resources>
+        <Storyboard x:Key="StretchAfterLogin"/>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource StretchAfterLogin}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Frame x:Name="pageFrame" Content="Frame" HorizontalAlignment="Stretch" NavigationUIVisibility="Hidden" Margin="0,-4,-6,-3.167" VerticalAlignment="Stretch"/>
 </Window>

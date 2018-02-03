@@ -74,6 +74,12 @@ namespace Patientenverwaltung_WPF.Pages
                 {
                     // Login verified
                     lblInfo.Content = "Login erfolgreich";
+                    //MainWindow.UpdatePage("HomescreenPage.xaml");
+
+                    HomeWindow homeWindow = new HomeWindow();
+                    homeWindow.Show();
+
+                    MainWindow.Destroy();
                 }
                 else
                 {

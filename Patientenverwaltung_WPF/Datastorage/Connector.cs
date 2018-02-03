@@ -131,8 +131,6 @@ namespace Patientenverwaltung_WPF
 
                 var list = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"));
 
-                var listCopy = list;
-
                 foreach (var user in list)
                 {
                     if (user.Username == userToUpdate.Username)
@@ -146,8 +144,6 @@ namespace Patientenverwaltung_WPF
                         }
                     }
                 }
-
-                if (listCopy.Equals(list)) return false;
 
                 var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 

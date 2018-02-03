@@ -7,12 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="50">
     <Grid>
-        <Ellipse Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="0,0,-50,-50" VerticalAlignment="Top" Width="50"/>
-        <Label Content="JD" HorizontalAlignment="Center" Margin="5.503,10,5.504,10" VerticalAlignment="Center" Height="30" Width="38.993" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="14">
-            <Label.Foreground>
-                <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
-            </Label.Foreground>
-        </Label>
+        <Border>
+            <Grid>
+                <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="50"/>
+                <Label Content="JD" HorizontalAlignment="Center" Margin="5.503,10,5.504,10" VerticalAlignment="Center" Height="30" Width="38.993" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="14">
+                    <Label.Foreground>
+                        <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
+                    </Label.Foreground>
+                </Label>
+
+            </Grid>
+        </Border>
 
     </Grid>
 </UserControl>

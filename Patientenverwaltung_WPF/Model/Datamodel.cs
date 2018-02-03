@@ -26,7 +26,7 @@ namespace Patientenverwaltung_WPF
 
         public void SetLogData()
         {
-            LastChange = $@"{DateTime.Now.ToString("yyyy-MM-dd")}|{CurrentContext.GetUser().Username}";
+            LastChange = $@"{DateTime.Now.ToLocalTime()}|{CurrentContext.GetUser().Username}";
         }
     }
 }

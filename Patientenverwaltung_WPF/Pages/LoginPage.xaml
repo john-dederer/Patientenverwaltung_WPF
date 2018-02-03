@@ -7,7 +7,15 @@
       xmlns:local1="clr-namespace:Patientenverwaltung_WPF"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="LoginPage" Width="430" Height="551">
+      Title="LoginPage">
+    <Page.Resources>
+        <Storyboard x:Key="StretchAfterLogin"/>
+    </Page.Resources>
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource StretchAfterLogin}"/>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid x:Name="Login">
         <Grid.Background>
