@@ -4,11 +4,9 @@
   <Canvas.RenderTransform>
     <TranslateTransform X="0" Y="0"/>
   </Canvas.RenderTransform>
-  <Canvas.Resources/>
-  <!--Unknown tag: metadata-->
-  <!--Unknown tag: sodipodi:namedview-->
-  <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" StrokeThickness="2" Stroke="currentColor" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-  <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="4.5" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="currentColor" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-  <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="20" Y1="8" X2="20" Y2="14" Name="line6" StrokeThickness="2" Stroke="currentColor" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-  <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="23" Y1="11" X2="17" Y2="11" Name="line8" StrokeThickness="2" Stroke="currentColor" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+    <Canvas.Resources/>
+    <Path Name="path2" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+    <Ellipse Canvas.Left="4.5" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+    <Line X1="20" Y1="8" X2="20" Y2="14" Name="line6" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+  <Line X1="23" Y1="11" X2="17" Y2="11" Name="line8" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
 </Canvas>

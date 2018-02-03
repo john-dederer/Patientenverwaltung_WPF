@@ -60,6 +60,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\AddPatient.xaml.cs">
+      <DependentUpon>AddPatient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Searchfield.xaml.cs">
+      <DependentUpon>Searchfield.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Datastorage\Connector.cs" />
     <Compile Include="Datastorage\CurrentContext.cs" />
     <Compile Include="Datastorage\Factory.cs" />
@@ -95,9 +101,21 @@
     <Compile Include="PasswordStorage\PasswordStorage.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
-    <Compile Include="Test.xaml.cs">
+    <Compile Include="Components\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\AddPatient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Searchfield.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icons\search.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Icons\settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,7 +176,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test.xaml">
+    <Page Include="Components\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

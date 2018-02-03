@@ -9,6 +9,8 @@
     <Grid x:Name="gridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="253*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -17,11 +19,12 @@
             <RowDefinition Height="303*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" MinHeight="703" Height="Auto" Margin="0.039,0,0,0" MinWidth="100" Width="100" MaxWidth="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="5">
+        <Border BorderBrush="Black" BorderThickness="1" MinHeight="703" Height="Auto" Margin="0.039,0,0,0" MinWidth="100" Width="100" MaxWidth="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="5" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
             </Border.Background>
         </Border>
+        
         <Button x:Name="btnSettings" Style="{DynamicResource SimpleButton}" Grid.Row="2" Grid.Column="0" BorderBrush="{x:Null}">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
@@ -37,7 +40,7 @@
                 <Path Name="path3713" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </Canvas>
         </Button>
-        <Button Style="{DynamicResource SimpleButton}" Grid.Row="1" Grid.Column="0" BorderBrush="{x:Null}" Margin="0.039,0,-0.039,0">
+        <Button Style="{DynamicResource SimpleButton}" Grid.Row="1" Grid.Column="0" BorderBrush="{x:Null}">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
             </Button.Background>
@@ -67,5 +70,18 @@
             </Canvas>
         </Button>
         <local:Test Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <!-- Search field -->
+        <local:Searchfield Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+
+        <!-- Add patient -->
+        <local:AddPatient Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0" MouseDown="AddPatient_MouseDown"/>
+
+        <!-- Scrollable grid-->
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Hidden">
+            <StackPanel x:Name="StackpanelScrollable">
+                
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
