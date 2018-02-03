@@ -52,6 +52,8 @@ namespace Patientenverwaltung_WPF
         /// <param name="returned"></param>
         /// <returns></returns>
         internal abstract bool Select(User user, out User returned);
+
+        internal abstract List<Patient> GetList();
     }
 
     public class Connector_JSON : Connector
@@ -155,6 +157,15 @@ namespace Patientenverwaltung_WPF
             return false;
         }
 
+        internal override List<Patient> GetList()
+        {
+            var deserialzedList = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
+
+            if (deserialzedList == null) deserialzedList = new List<Patient>();
+
+            return deserialzedList;
+        }
+
         internal override bool Select(User user, out User returned)
         {
             returned = null;
@@ -215,6 +226,11 @@ namespace Patientenverwaltung_WPF
         {
             throw new NotImplementedException();
         }
+
+        internal override List<Patient> GetList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Connector_XML : Connector
@@ -245,6 +261,11 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override bool Select(User user, out User returned)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override List<Patient> GetList()
         {
             throw new NotImplementedException();
         }

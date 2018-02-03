@@ -80,7 +80,13 @@
         <!-- Scrollable grid-->
         <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Hidden">
             <StackPanel x:Name="StackpanelScrollable">
-                
+                <ItemsControl ItemsSource="{Binding DataList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=PatientId}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </ScrollViewer>
     </Grid>

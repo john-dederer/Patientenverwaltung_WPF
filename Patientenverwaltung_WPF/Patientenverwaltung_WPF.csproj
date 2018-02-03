@@ -104,6 +104,7 @@
     <Compile Include="Components\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Page Include="Components\AddPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
