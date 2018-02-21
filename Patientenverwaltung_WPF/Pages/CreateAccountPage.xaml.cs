@@ -88,50 +88,22 @@ namespace Patientenverwaltung_WPF
 
         private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (passwordBox.SecurePassword.Length == 0)
-            {
-                btnCreateAccount.IsEnabled = false;
-            }
-            else
-            {
-                btnCreateAccount.IsEnabled = true;
-            }
+            btnCreateAccount.IsEnabled = passwordBox.SecurePassword.Length != 0;
         }
 
         private void txtBoxTitle_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBoxTitle.Text))
-            {
-                btnCreateAccount.IsEnabled = false;
-            }
-            else
-            {
-                btnCreateAccount.IsEnabled = true;
-            }
+            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxTitle.Text);
         }
 
         private void txtBoxName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBoxName.Text))
-            {
-                btnCreateAccount.IsEnabled = false;
-            }
-            else
-            {
-                btnCreateAccount.IsEnabled = true;
-            }
+            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxName.Text);
         }
 
         private void txtBoxUsername_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBoxUsername.Text))
-            {
-                btnCreateAccount.IsEnabled = false;
-            }
-            else
-            {
-                btnCreateAccount.IsEnabled = true;
-            }
+            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxUsername.Text);
         }
     }
 }

@@ -67,22 +67,36 @@ namespace Patientenverwaltung_WPF
         {
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}");
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                    
+                }
             }
 
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}");
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"))
+                {
+                    
+                }
             }
 
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}");
+                using (StreamWriter writer =
+                    File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+                {
+                    
+                }
             }
 
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}");
+                using (StreamWriter writer =
+                    File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"))
+                {
+                    
+                }
             }
         }
 
@@ -172,7 +186,10 @@ namespace Patientenverwaltung_WPF
 
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}");
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                    
+                }
 
                 return false;
             }

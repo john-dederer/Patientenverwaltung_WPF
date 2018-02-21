@@ -61,9 +61,13 @@ namespace Patientenverwaltung_WPF
         {
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}IdCounter.json"))
             {
-                File.CreateText($@"{CurrentContext.GetSettings().Savelocation}IdCounter.json");
+                using (var writer =
+                    File.CreateText($@"{CurrentContext.GetSettings().Savelocation}IdCounter.json"))
+                {
+                    
+                }
 
-                SetAllZero();
+                    SetAllZero();
                 return;
             }
 
