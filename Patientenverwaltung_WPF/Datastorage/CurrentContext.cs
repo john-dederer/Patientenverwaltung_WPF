@@ -14,6 +14,7 @@ namespace Patientenverwaltung_WPF
         private static IdCounter IdCounter;
         private static ObservableCollection<Patient> PatientListViewModel;
         private static List<Patient> PatientList;
+        private static Patient Patient;
 
         public static ref Settings GetSettings()
         {
@@ -47,6 +48,12 @@ namespace Patientenverwaltung_WPF
         {
             if (IdCounter == null) IdCounter = new IdCounter();
             return ref IdCounter;
+        }
+
+        public static ref Patient GetPatient()
+        {
+            if (Patient == null) Patient = new Patient();
+            return ref Patient;
         }
     }
 }

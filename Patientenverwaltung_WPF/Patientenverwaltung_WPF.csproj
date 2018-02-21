@@ -63,6 +63,9 @@
     <Compile Include="Components\AddPatient.xaml.cs">
       <DependentUpon>AddPatient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\CreatePatient.xaml.cs" />
+    <Compile Include="Components\PatientListControl.xaml.cs" />
+    <Compile Include="Components\PatientListItemControl.xaml.cs" />
     <Compile Include="Components\Searchfield.xaml.cs">
       <DependentUpon>Searchfield.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,7 @@
     <Compile Include="Pages\CreateAccountPage.xaml.cs">
       <DependentUpon>CreateAccountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\CreateHealthinsurance.xaml.cs" />
     <Compile Include="Pages\HomescreenPage.xaml.cs">
       <DependentUpon>HomescreenPage.xaml</DependentUpon>
     </Compile>
@@ -104,10 +108,23 @@
     <Compile Include="Components\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Page Include="Components\AddPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CreatePatient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\PatientListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\PatientListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\Searchfield.xaml">
       <SubType>Designer</SubType>
@@ -136,6 +153,10 @@
     <Page Include="Pages\CreateAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\CreateHealthinsurance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\HomescreenPage.xaml">
       <SubType>Designer</SubType>

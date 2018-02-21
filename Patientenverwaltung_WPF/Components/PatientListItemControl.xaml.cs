@@ -10,27 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Patientenverwaltung_WPF
 {
     /// <summary>
-    /// Interaktionslogik für HomeWindow.xaml
+    /// Interaktionslogik für PatientListItemControl.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class PatientListItemControl : UserControl
     {
-        public HomeWindow()
+        public PatientListItemControl()
         {
-            DataContext = CurrentContext.GetPatientListViewModel();
             InitializeComponent();
-        }
-
-        private void AddPatient_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                CreatePatient.Visibility = Visibility.Visible;
-            }
         }
     }
 }

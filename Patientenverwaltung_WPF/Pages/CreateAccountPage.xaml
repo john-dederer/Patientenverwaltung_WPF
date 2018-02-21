@@ -209,6 +209,6 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBlock.RenderTransform></TextBlock>
-        <Label x:Name="lblInfo" Content="" Grid.Column="1" HorizontalAlignment="Center" Margin="94.763,420.833,87.271,0" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="34.627" Width="139.828" Background="#00000000" Foreground="Red" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblInfo" Content="" Grid.Column="1" HorizontalAlignment="Center" Margin="94.763,420.833,87.271,0" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="34.627" Width="280" Background="#00000000" Foreground="Red" HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

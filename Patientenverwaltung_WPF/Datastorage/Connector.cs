@@ -25,6 +25,13 @@ namespace Patientenverwaltung_WPF
         public abstract bool Create(User user);
 
         /// <summary>
+        /// Tries to create the patient in storage
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns>If creation failed or not</returns>
+        public abstract bool Create(Patient patient);
+
+        /// <summary>
         /// If more than one dataset is found for given dataModel then the ref is null, otherwise fill the ref dataModel
         /// </summary>
         /// <param name="datamodelOut"></param>
@@ -52,6 +59,14 @@ namespace Patientenverwaltung_WPF
         /// <param name="returned"></param>
         /// <returns></returns>
         internal abstract bool Select(User user, out User returned);
+
+        /// <summary>
+        /// Select returns a patient instance
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <param name="returned"></param>
+        /// <returns></returns>
+        internal abstract bool Select(Patient patient, out Patient returned);
 
         internal abstract List<Patient> GetList();
     }
@@ -125,6 +140,30 @@ namespace Patientenverwaltung_WPF
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 
             File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
+
+            return true;
+        }
+
+        public override bool Create(Patient patient)
+        {
+            // safety measurement: check if  user exists
+            if (Select(patient, out Patient temp)) return false;
+
+            var list = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
+            if (list == null) list = new List<Patient>();
+
+            // Set id
+            patient.PatientId = CurrentContext.GetIdCounter().GetId("patient");
+
+            // Set log data
+            patient.SetLogData();
+
+            // Add to list
+            list.Add(patient);
+
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
 
             return true;
         }
@@ -210,6 +249,35 @@ namespace Patientenverwaltung_WPF
 
             return false;
         }
+
+        internal override bool Select(Patient patient, out Patient returned)
+        {
+            returned = null;
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+            {
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+
+                }
+
+                return false;
+            }
+
+            // Deserialize JSON
+            var deserializedList = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
+
+            if (deserializedList == null) return false;
+
+            foreach (var patientInList in deserializedList)
+            {
+                if (patientInList.GetHashCode() != patient.GetHashCode()) continue;
+                returned = patient;
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class Connector_SQL : Connector
@@ -220,6 +288,11 @@ namespace Patientenverwaltung_WPF
         }
 
         public override bool Create(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Create(Patient patient)
         {
             throw new NotImplementedException();
         }
@@ -240,6 +313,11 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override bool Select(User user, out User returned)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override bool Select(Patient patient, out Patient returned)
         {
             throw new NotImplementedException();
         }
@@ -262,6 +340,11 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
+        public override bool Create(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
         {
             throw new NotImplementedException();
@@ -278,6 +361,11 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override bool Select(User user, out User returned)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override bool Select(Patient patient, out Patient returned)
         {
             throw new NotImplementedException();
         }

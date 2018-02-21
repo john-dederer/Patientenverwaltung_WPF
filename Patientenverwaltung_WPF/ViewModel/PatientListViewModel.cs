@@ -10,10 +10,11 @@ namespace Patientenverwaltung_WPF
     class PatientListViewModel
     {
         public ObservableCollection<Patient> DataList { get; set; }
+        public static PatientListViewModel Instance => new PatientListViewModel();
 
         public PatientListViewModel()
         {
-            DataList = new ObservableCollection<Patient>();
+            DataList = CurrentContext.GetPatientListViewModel();
         }
 
         public PatientListViewModel(List<Patient> list)
