@@ -14,7 +14,7 @@
             <!-- Profile picture -->
             <ColumnDefinition Width="Auto"/>
             <!-- Main Content -->
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <!-- Selection Indicator -->
@@ -25,7 +25,7 @@
             <!-- Profile picture background -->
             <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <!-- Profile picture initials -->
-                <TextBlock Text="{Binding Initials}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
+                <TextBlock Text="{Binding Secondname}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
             </Border>
         </Border>
 
@@ -33,7 +33,7 @@
         <!-- Main content -->
         <StackPanel Grid.Column="2" VerticalAlignment="Center" >
             <!-- Name -->
-            <TextBlock Text="{Binding Name}" FontFamily="Arial"/>
+            <TextBlock Text="{Binding Firstname}" FontFamily="Arial"/>
             
             <!-- Birthday -->
             <TextBlock Text="{Binding Birthday}"/>

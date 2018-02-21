@@ -77,7 +77,11 @@
         <!-- Add patient -->
         <local:AddPatient Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0" MouseDown="AddPatient_MouseDown" MouseLeftButtonDown="AddPatient_MouseDown"/>
 
+        
+        <local:PatientListControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Width="100"/>
+        
         <!-- Scrollable grid-->
+        <!--
         <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Hidden" DataContext="{x:Static local:PatientListViewModel.Instance}">
             <StackPanel x:Name="StackpanelScrollable">
                 <ItemsControl ItemsSource="{Binding DataList}">
@@ -89,7 +93,7 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-        
+        -->
         
         <!-- Create Pateint Control -->
         <local:CreatePatient x:Name="CreatePatient" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Visibility="Hidden"/>

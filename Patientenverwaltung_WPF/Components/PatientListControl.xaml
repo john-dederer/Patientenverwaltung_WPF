@@ -11,7 +11,7 @@
             <ItemsControl ItemsSource="{Binding DataList}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:PatientListItemControl DataContext="{Binding}" Height="35" Width="30"/>
+                        <local:PatientListItemControl DataContext="{Binding}" Width="100"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
