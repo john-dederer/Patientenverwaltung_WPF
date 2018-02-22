@@ -32,5 +32,16 @@ namespace Patientenverwaltung_WPF
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public override int GetHashCode()
+        {
+            var hash = 0;
+            hash += patientId.GetHashCode();
+            hash += date.GetHashCode();
+            hash += description.Trim().Length;
+            hash += other.Trim().Length;
+
+            return hash;
+        }
     }
 }

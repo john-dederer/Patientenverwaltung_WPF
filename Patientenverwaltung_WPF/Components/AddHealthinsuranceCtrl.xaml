@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Patientenverwaltung_WPF.AddHealthinsuranceCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Patientenverwaltung_WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="340">
+    <Grid>
+        <Border
+            BorderThickness="2"
+            VerticalAlignment="Center"
+            Background="White" Height="60" Width="Auto">
+            <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Left">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg10" Width="24" Height="24" HorizontalAlignment="Left">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.Resources/>
+                    <Path Name="path2" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <Ellipse Canvas.Left="4.5" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    <Line X1="20" Y1="8" X2="20" Y2="14" Name="line6" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    <Line X1="23" Y1="11" X2="17" Y2="11" Name="line8" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                </Canvas>
+                <Label Content="Krankenversicherung hinzufügen" ToolTip="Krankenversicherung hinzufügen" Margin="10" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0576C5" FontSize="18" Height="50" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

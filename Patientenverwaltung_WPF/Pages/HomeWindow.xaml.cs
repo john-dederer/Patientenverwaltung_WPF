@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Patientenverwaltung_WPF;
+using Patientenverwaltung_WPF.Converter;
 
 namespace Patientenverwaltung_WPF
 {
@@ -21,36 +23,38 @@ namespace Patientenverwaltung_WPF
     /// </summary>
     public partial class HomeWindow : Window
     {
+        // Properties for Patient UI
         public ObservableCollection<Patient> Patients { get; set; }
         public CurrentPatient Patient { get; set; }
         public ObservableCollection<Treatment> Treatments { get; set; }
 
+        // Properties for Healthinsurance UI
+        public CurrentHealthinsurance Healthinsurance { get; set; }
+        public ObservableCollection<Healthinsurance> Healthinsurances { get; set; }
 
-        public class CurrentPatient : INotifyPropertyChanged
-        {
-            private Patient patient = new Patient();
 
-            public Patient Patient { get { return patient; } set { patient = value; OnPropertyChanged("Patient"); } }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            protected void OnPropertyChanged(string name)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        // Properties for UIState
+        public UIState UIState { get; set; }
 
         public HomeWindow()
         {
             InitializeComponent();
-            Patient = new CurrentPatient();
 
+            // Patient Properties
+            Patient = new CurrentPatient();            
             Patients = CurrentContext.GetPatientListViewModel();
             Patient.Patient = CurrentContext.GetPatient();
             Treatments = new ObservableCollection<Treatment>();
 
+            // Healthinsurance Properties
+            Healthinsurance = new CurrentHealthinsurance();
+            Healthinsurances = new ObservableCollection<Patientenverwaltung_WPF.Healthinsurance>();
+            Healthinsurance.Healthinsurance = CurrentContext.GetHealthinsurance();
+
             DataContext = this;
 
+            // First UIState is Patient
+            UIState = UIState.Patient;
         }
 
         private void AddPatient_MouseDown(object sender, MouseButtonEventArgs e)
@@ -58,41 +62,8 @@ namespace Patientenverwaltung_WPF
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 CreatePatientMask.Visibility = Visibility.Visible;
+                TreatmentList.Visibility = Visibility.Visible;
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetPatient(), out Patient returned))
-            {
-                if (returned == null) return;
-
-                if (CurrentContext.GetPatient().GetHashCode() == returned.GetHashCode())
-                {
-                    // Show username already exists
-
-                }
-            }
-            else
-            {
-                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetPatient()))
-                {
-                    // Successfully created                    
-                    Patients.Add(CurrentContext.GetPatient());
-
-
-                }
-                else
-                {
-                    // Username already exists
-                }
-            }
-        }
-
-        private void PatientListItemControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -100,61 +71,35 @@ namespace Patientenverwaltung_WPF
             Patient test = ((Grid)sender).Tag as Patient;
 
             // Selected Item as current Patient Context
-            CurrentContext.GetPatient() = test;
-            Patient.Patient = test;
-
-            DataContext = this;
-
+            Patient.Patient = test;        
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
+        {
+            Healthinsurance healthinsurance = ((Grid)sender).Tag as Healthinsurance;
+
+            Healthinsurance.Healthinsurance = healthinsurance;
+        }
+
+        private void AddPatient(object sender, RoutedEventArgs e)
         {
             // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetPatient(), out Patient returned))
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Patient.Patient, out Patient returned))
             {
                 if (returned == null) return;
 
-                if (CurrentContext.GetPatient().GetHashCode() == returned.GetHashCode())
+                if (Patient.Patient.GetHashCode() == returned.GetHashCode())
                 {
-                    // Show username already exists
+                    // Show patient already exists
 
                 }
             }
             else
             {
-                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetPatient()))
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(Patient.Patient))
                 {
                     // Successfully created                    
-                    Patients.Add(CurrentContext.GetPatient());
-
-
-                }
-                else
-                {
-                    // Username already exists
-                }
-            }
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetPatient(), out Patient returned))
-            {
-                if (returned == null) return;
-
-                if (CurrentContext.GetPatient().GetHashCode() == returned.GetHashCode())
-                {
-                    // Show username already exists
-
-                }
-            }
-            else
-            {
-                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetPatient()))
-                {
-                    // Successfully created                    
-                    Patients.Add(CurrentContext.GetPatient());
+                    Patients.Add(Patient.Patient);
 
 
                 }
@@ -175,5 +120,134 @@ namespace Patientenverwaltung_WPF
                 DataGridTreatment.Items.Refresh();
             }
         }
+
+        private void AddHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            // First we have to check if healthinsurance already             
+            if (!Factory.Get(CurrentContext.GetSettings().Savetype).Select(Healthinsurance.Healthinsurance))
+            {
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(Healthinsurance.Healthinsurance))
+                {
+                    // Successfully created                    
+                    Healthinsurances.Add(Healthinsurance.Healthinsurance);
+                }
+                else
+                {
+                    // healthinsurance already exists
+                }
+            }            
+        }
+
+        private void ChangeUIToHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            if (UIState.Equals(UIState.Patient))
+            {
+                // Disable Patient UI elements
+                MakePatientUIVisible(false);
+                MakeHealthinsuranceUIVisible(true);
+            }
+            else if (UIState.Equals(UIState.Healthinsurance))
+            {
+                // Do nothing
+            }
+            else if (UIState.Equals(UIState.Settings))
+            {
+                // Disable Settings UI elements
+                MakeSettingsUIVisible(false);
+                MakeHealthinsuranceUIVisible(true);
+            }
+
+            UIState = UIState.Healthinsurance;
+        }
+
+        private void ChangeUIToPatients(object sender, RoutedEventArgs e)
+        {
+            if (UIState.Equals(UIState.Patient))
+            {
+                // Do nothing                
+            }
+            else if (UIState.Equals(UIState.Healthinsurance))
+            {
+                // Disable Healthinsurance UI elements
+                MakeHealthinsuranceUIVisible(false);
+                MakePatientUIVisible(true);
+            }
+            else if (UIState.Equals(UIState.Settings))
+            {
+                // Disable Settings UI elements
+                MakeSettingsUIVisible(false);
+                MakePatientUIVisible(true);
+            }
+
+            UIState = UIState.Patient;
+        }
+
+        private void MakeSettingsUIVisible(bool visible)
+        {
+            var visibility = visible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void MakeHealthinsuranceUIVisible(bool visible)
+        {
+            var visibility = visible ? Visibility.Visible : Visibility.Hidden;
+
+            AddHealthinsuranceCtrl.Visibility = visibility;
+            CreateHealthinsuranceMask.Visibility = visibility;
+        }
+
+        private void MakePatientUIVisible(bool visible)
+        {
+            var visibility = visible ? Visibility.Visible : Visibility.Hidden;
+
+            CreatePatientMask.Visibility = visibility;
+            TreatmentList.Visibility = visibility;
+            Patientlist.Visibility = visibility;
+            SearchPatient.Visibility = visibility;
+            AddPatientCtrl.Visibility = visibility;
+        }
     }
+}
+
+/// <summary>
+/// Helperclass to achieve a reload of a list
+/// </summary>
+public class CurrentPatient : INotifyPropertyChanged
+{
+    private Patient patient = new Patient();
+
+    public Patient Patient { get { return patient; } set { patient = value; OnPropertyChanged("Patient"); } }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged(string name)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+}
+
+/// <summary>
+/// Helperclass to achieve a realod of a list
+/// </summary>
+public class CurrentHealthinsurance : INotifyPropertyChanged
+{
+    private Healthinsurance healthinsurance = new Healthinsurance();
+
+    public Healthinsurance Healthinsurance { get { return healthinsurance; } set { healthinsurance = value; OnPropertyChanged(nameof(Healthinsurance)); } }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged(string name)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+}
+
+/// <summary>
+/// Defines the current UIState
+/// </summary>
+public enum UIState
+{
+    Patient,
+    Healthinsurance,
+    Settings
 }

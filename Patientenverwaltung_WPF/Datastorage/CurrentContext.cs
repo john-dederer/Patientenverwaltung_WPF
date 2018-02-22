@@ -15,6 +15,7 @@ namespace Patientenverwaltung_WPF
         private static ObservableCollection<Patient> PatientListViewModel;
         private static List<Patient> PatientList;
         private static Patient Patient;
+        private static Healthinsurance Healthinsurance;
 
         public static ref Settings GetSettings()
         {
@@ -54,6 +55,12 @@ namespace Patientenverwaltung_WPF
         {
             if (Patient == null) Patient = new Patient();
             return ref Patient;
+        }
+
+        public static ref Healthinsurance GetHealthinsurance()
+        {
+            if (Healthinsurance == null) Healthinsurance = new Healthinsurance();
+            return ref Healthinsurance;
         }
     }
 }

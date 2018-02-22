@@ -37,5 +37,19 @@ namespace Patientenverwaltung_WPF
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public override int GetHashCode()
+        {
+            var hash = 0;
+            hash += firstname.Trim().Length;
+            hash += secondname.Trim().Length;
+            hash += street.Trim().Length;
+            hash += streetnumber * 1500;
+            hash += postalcode * 17+99;
+            hash += city.Trim().Length;
+            //hash += birthday.GetHashCode();
+
+            return hash;
+        }
     }
 }

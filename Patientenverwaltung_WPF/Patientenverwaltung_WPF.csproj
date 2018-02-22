@@ -61,6 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\AddHealthinsuranceCtrl.xaml.cs">
+      <DependentUpon>AddHealthinsuranceCtrl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\AddPatient.xaml.cs">
       <DependentUpon>AddPatient.xaml</DependentUpon>
     </Compile>
@@ -70,6 +73,7 @@
     <Compile Include="Components\Searchfield.xaml.cs">
       <DependentUpon>Searchfield.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\EnumBooleanConverter.cs" />
     <Compile Include="Datastorage\Connector.cs" />
     <Compile Include="Datastorage\CurrentContext.cs" />
     <Compile Include="Datastorage\Factory.cs" />
@@ -114,6 +118,10 @@
     </Compile>
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
+    <Page Include="Components\AddHealthinsuranceCtrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\AddPatient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
