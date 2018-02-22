@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,17 @@ namespace Patientenverwaltung_WPF
     /// </summary>
     public partial class PatientListControl : UserControl
     {
+        public ObservableCollection<Patient> Patients { get; set; }
         public PatientListControl()
         {
             InitializeComponent();
+
+            Patients = CurrentContext.GetPatientListViewModel();
+
+            
+            DataContext = this;
+
+            
         }
     }
 }

@@ -32,6 +32,13 @@ namespace Patientenverwaltung_WPF
         public abstract bool Create(Patient patient);
 
         /// <summary>
+        /// Tries to create the patient in storage
+        /// </summary>
+        /// <param name="treatment"></param>
+        /// <returns>If creation failed or not</returns>
+        public abstract bool Create(Treatment treatment);
+
+        /// <summary>
         /// If more than one dataset is found for given dataModel then the ref is null, otherwise fill the ref dataModel
         /// </summary>
         /// <param name="datamodelOut"></param>
@@ -67,6 +74,14 @@ namespace Patientenverwaltung_WPF
         /// <param name="returned"></param>
         /// <returns></returns>
         internal abstract bool Select(Patient patient, out Patient returned);
+
+        /// <summary>
+        /// Select returns a patient instance
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <param name="returned"></param>
+        /// <returns></returns>
+        internal abstract bool Select(Treatment treatment, out Treatment returned);
 
         internal abstract List<Patient> GetList();
     }
@@ -164,6 +179,30 @@ namespace Patientenverwaltung_WPF
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
 
             File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
+
+            return true;
+        }
+
+        public override bool Create(Treatment treatment)
+        {
+            // safety measurement: check if  user exists
+            if (Select(treatment, out Treatment temp)) return false;
+
+            var list = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
+            if (list == null) list = new List<Treatment>();
+
+            // Set id
+            treatment.TreatmentId = CurrentContext.GetIdCounter().GetId("treatment");
+
+            // Set log data
+            treatment.SetLogData();
+
+            // Add to list
+            list.Add(treatment);
+
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
 
             return true;
         }
@@ -278,6 +317,35 @@ namespace Patientenverwaltung_WPF
 
             return false;
         }
+
+        internal override bool Select(Treatment treatment, out Treatment returned)
+        {
+            returned = null;
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+            {
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+                {
+
+                }
+
+                return false;
+            }
+
+            // Deserialize JSON
+            var deserializedList = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
+
+            if (deserializedList == null) return false;
+
+            foreach (var treatmentInList in deserializedList)
+            {
+                if (treatmentInList.GetHashCode() != treatment.GetHashCode()) continue;
+                returned = treatment;
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class Connector_SQL : Connector
@@ -326,6 +394,16 @@ namespace Patientenverwaltung_WPF
         {
             throw new NotImplementedException();
         }
+
+        internal override bool Select(Treatment treatment, out Treatment returned)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Create(Treatment treatment)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Connector_XML : Connector
@@ -371,6 +449,16 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override List<Patient> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override bool Select(Treatment treatment, out Treatment returned)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Create(Treatment treatment)
         {
             throw new NotImplementedException();
         }

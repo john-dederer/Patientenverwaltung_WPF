@@ -76,10 +76,111 @@
 
         <!-- Add patient -->
         <local:AddPatient Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0" MouseDown="AddPatient_MouseDown" MouseLeftButtonDown="AddPatient_MouseDown"/>
+        
+        <!-- Create Patient mask -->
+        <Grid x:Name="CreatePatientMask" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" DataContext="{Binding Patient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
 
-        
-        <local:PatientListControl Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Width="100"/>
-        
+            <!-- Labels -->
+            <Label x:Name="lblFirstname" Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="0" Width="67.43"/>
+            <Label x:Name="lblSecondname" Content="Nachname" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="2" Width="80.167"/>
+            <Label x:Name="lblStreet" Content="Straße" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="1" Grid.Column="0" Width="48.477"/>
+            <Label x:Name="lblStreetnumber" Content="Straßennummer" HorizontalAlignment="Left" Margin="9.996,10,10,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="1" Width="121.854"/>
+            <Label x:Name="lblPostalcode" Content="Postleitzahl" HorizontalAlignment="Left" Margin="10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="2" Grid.Column="0" Width="86.827"/>
+            <Label x:Name="lblCity" Content="Stadt" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="2" Width="39.54"/>
+            <Label x:Name="lblBirthday" Content="Geburtstag" HorizontalAlignment="Left" Margin="10,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="3" Grid.Column="0" Width="84.47"/>
+            <Label x:Name="lblPhonenumber" Content="Telefonnummer" HorizontalAlignment="Left" Margin="9.998,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3" Width="119.087"/>
+
+            <!-- Textboxes -->
+            <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Firstname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="1"/>
+            <TextBox x:Name="txtBoxSecondname" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Secondname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="2"/>
+            <TextBox x:Name="txtBoxStree" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Street, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="3"/>
+            <TextBox x:Name="txtBoxStreetnumber" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Streetnumber, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="4"/>
+            <TextBox x:Name="txtBoxPostalcode" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Postalcode, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="5"/>
+            <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.City, UpdateSourceTrigger=PropertyChanged}" TabIndex="6"/>
+            <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Phonenumber, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="8"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectedDate="{Binding Path=Patient.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button IsEnabled="True" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Patient anlegen" Background="White" Margin="10,0" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Click="Button_Click_1"/>
+            <Button Grid.Column="1" Grid.Row="4" Content="Behandlung erfassen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="AddTreatment"/>
+        </Grid>
+
+
+        <Grid x:Name="TreatmentList" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Margin="0,0,0,10">
+            <ScrollViewer>
+                <DataGrid x:Name="DataGridTreatment" ItemsSource="{Binding Treatments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nr." Width="Auto" Binding="{Binding TreatmentId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum" Width="Auto" Binding="{Binding Date}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Beschreibung" Width="Auto" Binding="{Binding Description}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Sonstiges" Width="Auto" Binding="{Binding Other}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    
+                    
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+
+        <!--<local:PatientListControl x:Name="ListCtrl" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Width="100"/>-->
+
+        <Grid x:Name="Patientlist" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            
+                            <!--Anfang ListItemCtrl -->
+                            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                                <Grid.ColumnDefinitions>
+                                    <!-- Selection Indicator -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Profile picture -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Main Content -->
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Selection Indicator -->
+                                <Border Background="Orange" Width="5"/>
+
+                                <!-- Profile picture padding-->
+                                <Border Grid.Column="1" Padding="8">
+                                    <!-- Profile picture background -->
+                                    <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                                        <!-- Profile picture initials -->
+                                        <TextBlock Text="{Binding Secondname}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
+                                    </Border>
+                                </Border>
+
+
+                                <!-- Main content -->
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" >
+                                    <!-- Name -->
+                                    <TextBlock Text="{Binding Firstname}" FontFamily="Arial"/>
+
+                                    <!-- Birthday -->
+                                    <TextBlock Text="{Binding Birthday}"/>
+                                </StackPanel>
+                            </Grid>
+                            <!-- Ende ListItemCtrl -->
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
         <!-- Scrollable grid-->
         <!--
         <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Hidden" DataContext="{x:Static local:PatientListViewModel.Instance}">

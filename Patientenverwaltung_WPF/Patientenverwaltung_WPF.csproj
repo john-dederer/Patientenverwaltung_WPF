@@ -80,6 +80,9 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Constants\Base.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Pages\AddTreatment.xaml.cs">
+      <DependentUpon>AddTreatment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AskToCreateAccountPage.xaml.cs">
       <DependentUpon>AskToCreateAccountPage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
     <Page Include="Icons\user.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AddTreatment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AskToCreateAccountPage.xaml">
       <SubType>Designer</SubType>

@@ -24,31 +24,7 @@ namespace Patientenverwaltung_WPF
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetPatient(), out Patient returned))
-            {
-                if (returned == null) return;
-
-                if (CurrentContext.GetPatient().GetHashCode() == returned.GetHashCode())
-                {
-                    // Show username already exists
-                    
-                }
-            }
-            else
-            {
-                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetPatient()))
-                {
-                    // Successfully created
-                }
-                else
-                {
-                    // Username already exists
-                }
-            }
-        }
+        
+        
     }
 }
