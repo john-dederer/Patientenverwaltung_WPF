@@ -23,6 +23,8 @@ namespace Patientenverwaltung_WPF
     /// </summary>
     public partial class HomeWindow : Window
     {
+        ICollectionView viewFilter = null;
+
         // Properties for Patient UI
         public ObservableCollection<Patient> Patients { get; set; }
         public CurrentPatient Patient { get; set; }
@@ -335,6 +337,22 @@ namespace Patientenverwaltung_WPF
             Patientlist.Visibility = visibility;
             SearchPatient.Visibility = visibility;
             AddPatientCtrl.Visibility = visibility;
+        }
+
+        private void searchPatient_Changed(object sender, TextChangedEventArgs e)
+        {
+            if (txtSearchPatient.Text == string.Empty)
+            {
+                viewFilter.Filter = null;
+                
+                return;
+            }
+
+
+            viewFilter = CollectionViewSource.GetDefaultView(Patients);
+            viewFilter.Filter = delegate (object item) {
+                return ((Patient)item).Firstname.ToLower().Contains(txtSearchPatient.Text.ToLower());
+            };           
         }
     }
 }

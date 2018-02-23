@@ -74,7 +74,26 @@
         <local:Test x:Name="TestLogo" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <!-- Search field -->
-        <local:Searchfield x:Name="SearchPatient" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        <Grid x:Name="SearchPatient" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <Border
+            BorderThickness="2"
+            VerticalAlignment="Center"
+            CornerRadius="5" Background="LightGray">
+                <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="searchIcon" Width="24" Height="24">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <!--Unknown tag: metadata-->
+                        <!--Unknown tag: sodipodi:namedview-->
+                        <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="circle2" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                        <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="line4" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    </Canvas>
+                    <TextBox x:Name="txtSearchPatient" Width="260" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchPatient_Changed"/>
+                </StackPanel>
+            </Border>
+        </Grid>
 
         <!-- Add patient -->
         <local:AddPatient x:Name="AddPatientCtrl" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0" MouseDown="AddPatient_MouseDown" MouseLeftButtonDown="AddPatient_MouseDown"/>
