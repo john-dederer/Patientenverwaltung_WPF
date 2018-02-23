@@ -60,6 +60,7 @@ namespace Patientenverwaltung_WPF
 
             // First UIState is Patient
             UIState = UIState.Patient;
+            viewFilter = CollectionViewSource.GetDefaultView(Patients);
         }
 
         private void AddPatient_MouseDown(object sender, MouseButtonEventArgs e)
@@ -283,7 +284,8 @@ namespace Patientenverwaltung_WPF
             MakeHealthinsuranceUIVisible(true);
 
             //Reload List
-            Healthinsurances = CurrentContext.GetHealthinsuranceOC();
+            //Healthinsurances = CurrentContext.GetHealthinsuranceOC();
+            //viewFilter = CollectionViewSource.GetDefaultView(Healthinsurances);
 
             UIState = UIState.Healthinsurance;
         }
@@ -308,7 +310,8 @@ namespace Patientenverwaltung_WPF
             MakePatientUIVisible(true);
 
             //Reload list
-            Patients = CurrentContext.GetPatientListOC();
+            //Patients = CurrentContext.GetPatientListOC();
+            //viewFilter = CollectionViewSource.GetDefaultView(Patients);
 
             UIState = UIState.Patient;
         }
@@ -324,8 +327,7 @@ namespace Patientenverwaltung_WPF
 
             AddHealthinsuranceCtrl.Visibility = visibility;
             CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
-            Healthinsurancelist.Visibility = visibility;
-            
+            Healthinsurancelist.Visibility = visibility;            
         }
 
         private void MakePatientUIVisible(bool visible)
@@ -335,24 +337,42 @@ namespace Patientenverwaltung_WPF
             CreatePatientMask.Visibility = Visibility.Hidden;
             TreatmentList.Visibility = Visibility.Hidden;
             Patientlist.Visibility = visibility;
-            SearchPatient.Visibility = visibility;
             AddPatientCtrl.Visibility = visibility;
         }
 
-        private void searchPatient_Changed(object sender, TextChangedEventArgs e)
+        private void searchField_Changed(object sender, TextChangedEventArgs e)
         {
-            if (txtSearchPatient.Text == string.Empty)
+            if (txtSearchField.Text == string.Empty)
             {
                 viewFilter.Filter = null;
-                
+                viewFilter.Refresh();
+
+                // Hide create mask
+                if (UIState == UIState.Patient) CreatePatientMask.Visibility = Visibility.Hidden;
+                else if (UIState == UIState.Healthinsurance) CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
+
                 return;
             }
 
+            if (UIState == UIState.Patient)
+            {
+                viewFilter = CollectionViewSource.GetDefaultView(Patients);
+                viewFilter.Filter = delegate (object item) {
+                    return ((Patient)item).Firstname.ToLower().Contains(txtSearchField.Text.ToLower());
+                };
+            }
+            else if (UIState == UIState.Healthinsurance)
+            {
+                viewFilter = CollectionViewSource.GetDefaultView(Healthinsurances);
+                viewFilter.Filter = delegate (object item) {
+                    return ((Healthinsurance)item).Name.ToLower().Contains(txtSearchField.Text.ToLower());
+                };
+            }
 
-            viewFilter = CollectionViewSource.GetDefaultView(Patients);
-            viewFilter.Filter = delegate (object item) {
-                return ((Patient)item).Firstname.ToLower().Contains(txtSearchPatient.Text.ToLower());
-            };           
+
+            viewFilter.Refresh();
+
+
         }
     }
 }

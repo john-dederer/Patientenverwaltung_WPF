@@ -74,7 +74,7 @@
         <local:Test x:Name="TestLogo" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <!-- Search field -->
-        <Grid x:Name="SearchPatient" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+        <Grid x:Name="SearchField" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
             <Border
             BorderThickness="2"
             VerticalAlignment="Center"
@@ -90,7 +90,7 @@
                         <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="circle2" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                         <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="line4" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                     </Canvas>
-                    <TextBox x:Name="txtSearchPatient" Width="260" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchPatient_Changed"/>
+                    <TextBox x:Name="txtSearchField" Width="260" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchField_Changed"/>
                 </StackPanel>
             </Border>
         </Grid>
@@ -208,7 +208,7 @@
         </Grid>
 
         <!-- Add Healthinsurance -->
-        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="10,0,0,0" MouseLeftButtonDown="AddHealthinsurance_MouseDown" Visibility="Hidden"/>
+        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Margin="10,0,0,0" MouseLeftButtonDown="AddHealthinsurance_MouseDown" Visibility="Hidden"/>
 
         <!-- Healthinsurance Mask -->
         <Grid x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" Visibility="Hidden" DataContext="{Binding Healthinsurance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
