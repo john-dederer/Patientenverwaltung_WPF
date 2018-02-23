@@ -48,7 +48,7 @@ namespace Patientenverwaltung_WPF
 
             // Healthinsurance Properties
             Healthinsurance = new CurrentHealthinsurance();
-            Healthinsurances = new ObservableCollection<Patientenverwaltung_WPF.Healthinsurance>();
+            Healthinsurances = new ObservableCollection<Healthinsurance>();
             Healthinsurance.Healthinsurance = CurrentContext.GetHealthinsurance();
 
             DataContext = this;
@@ -63,6 +63,16 @@ namespace Patientenverwaltung_WPF
             {
                 CreatePatientMask.Visibility = Visibility.Visible;
                 TreatmentList.Visibility = Visibility.Visible;
+                Patient.Patient = new Patientenverwaltung_WPF.Patient();
+            }
+        }
+
+        private void AddHealthinsurance_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                CreateHealthinsuranceMask.Visibility = Visibility.Visible;
+                Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
             }
         }
 
@@ -193,6 +203,7 @@ namespace Patientenverwaltung_WPF
 
             AddHealthinsuranceCtrl.Visibility = visibility;
             CreateHealthinsuranceMask.Visibility = visibility;
+            Healthinsurancelist.Visibility = visibility;
         }
 
         private void MakePatientUIVisible(bool visible)
@@ -232,7 +243,7 @@ public class CurrentHealthinsurance : INotifyPropertyChanged
 {
     private Healthinsurance healthinsurance = new Healthinsurance();
 
-    public Healthinsurance Healthinsurance { get { return healthinsurance; } set { healthinsurance = value; OnPropertyChanged(nameof(Healthinsurance)); } }
+    public Healthinsurance Healthinsurance { get { return healthinsurance; } set { healthinsurance = value; OnPropertyChanged("Healthinsurance"); } }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

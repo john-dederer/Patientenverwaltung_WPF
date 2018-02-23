@@ -185,7 +185,7 @@
         </Grid>
 
         <!-- Add Healthinsurance -->
-        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="10,0,0,0" Visibility="Hidden"/>
+        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="10,0,0,0" MouseLeftButtonDown="AddHealthinsurance_MouseDown" Visibility="Hidden"/>
 
         <!-- Healthinsurance Mask -->
         <Grid x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" Visibility="Hidden" DataContext="{Binding Healthinsurance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
