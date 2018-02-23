@@ -72,6 +72,7 @@ namespace Patientenverwaltung_WPF
                 Patient.Patient = new Patientenverwaltung_WPF.Patient();
 
                 btnAddPatient.Visibility = Visibility.Visible;
+                btnUpdatePatient.Visibility = Visibility.Hidden;
                 btnAddTreatmentForPatient.Visibility = Visibility.Hidden;
                 btnChooseHI.Visibility = Visibility.Hidden;
 
@@ -86,6 +87,7 @@ namespace Patientenverwaltung_WPF
                 CreateHealthinsuranceMask.Visibility = Visibility.Visible;
                 Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
                 btnAddHI.Visibility = Visibility.Visible;
+                btnUpdateHI.Visibility = Visibility.Hidden;
 
                 if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
 
@@ -110,6 +112,7 @@ namespace Patientenverwaltung_WPF
             btnAddPatient.Visibility = Visibility.Hidden;
             btnAddTreatmentForPatient.Visibility = Visibility.Visible;
             btnChooseHI.Visibility = Visibility.Visible;
+            btnUpdatePatient.Visibility = Visibility.Visible;
         }
 
         private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
@@ -119,6 +122,7 @@ namespace Patientenverwaltung_WPF
             Healthinsurance.Healthinsurance = healthinsurance;
             CreateHealthinsuranceMask.Visibility = Visibility.Visible;
             btnAddHI.Visibility = Visibility.Hidden;
+            btnUpdateHI.Visibility = Visibility.Visible;
 
             if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
         }
