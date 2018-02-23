@@ -25,20 +25,6 @@ namespace Patientenverwaltung_WPF
         public abstract bool Create(User user);
 
         /// <summary>
-        /// Tries to create the patient in storage
-        /// </summary>
-        /// <param name="patient"></param>
-        /// <returns>If creation failed or not</returns>
-        public abstract bool Create(Patient patient);
-
-        /// <summary>
-        /// Tries to create the patient in storage
-        /// </summary>
-        /// <param name="treatment"></param>
-        /// <returns>If creation failed or not</returns>
-        public abstract bool Create(Treatment treatment);
-
-        /// <summary>
         /// Check if give datamodel is in store
         /// </summary>
         /// <param name="datamodel"></param>
@@ -73,6 +59,7 @@ namespace Patientenverwaltung_WPF
         /// <param name="returned"></param>
         /// <returns></returns>
         internal abstract bool Select(User user, out User returned);
+        internal abstract List<Healthinsurance> GetHealthinsuranceList();
 
         /// <summary>
         /// Select returns a patient instance
@@ -90,7 +77,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         internal abstract bool Select(Treatment treatment, out Treatment returned);
 
-        internal abstract List<Patient> GetList();
+        internal abstract List<Patient> GetPatientList();
     }
 
     public class Connector_JSON : Connector
@@ -255,54 +242,6 @@ namespace Patientenverwaltung_WPF
             return true;
         }
 
-        public override bool Create(Patient patient)
-        {
-            // safety measurement: check if  user exists
-            if (Select(patient, out Patient temp)) return false;
-
-            var list = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
-            if (list == null) list = new List<Patient>();
-
-            // Set id
-            patient.PatientId = CurrentContext.GetIdCounter().GetId("patient");
-
-            // Set log data
-            patient.SetLogData();
-
-            // Add to list
-            list.Add(patient);
-
-            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
-
-            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
-
-            return true;
-        }
-
-        public override bool Create(Treatment treatment)
-        {
-            // safety measurement: check if  user exists
-            if (Select(treatment, out Treatment temp)) return false;
-
-            var list = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
-            if (list == null) list = new List<Treatment>();
-
-            // Set id
-            treatment.TreatmentId = CurrentContext.GetIdCounter().GetId("treatment");
-
-            // Set log data
-            treatment.SetLogData();
-
-            // Add to list
-            list.Add(treatment);
-
-            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
-
-            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
-
-            return true;
-        }
-
         public override bool Delete(Datamodel datamodel)
         {
             throw new NotImplementedException();
@@ -428,38 +367,115 @@ namespace Patientenverwaltung_WPF
         }
 
         public override bool Update(Datamodel datamodel)
-        {
-            if (datamodel.GetType() == typeof(User))
+        {                        
+            var path = GetDatamodelPath(datamodel);
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{path}"))
             {
-                var userToUpdate = (User)datamodel;
-
-                var list = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"));
-
-                foreach (var user in list)
+                using (StreamWriter writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{path}"))
                 {
-                    if (user.Username == userToUpdate.Username)
-                    {
-                        var index = list.IndexOf(user);
 
-                        if (index != -1)
-                        {
-                            list[index].Passwordhash = userToUpdate.Passwordhash;
-                            list[index].SetLogData();
-                        }
-                    }
                 }
 
-                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+                return false;
+            }
+
+            return UpdateList(datamodel);
+        }
+
+        private bool UpdateList(Datamodel datamodel)
+        {
+            if (datamodel.GetType() == typeof(Patient))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
+
+                if (deserializedList == null) return false;
+
+                var patient = datamodel as Patient;
+
+                var index = deserializedList.FindIndex(x => x.PatientId == patient.PatientId);
+
+                if (index == -1) return false;
+
+                deserializedList[index] = patient;
+                deserializedList[index].SetLogData();               
+
+                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+
+                File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
+
+                return true;
+            }
+            else if (datamodel.GetType() == typeof(Healthinsurance))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Healthinsurance>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"));
+
+                if (deserializedList == null) return false;
+
+                var healthinsurance = datamodel as Healthinsurance;
+
+                var index = deserializedList.FindIndex(x => x.HealthinsuranceId == healthinsurance.HealthinsuranceId);
+
+                if (index == -1) return false;
+
+                deserializedList[index] = healthinsurance;
+                deserializedList[index].SetLogData();
+
+                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+
+                File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}", json);
+
+                return true;
+            }
+            else if (datamodel.GetType() == typeof(Treatment))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
+
+                if (deserializedList == null) return false;
+
+                var treatment = datamodel as Treatment;
+
+                var index = deserializedList.FindIndex(x => x.TreatmentId == treatment.TreatmentId);
+
+                if (index == -1) return false;
+
+                deserializedList[index] = treatment;
+                deserializedList[index].SetLogData();
+
+                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+
+                File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
+
+                return true;
+            }
+            else if (datamodel.GetType() == typeof(User))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"));
+
+                if (deserializedList == null) return false;
+
+                var user = datamodel as User;
+
+                var index = deserializedList.FindIndex(x => x.Username == user.Username);
+
+                if (index == -1) return false;
+
+                deserializedList[index].Passwordhash = user.Passwordhash;
+                deserializedList[index].SetLogData();
+
+                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
 
                 return true;
             }
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
-        internal override List<Patient> GetList()
+        internal override List<Patient> GetPatientList()
         {
             var deserialzedList = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
 
@@ -556,6 +572,15 @@ namespace Patientenverwaltung_WPF
 
             return false;
         }
+
+        internal override List<Healthinsurance> GetHealthinsuranceList()
+        {
+            var deserialzedList = JsonConvert.DeserializeObject<List<Healthinsurance>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"));
+
+            if (deserialzedList == null) deserialzedList = new List<Healthinsurance>();
+
+            return deserialzedList;
+        }
     }
 
     public class Connector_SQL : Connector
@@ -566,11 +591,6 @@ namespace Patientenverwaltung_WPF
         }
 
         public override bool Create(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Create(Patient patient)
         {
             throw new NotImplementedException();
         }
@@ -600,7 +620,7 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
-        internal override List<Patient> GetList()
+        internal override List<Patient> GetPatientList()
         {
             throw new NotImplementedException();
         }
@@ -610,12 +630,12 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
-        public override bool Create(Treatment treatment)
+        public override bool Select(Datamodel datamodel)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Select(Datamodel datamodel)
+        internal override List<Healthinsurance> GetHealthinsuranceList()
         {
             throw new NotImplementedException();
         }
@@ -633,11 +653,6 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
-        public override bool Create(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
         {
             throw new NotImplementedException();
@@ -663,7 +678,7 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
-        internal override List<Patient> GetList()
+        internal override List<Patient> GetPatientList()
         {
             throw new NotImplementedException();
         }
@@ -673,12 +688,12 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
-        public override bool Create(Treatment treatment)
+        public override bool Select(Datamodel datamodel)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Select(Datamodel datamodel)
+        internal override List<Healthinsurance> GetHealthinsuranceList()
         {
             throw new NotImplementedException();
         }

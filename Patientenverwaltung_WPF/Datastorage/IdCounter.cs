@@ -67,7 +67,7 @@ namespace Patientenverwaltung_WPF
                     
                 }
 
-                    SetAllZero();
+                    InitCounter();
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Patientenverwaltung_WPF
 
             if (counter == null)
             {
-                SetAllZero();
+                InitCounter();
                 return;
             }
 
@@ -91,14 +91,14 @@ namespace Patientenverwaltung_WPF
             InsuranceId = counter.InsuranceId;
         }
 
-        private void SetAllZero()
+        private void InitCounter()
         {
-            // Set Counter to 0
-            UserId = 0;
-            PatientId = 0;
-            TreatmentId = 0;
-            HealthinsuranceId = 0;
-            InsuranceId = 0;
+            // Set Counter to 1
+            UserId = 1;
+            PatientId = 1;
+            TreatmentId = 1;
+            HealthinsuranceId = 1;
+            InsuranceId = 1;
         }
     }
 }

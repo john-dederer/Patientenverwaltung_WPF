@@ -10,6 +10,7 @@ namespace Patientenverwaltung_WPF
     public class Patient : Datamodel, INotifyPropertyChanged
     {
         private long patientId = 0;
+        private long healthinsuranceId = 0;
         private long insuranceId = 0;
         private string firstname = "";
         private string secondname = "";
@@ -21,6 +22,7 @@ namespace Patientenverwaltung_WPF
         private int phonenumber = 0;
 
         public long PatientId { get { return patientId; } set { patientId = value; OnPropertyChanged("PatientId"); } }
+        public long HealthinsuranceId { get { return healthinsuranceId; } set { healthinsuranceId = value; OnPropertyChanged("HealthinsuranceId"); } }
         public long InsuranceId { get { return insuranceId; } set { insuranceId = value; OnPropertyChanged("InsuranceId"); } }
         public string Firstname { get { return firstname; } set { firstname = value; OnPropertyChanged("Firstname"); } }
         public string Secondname { get { return secondname; } set { secondname = value; OnPropertyChanged("Secondname"); } }

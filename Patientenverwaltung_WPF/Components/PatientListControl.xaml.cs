@@ -26,7 +26,7 @@ namespace Patientenverwaltung_WPF
         {
             InitializeComponent();
 
-            Patients = CurrentContext.GetPatientListViewModel();
+            Patients = CurrentContext.GetPatientListOC();
 
             
             DataContext = this;

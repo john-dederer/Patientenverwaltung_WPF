@@ -15,7 +15,10 @@ namespace Patientenverwaltung_WPF
         private static ObservableCollection<Patient> PatientListViewModel;
         private static List<Patient> PatientList;
         private static Patient Patient;
+
+        private static List<Healthinsurance> HealthinsuranceList;
         private static Healthinsurance Healthinsurance;
+        private static ObservableCollection<Healthinsurance> HealthinsuranceViewModel;
 
         public static ref Settings GetSettings()
         {
@@ -29,7 +32,7 @@ namespace Patientenverwaltung_WPF
             return ref User;
         }
 
-        internal static ref ObservableCollection<Patient> GetPatientListViewModel()
+        internal static ref ObservableCollection<Patient> GetPatientListOC()
         {
             PatientListViewModel = new ObservableCollection<Patient>(GetPatientList());
 
@@ -41,7 +44,7 @@ namespace Patientenverwaltung_WPF
             if (PatientList == null) PatientList = new List<Patient>();
 
             // GetData from storage
-            PatientList = Factory.Get(CurrentContext.GetSettings().Savetype).GetList();
+            PatientList = Factory.Get(GetSettings().Savetype).GetPatientList();
             return ref PatientList;
         }
 
@@ -61,6 +64,22 @@ namespace Patientenverwaltung_WPF
         {
             if (Healthinsurance == null) Healthinsurance = new Healthinsurance();
             return ref Healthinsurance;
+        }
+
+        internal static ref ObservableCollection<Healthinsurance> GetHealthinsuranceOC()
+        {
+            HealthinsuranceViewModel = new ObservableCollection<Healthinsurance>(GetHealthinsuranceList());
+
+            return ref HealthinsuranceViewModel;
+        }
+
+        private static ref List<Healthinsurance> GetHealthinsuranceList()
+        {
+            if (HealthinsuranceList == null) HealthinsuranceList = new List<Healthinsurance>();
+
+            // GetData from storage
+            HealthinsuranceList = Factory.Get(GetSettings().Savetype).GetHealthinsuranceList();
+            return ref HealthinsuranceList;
         }
     }
 }

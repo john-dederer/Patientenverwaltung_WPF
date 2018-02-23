@@ -10,7 +10,6 @@ namespace Patientenverwaltung_WPF
     public class Healthinsurance : Datamodel, INotifyPropertyChanged
     {
         private long healthinsuranceId = 0;
-        private long insuranceId = 0;
         private string name = string.Empty;
         private string street = string.Empty;
         private int streetnumber = 0;
@@ -19,8 +18,7 @@ namespace Patientenverwaltung_WPF
         private HealthinsuranceState state = HealthinsuranceState.ByLaw;
 
         public long HealthinsuranceId { get { return healthinsuranceId; } set { healthinsuranceId = value; OnPropertyChanged(nameof(HealthinsuranceId)); } }
-        public long InsuranceId { get { return insuranceId; } set { insuranceId = value; OnPropertyChanged(nameof(insuranceId)); } }
-        public string Name { get { return name; } set { name = value; OnPropertyChanged(nameof(name)); } }
+        public string Name { get { return name; } set { if(value != string.Empty) name = value; OnPropertyChanged(nameof(name)); } }
         public string Street { get { return street; } set { street = value; OnPropertyChanged(nameof(street)); } }
         public int Streetnumber { get { return streetnumber; } set { streetnumber = value; OnPropertyChanged(nameof(streetnumber)); } }
         public int Postalcode { get { return postalcode; } set { postalcode = value; OnPropertyChanged(nameof(postalcode)); } }

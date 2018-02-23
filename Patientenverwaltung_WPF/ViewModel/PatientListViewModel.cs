@@ -14,7 +14,7 @@ namespace Patientenverwaltung_WPF
 
         public PatientListViewModel()
         {
-            DataList = CurrentContext.GetPatientListViewModel();
+            DataList = CurrentContext.GetPatientListOC();
         }
 
         public PatientListViewModel(List<Patient> list)

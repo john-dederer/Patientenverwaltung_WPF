@@ -36,19 +36,22 @@ namespace Patientenverwaltung_WPF
         // Properties for UIState
         public UIState UIState { get; set; }
 
+        // Choosing HI for patient
+        public bool ChoosingHealthinsurance = false;
+
         public HomeWindow()
         {
             InitializeComponent();
 
             // Patient Properties
             Patient = new CurrentPatient();            
-            Patients = CurrentContext.GetPatientListViewModel();
+            Patients = CurrentContext.GetPatientListOC();
             Patient.Patient = CurrentContext.GetPatient();
             Treatments = new ObservableCollection<Treatment>();
 
             // Healthinsurance Properties
             Healthinsurance = new CurrentHealthinsurance();
-            Healthinsurances = new ObservableCollection<Healthinsurance>();
+            Healthinsurances = CurrentContext.GetHealthinsuranceOC();
             Healthinsurance.Healthinsurance = CurrentContext.GetHealthinsurance();
 
             DataContext = this;
@@ -64,6 +67,12 @@ namespace Patientenverwaltung_WPF
                 CreatePatientMask.Visibility = Visibility.Visible;
                 TreatmentList.Visibility = Visibility.Visible;
                 Patient.Patient = new Patientenverwaltung_WPF.Patient();
+
+                btnAddPatient.Visibility = Visibility.Visible;
+                btnAddTreatmentForPatient.Visibility = Visibility.Hidden;
+                btnChooseHI.Visibility = Visibility.Hidden;
+
+                txtBoxFirstname.Focus();
             }
         }
 
@@ -73,6 +82,11 @@ namespace Patientenverwaltung_WPF
             {
                 CreateHealthinsuranceMask.Visibility = Visibility.Visible;
                 Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
+                btnAddHI.Visibility = Visibility.Visible;
+
+                if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
+
+                HIName.Focus();                
             }
         }
 
@@ -81,7 +95,12 @@ namespace Patientenverwaltung_WPF
             Patient test = ((Grid)sender).Tag as Patient;
 
             // Selected Item as current Patient Context
-            Patient.Patient = test;        
+            Patient.Patient = test;
+
+            CreatePatientMask.Visibility = Visibility.Visible;
+            btnAddPatient.Visibility = Visibility.Hidden;
+            btnAddTreatmentForPatient.Visibility = Visibility.Visible;
+            btnChooseHI.Visibility = Visibility.Visible;
         }
 
         private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
@@ -89,6 +108,10 @@ namespace Patientenverwaltung_WPF
             Healthinsurance healthinsurance = ((Grid)sender).Tag as Healthinsurance;
 
             Healthinsurance.Healthinsurance = healthinsurance;
+            CreateHealthinsuranceMask.Visibility = Visibility.Visible;
+            btnAddHI.Visibility = Visibility.Hidden;
+
+            if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
         }
 
         private void AddPatient(object sender, RoutedEventArgs e)
@@ -110,7 +133,7 @@ namespace Patientenverwaltung_WPF
                 {
                     // Successfully created                    
                     Patients.Add(Patient.Patient);
-
+                    btnChooseHI.Visibility = Visibility.Visible;
 
                 }
                 else
@@ -131,6 +154,32 @@ namespace Patientenverwaltung_WPF
             }
         }
 
+        private void ChooseHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            ChangeUIToHealthinsurance(null, null);
+            ChoosingHealthinsurance = true;
+            
+        }
+
+        private void Healthinsurance_Chosen(object sender, RoutedEventArgs e)
+        {
+            // Get chosen HI and update patient
+            Patient.Patient.HealthinsuranceId = Healthinsurance.Healthinsurance.HealthinsuranceId;
+
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
+            {
+                // HI added to patient
+            }
+            else
+            {
+
+            }
+
+
+            ChangeUIToPatients(null, null);
+            ChoosingHealthinsurance = false;
+        }
+
         private void AddHealthinsurance(object sender, RoutedEventArgs e)
         {
             // First we have to check if healthinsurance already             
@@ -140,12 +189,38 @@ namespace Patientenverwaltung_WPF
                 {
                     // Successfully created                    
                     Healthinsurances.Add(Healthinsurance.Healthinsurance);
+
+                    btnAddHI.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     // healthinsurance already exists
                 }
             }            
+        }
+
+        private void UpdatePatient(object sender, RoutedEventArgs e)
+        {
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
+            {
+                // Successfully updated
+            }
+            else
+            {
+
+            }
+        }
+
+        private void UpdateHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Healthinsurance.Healthinsurance))
+            {
+                // Successfully updated
+            }
+            else
+            {
+
+            }
         }
 
         private void ChangeUIToHealthinsurance(object sender, RoutedEventArgs e)
@@ -166,6 +241,9 @@ namespace Patientenverwaltung_WPF
                 MakeSettingsUIVisible(false);
                 MakeHealthinsuranceUIVisible(true);
             }
+
+            //Reload List
+            Healthinsurances = CurrentContext.GetHealthinsuranceOC();
 
             UIState = UIState.Healthinsurance;
         }
@@ -189,6 +267,9 @@ namespace Patientenverwaltung_WPF
                 MakePatientUIVisible(true);
             }
 
+            //Reload list
+            Patients = CurrentContext.GetPatientListOC();
+
             UIState = UIState.Patient;
         }
 
@@ -202,16 +283,17 @@ namespace Patientenverwaltung_WPF
             var visibility = visible ? Visibility.Visible : Visibility.Hidden;
 
             AddHealthinsuranceCtrl.Visibility = visibility;
-            CreateHealthinsuranceMask.Visibility = visibility;
+            CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
             Healthinsurancelist.Visibility = visibility;
+            
         }
 
         private void MakePatientUIVisible(bool visible)
         {
             var visibility = visible ? Visibility.Visible : Visibility.Hidden;
 
-            CreatePatientMask.Visibility = visibility;
-            TreatmentList.Visibility = visibility;
+            CreatePatientMask.Visibility = Visibility.Hidden;
+            TreatmentList.Visibility = Visibility.Hidden;
             Patientlist.Visibility = visibility;
             SearchPatient.Visibility = visibility;
             AddPatientCtrl.Visibility = visibility;
