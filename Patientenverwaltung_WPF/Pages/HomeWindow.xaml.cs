@@ -65,7 +65,7 @@ namespace Patientenverwaltung_WPF
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 CreatePatientMask.Visibility = Visibility.Visible;
-                TreatmentList.Visibility = Visibility.Visible;
+                TreatmentList.Visibility = Visibility.Hidden;
                 Patient.Patient = new Patientenverwaltung_WPF.Patient();
 
                 btnAddPatient.Visibility = Visibility.Visible;
@@ -90,6 +90,11 @@ namespace Patientenverwaltung_WPF
             }
         }
 
+        /// <summary>
+        /// Selecting item from patient list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Patient test = ((Grid)sender).Tag as Patient;
@@ -97,6 +102,7 @@ namespace Patientenverwaltung_WPF
             // Selected Item as current Patient Context
             Patient.Patient = test;
 
+            TreatmentList.Visibility = Visibility.Visible;
             CreatePatientMask.Visibility = Visibility.Visible;
             btnAddPatient.Visibility = Visibility.Hidden;
             btnAddTreatmentForPatient.Visibility = Visibility.Visible;
@@ -223,13 +229,44 @@ namespace Patientenverwaltung_WPF
             }
         }
 
-        private void ChangeUIToHealthinsurance(object sender, RoutedEventArgs e)
+        private void ChangeUIToSettings(object sender, RoutedEventArgs e)
         {
             if (UIState.Equals(UIState.Patient))
             {
                 // Disable Patient UI elements
                 MakePatientUIVisible(false);
-                MakeHealthinsuranceUIVisible(true);
+            }
+            else if (UIState.Equals(UIState.Healthinsurance))
+            {
+                // Do nothing
+                MakeHealthinsuranceUIVisible(false);
+
+            }
+            else if (UIState.Equals(UIState.Settings))
+            {
+                // Do nothing
+            }
+
+            MakeSettingsUIVisible(true);
+
+            //UIState = UIState.Settings;
+
+            // Show Settings page
+            SettingsWindow window = new SettingsWindow();
+
+            if (window.ShowDialog() == true)
+            {
+                if (UIState == UIState.Patient) ChangeUIToPatients(null, null);
+                else if (UIState == UIState.Healthinsurance) ChangeUIToHealthinsurance(null, null);
+            }
+        }
+
+        private void ChangeUIToHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            if (UIState.Equals(UIState.Patient))
+            {
+                // Disable Patient UI elements
+                MakePatientUIVisible(false);                
             }
             else if (UIState.Equals(UIState.Healthinsurance))
             {
@@ -239,8 +276,9 @@ namespace Patientenverwaltung_WPF
             {
                 // Disable Settings UI elements
                 MakeSettingsUIVisible(false);
-                MakeHealthinsuranceUIVisible(true);
             }
+
+            MakeHealthinsuranceUIVisible(true);
 
             //Reload List
             Healthinsurances = CurrentContext.GetHealthinsuranceOC();
@@ -258,14 +296,14 @@ namespace Patientenverwaltung_WPF
             {
                 // Disable Healthinsurance UI elements
                 MakeHealthinsuranceUIVisible(false);
-                MakePatientUIVisible(true);
             }
             else if (UIState.Equals(UIState.Settings))
             {
                 // Disable Settings UI elements
                 MakeSettingsUIVisible(false);
-                MakePatientUIVisible(true);
             }
+
+            MakePatientUIVisible(true);
 
             //Reload list
             Patients = CurrentContext.GetPatientListOC();

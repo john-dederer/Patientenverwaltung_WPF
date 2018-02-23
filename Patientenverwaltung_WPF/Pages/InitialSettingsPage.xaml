@@ -3,15 +3,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Patientenverwaltung_WPF.Pages"
-      xmlns:Patientenverwaltung_WPF="clr-namespace:Patientenverwaltung_WPF" x:Class="Patientenverwaltung_WPF.Pages.InitialSettingsPage"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:Patientenverwaltung_WPF"
+      xmlns:Patientenverwaltung_WPF="clr-namespace:Patientenverwaltung_WPF" x:Class="Patientenverwaltung_WPF.InitialSettingsPage"
       mc:Ignorable="d" 
       d:DesignHeight="551" d:DesignWidth="430"
       Title="InitialSettingsPage" Loaded="Page_Loaded">
+
+
     <Page.DataContext>
         <Patientenverwaltung_WPF:Settings/>
     </Page.DataContext>
     <Grid x:Name="Login">
+
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
         </Grid.Background>
@@ -24,7 +28,10 @@
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="18.828" Margin="0,164.934,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112.526" Foreground="White"><Run Text="Speichertyp"/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="18.828" Margin="0,265.048,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Foreground="White"><Run Text="Speicherort"/><Run Text=" für Daten"/></TextBlock>
         <Patientenverwaltung_WPF:Test Grid.ColumnSpan="2" Grid.Column="1" Margin="135.751,28.667,136.111,472.423"/>
-        <ComboBox x:Name="cmbBoxStorageType" Grid.Column="1" HorizontalAlignment="Left" Margin="0,188.762,0,0" VerticalAlignment="Top" Width="161" Text="{Binding Savetype, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/>
+
+        
+        
+        <ComboBox x:Name="cmbBoxStorageType" Grid.Column="1" HorizontalAlignment="Left" Margin="0,188.762,0,0" VerticalAlignment="Top" Width="161" SelectedValue="{Binding Savetype, Mode=TwoWay}" SelectedValuePath="Value" SelectionChanged="cmbBoxStorageType_SelectionChanged"/>
         <Button x:Name="btnSaveSettings" Grid.ColumnSpan="2" Content="Speichern" Grid.Column="1" HorizontalAlignment="Left" Margin="102.418,418.666,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="116" Foreground="White" Click="btnSaveSettings_Click">
             <Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

@@ -12,20 +12,20 @@ namespace Patientenverwaltung_WPF
         private static Connector_SQL Connector_SQL { get; set; }
         private static Connector_XML Connector_XML { get; set; }
 
-        public static Connector Get(string storageType)
+        public static Connector Get(Savetype savetype)
         {
             Initialize();
 
-            switch (storageType)
+            switch (savetype)
             {
-                case Constants.Storagetype_JSON:
+                case Savetype.JSON:
                     return Connector_JSON;
-                case Constants.Storagetype_SQL:
+                case Savetype.SQL:
                     return Connector_SQL;
-                case Constants.Storagetype_XML:
+                case Savetype.XML:
                     return Connector_XML;
                 default:
-                    throw new Exception($@"storagetype {storageType} ist nicht bekannt.");
+                    throw new Exception($@"storagetype {savetype} ist nicht bekannt.");
             }
         }
 

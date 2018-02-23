@@ -28,7 +28,7 @@
             </Border.Background>
         </Border>
         
-        <Button x:Name="btnSettings" Style="{DynamicResource SimpleButton}" Grid.Row="2" Grid.Column="0" BorderBrush="{x:Null}">
+        <Button x:Name="btnSettings" Style="{DynamicResource SimpleButton}" Grid.Row="2" Grid.Column="0" BorderBrush="{x:Null}" Click="ChangeUIToSettings">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
             </Button.Background>

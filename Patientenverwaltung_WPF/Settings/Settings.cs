@@ -11,7 +11,7 @@ namespace Patientenverwaltung_WPF
 {
     public class Settings
     {
-        public string Savetype { get; set; }
+        public Savetype Savetype { get; set; }
         public string Savelocation { get; set; }
 
         public void SetSettings(Settings settings)
@@ -49,5 +49,12 @@ namespace Patientenverwaltung_WPF
             var json = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText($@"{System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Settings.json", json);
         }
+    }
+
+    public enum Savetype
+    {
+        JSON,
+        SQL,
+        XML
     }
 }
