@@ -5,30 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
         mc:Ignorable="d"
-        Title="AddTreatment" MinHeight="300" MinWidth="300" SizeToContent="WidthAndHeight">
-    <Grid DataContext="{Binding Treatment}">
+        Title="AddTreatment" MinHeight="300" MinWidth="430" MaxWidth="430" MaxHeight="600">
+    <Grid DataContext="{Binding Treatment}" >
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="44*"/>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Datum" Grid.RowSpan="4"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Beschreibung" Grid.RowSpan="3"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Sonstiges" Grid.RowSpan="2"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Datum" Foreground="White"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Beschreibung" Foreground="White"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Sonstiges" Foreground="White"/>
 
 
-        <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding Date}"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Description}"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Text="{Binding Other}"/>
+        <DatePicker Grid.Column="1" Grid.Row="0" SelectedDate="{Binding Date}" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap" AcceptsReturn="True" MaxLines="10" MinWidth="330" MaxWidth="330" HorizontalAlignment="Left" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Other}" TextWrapping="Wrap" AcceptsReturn="True" MaxLines="10" MinWidth="330" MaxWidth="330" HorizontalAlignment="Left" Margin="5"/>
 
-        <Button Grid.Column="1" Grid.Row="3" Content="Behandlung erfassen" Click="Button_Click"/>
+        <Button Grid.Column="0" Grid.Row="3" Content="Behandlung erfassen" Click="Button_Click" Foreground="White" BorderBrush="White" BorderThickness="1" Margin="5">
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
