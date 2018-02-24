@@ -53,12 +53,17 @@ namespace Patientenverwaltung_WPF
                 {
                     // Successfully created 
                     DialogResult = true;
+
+                    InfoMessageWindow window = new InfoMessageWindow("Behandlung erfolgreich erfasst", 2);
+                    window.ShowDialog();
                     Close();
 
                 }
                 else
                 {
                     // Treatment already exists
+                    InfoMessageWindow window = new InfoMessageWindow("Behandlung konnte nicht erfasst werden", 2);
+                    window.ShowDialog();
                 }
             }
         }

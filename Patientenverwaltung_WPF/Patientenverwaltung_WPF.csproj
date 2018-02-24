@@ -101,6 +101,9 @@
     <Compile Include="Pages\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\InfoMessageWindow.xaml.cs">
+      <DependentUpon>InfoMessageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\InitialSettingsPage.xaml.cs">
       <DependentUpon>InitialSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InfoMessageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

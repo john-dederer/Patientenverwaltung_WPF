@@ -146,15 +146,14 @@ namespace Patientenverwaltung_WPF
         private void AddPatient(object sender, RoutedEventArgs e)
         {
             // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Patient.Patient, out Patient returned))
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Patient.Patient))
             {
-                if (returned == null) return;
+                // Show patient already exists
+                InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} exisitert bereits");
+                infoMessageWindow.ShowDialog();
 
-                if (Patient.Patient.GetHashCode() == returned.GetHashCode())
-                {
-                    // Show patient already exists
-
-                }
+                btnUpdatePatient.Visibility = Visibility.Visible;
+                btnAddTreatmentForPatient.Visibility = Visibility.Visible;
             }
             else
             {
@@ -164,10 +163,13 @@ namespace Patientenverwaltung_WPF
                     Patients.Add(Patient.Patient);
                     btnChooseHI.Visibility = Visibility.Visible;
 
+                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich angelegt");
+                    infoMessageWindow.ShowDialog();
                 }
                 else
                 {
-                    // Username already exists
+                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht angelegt werden");
+                    infoMessageWindow.ShowDialog();
                 }
             }
         }
@@ -201,10 +203,13 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
             {
                 // HI added to patient
+                var infomsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} für Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} ausgewählt");
+                infomsg.ShowDialog();
             }
             else
             {
-
+                var infomsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte für Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} nicht ausgewählt werden");
+                infomsg.ShowDialog();
             }
 
 
@@ -223,11 +228,21 @@ namespace Patientenverwaltung_WPF
                     Healthinsurances.Add(Healthinsurance.Healthinsurance);
 
                     btnAddHI.Visibility = Visibility.Hidden;
+
+                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung erfolgreich angelgt");
+                    infoMessageWindow.ShowDialog();
                 }
                 else
                 {
                     // healthinsurance already exists
+                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung konnte nicht angelegt werden");
+                    infoMessageWindow.ShowDialog();
                 }
+            }
+            else
+            {
+                InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung exisitert bereits");
+                infoMessageWindow.ShowDialog();
             }
         }
 
@@ -236,10 +251,13 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
             {
                 // Successfully updated
+                var infoMessage = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich geändert.");
+                infoMessage.ShowDialog();
             }
             else
             {
-
+                var infoMessage = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht geändert werden.");
+                infoMessage.ShowDialog();
             }
         }
 
@@ -248,10 +266,13 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Healthinsurance.Healthinsurance))
             {
                 // Successfully updated
+                var infoMessage = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich geändert.");
+                infoMessage.ShowDialog();
             }
             else
             {
-
+                var infoMessage = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht geändert werden.");
+                infoMessage.ShowDialog();
             }
         }
 
@@ -284,6 +305,9 @@ namespace Patientenverwaltung_WPF
             {
                 if (UIState == UIState.Patient) ChangeUIToPatients(null, null);
                 else if (UIState == UIState.Healthinsurance) ChangeUIToHealthinsurance(null, null);
+
+                var infomsg = new InfoMessageWindow("Einstellungen erfolgreich geändert");
+                infomsg.ShowDialog();
             }
         }
 
@@ -439,10 +463,14 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Treatment.Treatment))
             {
                 // Show treatment updated successfully
+                var infoMessage = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich geändert.");
+                infoMessage.ShowDialog();
             }
             else
             {
                 // show Update failed
+                var infoMessage = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht geändert werden.");
+                infoMessage.ShowDialog();
             }
         }
 
