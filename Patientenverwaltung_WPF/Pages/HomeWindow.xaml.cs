@@ -55,14 +55,14 @@ namespace Patientenverwaltung_WPF
 
             // Patient Properties
             Patient = new CurrentPatient();
-            Patients = CurrentContext.GetPatientListOC();
+            Patients = CurrentContext.GetPatientListOc();
             Patient.Patient = CurrentContext.GetPatient();
             Treatment = new CurrentTreatment();
-            Treatments = CurrentContext.GetTreatmentListOC();
+            Treatments = CurrentContext.GetTreatmentListOc();
 
             // Healthinsurance Properties
             Healthinsurance = new CurrentHealthinsurance();
-            Healthinsurances = CurrentContext.GetHealthinsuranceOC();
+            Healthinsurances = CurrentContext.GetHealthinsuranceOc();
             Healthinsurance.Healthinsurance = CurrentContext.GetHealthinsurance();
 
             DataContext = this;
