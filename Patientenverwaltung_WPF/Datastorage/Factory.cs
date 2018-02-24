@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Patientenverwaltung_WPF
 {
-    static class Factory
+    internal static class Factory
     {
-        private static Connector_JSON Connector_JSON { get; set; }
-        private static Connector_SQL Connector_SQL { get; set; }
-        private static Connector_XML Connector_XML { get; set; }
+        private static ConnectorJson ConnectorJson { get; set; }
+        private static ConnectorSql ConnectorSql { get; set; }
+        private static ConnectorXml ConnectorXml { get; set; }
 
         public static Connector Get(Savetype savetype)
         {
@@ -19,11 +15,11 @@ namespace Patientenverwaltung_WPF
             switch (savetype)
             {
                 case Savetype.JSON:
-                    return Connector_JSON;
+                    return ConnectorJson;
                 case Savetype.SQL:
-                    return Connector_SQL;
+                    return ConnectorSql;
                 case Savetype.XML:
-                    return Connector_XML;
+                    return ConnectorXml;
                 default:
                     throw new Exception($@"storagetype {savetype} ist nicht bekannt.");
             }
@@ -31,9 +27,9 @@ namespace Patientenverwaltung_WPF
 
         private static void Initialize()
         {
-            if (Connector_JSON == null) Connector_JSON = new Connector_JSON();
-            if (Connector_SQL  == null) Connector_SQL  = new Connector_SQL();
-            if (Connector_XML  == null) Connector_XML  = new Connector_XML();
+            if (ConnectorJson == null) ConnectorJson = new ConnectorJson();
+            if (ConnectorSql == null) ConnectorSql = new ConnectorSql();
+            if (ConnectorXml == null) ConnectorXml = new ConnectorXml();
         }
     }
 }

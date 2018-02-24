@@ -1,103 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Patientenverwaltung_WPF
 {
     public static class CurrentContext
     {
-        private static Settings Settings;
-        private static User User;
-        private static IdCounter IdCounter;
-        private static ObservableCollection<Patient> PatientListViewModel;
-        private static List<Patient> PatientList;
-        private static Patient Patient;
-        private static ObservableCollection<Treatment> TreatmentListViewModel;
-        private static List<Treatment> TreatmentList;
+        private static Settings _settings;
+        private static User _user;
+        private static IdCounter _idCounter;
+        private static ObservableCollection<Patient> _patientListViewModel;
+        private static List<Patient> _patientList;
+        private static Patient _patient;
+        private static ObservableCollection<Treatment> _treatmentListViewModel;
+        private static List<Treatment> _treatmentList;
 
-        private static List<Healthinsurance> HealthinsuranceList;
-        private static Healthinsurance Healthinsurance;
-        private static ObservableCollection<Healthinsurance> HealthinsuranceViewModel;
+        private static List<Healthinsurance> _healthinsuranceList;
+        private static Healthinsurance _healthinsurance;
+        private static ObservableCollection<Healthinsurance> _healthinsuranceViewModel;
 
         public static ref Settings GetSettings()
         {
-            if (Settings == null) Settings = new Settings();
-            return ref Settings;
+            if (_settings == null) _settings = new Settings();
+            return ref _settings;
         }
 
         public static ref User GetUser()
         {
-            if (User == null) User = new User();
-            return ref User;
+            if (_user == null) _user = new User();
+            return ref _user;
         }
 
-        internal static ref ObservableCollection<Patient> GetPatientListOC()
+        internal static ref ObservableCollection<Patient> GetPatientListOc()
         {
-            PatientListViewModel = new ObservableCollection<Patient>(GetPatientList());
+            _patientListViewModel = new ObservableCollection<Patient>(GetPatientList());
 
-            return ref PatientListViewModel;
+            return ref _patientListViewModel;
         }
 
         internal static ref List<Patient> GetPatientList()
         {
-            if (PatientList == null) PatientList = new List<Patient>();
+            if (_patientList == null) _patientList = new List<Patient>();
 
             // GetData from storage
-            PatientList = Factory.Get(GetSettings().Savetype).GetPatientList();
-            return ref PatientList;
+            _patientList = Factory.Get(GetSettings().Savetype).GetPatientList();
+            return ref _patientList;
         }
 
         public static ref IdCounter GetIdCounter()
         {
-            if (IdCounter == null) IdCounter = new IdCounter();
-            return ref IdCounter;
+            if (_idCounter == null) _idCounter = new IdCounter();
+            return ref _idCounter;
         }
 
-        internal static ref ObservableCollection<Treatment> GetTreatmentListOC()
+        internal static ref ObservableCollection<Treatment> GetTreatmentListOc()
         {
-            TreatmentListViewModel = new ObservableCollection<Treatment>(GetTreatmentList());
+            _treatmentListViewModel = new ObservableCollection<Treatment>(GetTreatmentList());
 
-            return ref TreatmentListViewModel;
+            return ref _treatmentListViewModel;
         }
 
         internal static ref List<Treatment> GetTreatmentList()
         {
-            if (TreatmentList == null) TreatmentList = new List<Treatment>();
+            if (_treatmentList == null) _treatmentList = new List<Treatment>();
 
             // GetData from storage
-            TreatmentList = Factory.Get(GetSettings().Savetype).GetTreatmentList();
-            return ref TreatmentList;
+            _treatmentList = Factory.Get(GetSettings().Savetype).GetTreatmentList();
+            return ref _treatmentList;
         }
 
         public static ref Patient GetPatient()
         {
-            if (Patient == null) Patient = new Patient();
-            return ref Patient;
+            if (_patient == null) _patient = new Patient();
+            return ref _patient;
         }
 
         public static ref Healthinsurance GetHealthinsurance()
         {
-            if (Healthinsurance == null) Healthinsurance = new Healthinsurance();
-            return ref Healthinsurance;
+            if (_healthinsurance == null) _healthinsurance = new Healthinsurance();
+            return ref _healthinsurance;
         }
 
-        internal static ref ObservableCollection<Healthinsurance> GetHealthinsuranceOC()
+        internal static ref ObservableCollection<Healthinsurance> GetHealthinsuranceOc()
         {
-            HealthinsuranceViewModel = new ObservableCollection<Healthinsurance>(GetHealthinsuranceList());
+            _healthinsuranceViewModel = new ObservableCollection<Healthinsurance>(GetHealthinsuranceList());
 
-            return ref HealthinsuranceViewModel;
+            return ref _healthinsuranceViewModel;
         }
 
         private static ref List<Healthinsurance> GetHealthinsuranceList()
         {
-            if (HealthinsuranceList == null) HealthinsuranceList = new List<Healthinsurance>();
+            if (_healthinsuranceList == null) _healthinsuranceList = new List<Healthinsurance>();
 
             // GetData from storage
-            HealthinsuranceList = Factory.Get(GetSettings().Savetype).GetHealthinsuranceList();
-            return ref HealthinsuranceList;
+            _healthinsuranceList = Factory.Get(GetSettings().Savetype).GetHealthinsuranceList();
+            return ref _healthinsuranceList;
         }
     }
 }
