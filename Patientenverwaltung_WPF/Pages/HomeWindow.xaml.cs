@@ -119,6 +119,7 @@ namespace Patientenverwaltung_WPF
             btnChooseHI.Visibility = Visibility.Visible;
             btnUpdatePatient.Visibility = Visibility.Visible;
             SearchFieldTreatment.Visibility = Visibility.Visible;
+            btnDeletePatient.Visibility = Visibility.Visible;
 
             // Show only treatments for my patient
             viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
@@ -139,6 +140,7 @@ namespace Patientenverwaltung_WPF
             CreateHealthinsuranceMask.Visibility = Visibility.Visible;
             btnAddHI.Visibility = Visibility.Hidden;
             btnUpdateHI.Visibility = Visibility.Visible;
+            btnDeleteHI.Visibility = Visibility.Visible;
 
             if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
         }
@@ -154,6 +156,7 @@ namespace Patientenverwaltung_WPF
 
                 btnUpdatePatient.Visibility = Visibility.Visible;
                 btnAddTreatmentForPatient.Visibility = Visibility.Visible;
+                btnDeletePatient.Visibility = Visibility.Visible;
             }
             else
             {
@@ -228,6 +231,8 @@ namespace Patientenverwaltung_WPF
                     Healthinsurances.Add(Healthinsurance.Healthinsurance);
 
                     btnAddHI.Visibility = Visibility.Hidden;
+                    btnDeleteHI.Visibility = Visibility.Visible;
+                    btnUpdateHI.Visibility = Visibility.Visible;
 
                     InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung erfolgreich angelgt");
                     infoMessageWindow.ShowDialog();
@@ -504,6 +509,73 @@ namespace Patientenverwaltung_WPF
             };
 
             viewFilterTreatment.Refresh();
+        }
+
+        private void DeletePatient(object sender, RoutedEventArgs e)
+        {
+            // Ask for confirmation
+            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} wirklich löschen ?");
+
+            if (boxWindow.ShowDialog() == true)
+            {
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Delete(Patient.Patient))
+                {
+                    var index = Patients.IndexOf(Patient.Patient);
+                    if (index == -1) return;
+
+                    Patients.RemoveAt(index);                   
+
+                    var infoMsg = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich gelöscht");
+                    infoMsg.ShowDialog();
+
+                    Patient.Patient = new Patientenverwaltung_WPF.Patient();
+                    CreatePatientMask.Visibility = Visibility.Hidden;
+                    TreatmentList.Visibility = Visibility.Hidden;
+                    SearchFieldTreatment.Visibility = Visibility.Hidden;
+                    viewFilterTreatment = null;
+                }
+                else
+                {
+                    var infoMsg = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht gelöscht werden");
+                    infoMsg.ShowDialog();
+                }
+            }
+            else
+            {
+
+            }            
+        }
+
+        private void DeleteHealthinsurance(object sender, RoutedEventArgs e)
+        {
+            // Ask for confirmation
+            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} wirklich löschen ?");
+
+            if (boxWindow.ShowDialog() == true)
+            {
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Delete(Healthinsurance.Healthinsurance))
+                {
+                    var index = Healthinsurances.IndexOf(Healthinsurance.Healthinsurance);
+                    if (index == -1) return;
+
+                    Healthinsurances.RemoveAt(index);
+
+                    var infoMsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich gelöscht");
+                    infoMsg.ShowDialog();
+
+                    Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
+                    CreateHealthinsuranceMask.Visibility = Visibility.Hidden;                                                           
+                }
+                else
+                {
+                    var infoMsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht gelöscht werden");
+                    infoMsg.ShowDialog();
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

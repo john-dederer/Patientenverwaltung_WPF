@@ -245,7 +245,62 @@ namespace Patientenverwaltung_WPF
 
         public override bool Delete(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            var path = GetDatamodelPath(datamodel);
+            var jsonConv = string.Empty;
+
+            if (datamodel.GetType() == typeof(Patient))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{path}"));
+
+                if (deserializedList == null) return false;
+
+                var patient = datamodel as Patient;
+
+                var index = deserializedList.FindIndex(x => x.PatientId == patient.PatientId);
+                if (index == -1) return false;
+
+                deserializedList.RemoveAt(index);
+
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);              
+            }
+            else if (datamodel.GetType() == typeof(Healthinsurance))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Healthinsurance>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{path}"));
+
+                if (deserializedList == null) return false;
+
+                var healthinsurance = datamodel as Healthinsurance;
+
+                var index = deserializedList.FindIndex(x => x.HealthinsuranceId == healthinsurance.HealthinsuranceId);
+                if (index == -1) return false;
+
+                deserializedList.RemoveAt(index);
+
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+            }
+            else if (datamodel.GetType() == typeof(Treatment))
+            {
+                var deserializedList = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{path}"));
+
+                if (deserializedList == null) return false;
+
+                var treatment = datamodel as Treatment;
+
+                var index = deserializedList.FindIndex(x => x.TreatmentId == treatment.TreatmentId);
+                if (index == -1) return false;
+
+                deserializedList.RemoveAt(index);
+
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+            }
+            else
+            {
+                return false;
+            }
+
+            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{path}", jsonConv);
+
+            return true;
         }
 
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
@@ -352,7 +407,6 @@ namespace Patientenverwaltung_WPF
         public override bool Select(Datamodel datamodel)
         {
             var path = GetDatamodelPath(datamodel);
-            var model = datamodel.GetType().Name;
 
             if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{path}"))
             {
