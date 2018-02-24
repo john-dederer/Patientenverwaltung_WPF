@@ -1,37 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Patientenverwaltung_WPF
 {
+    /// <inheritdoc cref="UserControl" />
     /// <summary>
-    /// Interaktionslogik für PatientListControl.xaml
+    ///     Interaktionslogik für PatientListControl.xaml
     /// </summary>
-    public partial class PatientListControl : UserControl
+    public partial class PatientListControl
     {
-        public ObservableCollection<Patient> Patients { get; set; }
         public PatientListControl()
         {
             InitializeComponent();
 
             Patients = CurrentContext.GetPatientListOc();
 
-            
-            DataContext = this;
 
-            
+            DataContext = this;
         }
+
+        public ObservableCollection<Patient> Patients { get; set; }
     }
 }
