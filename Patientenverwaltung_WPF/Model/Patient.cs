@@ -1,37 +1,131 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Patientenverwaltung_WPF
 {
     public class Patient : Datamodel, INotifyPropertyChanged
     {
-        private long patientId = 0;
-        private long healthinsuranceId = 0;
-        private long insuranceId = 0;
-        private string firstname = "";
-        private string secondname = "";
-        private string street = "";
-        private int streetnumber = 0;
-        private int postalcode = 0;
-        private string city = "";
-        private DateTime birthday = DateTime.Now;
-        private int phonenumber = 0;
+        private DateTime _birthday = DateTime.Now;
+        private string _city = "";
+        private string _firstname = "";
+        private long _healthinsuranceId;
+        private long _insuranceId;
+        private long _patientId;
+        private int _phonenumber;
+        private int _postalcode;
+        private string _secondname = "";
+        private string _street = "";
+        private int _streetnumber;
 
-        public long PatientId { get { return patientId; } set { patientId = value; OnPropertyChanged("PatientId"); } }
-        public long HealthinsuranceId { get { return healthinsuranceId; } set { healthinsuranceId = value; OnPropertyChanged("HealthinsuranceId"); } }
-        public long InsuranceId { get { return insuranceId; } set { insuranceId = value; OnPropertyChanged("InsuranceId"); } }
-        public string Firstname { get { return firstname; } set { firstname = value; OnPropertyChanged("Firstname"); } }
-        public string Secondname { get { return secondname; } set { secondname = value; OnPropertyChanged("Secondname"); } }
-        public string Street { get { return street; } set { street = value; OnPropertyChanged("Street"); } }
-        public int Streetnumber { get { return streetnumber; } set { streetnumber = value; OnPropertyChanged("Streetnumber"); } }
-        public int Postalcode { get { return postalcode; } set { postalcode = value; OnPropertyChanged("Postalcode"); } }
-        public string City { get { return city; } set { city = value; OnPropertyChanged("City"); } }   
-        public DateTime Birthday { get { return birthday; } set { birthday = value; OnPropertyChanged("Birthday"); } }
-        public int Phonenumber { get { return phonenumber; } set { phonenumber = value; OnPropertyChanged("Phonenumber"); } }
+        public long PatientId
+        {
+            get => _patientId;
+            set
+            {
+                _patientId = value;
+                OnPropertyChanged("PatientId");
+            }
+        }
+
+        public long HealthinsuranceId
+        {
+            get => _healthinsuranceId;
+            set
+            {
+                _healthinsuranceId = value;
+                OnPropertyChanged("HealthinsuranceId");
+            }
+        }
+
+        public long InsuranceId
+        {
+            get => _insuranceId;
+            set
+            {
+                _insuranceId = value;
+                OnPropertyChanged("InsuranceId");
+            }
+        }
+
+        public string Firstname
+        {
+            get => _firstname;
+            set
+            {
+                _firstname = value;
+                OnPropertyChanged("Firstname");
+            }
+        }
+
+        public string Secondname
+        {
+            get => _secondname;
+            set
+            {
+                _secondname = value;
+                OnPropertyChanged("Secondname");
+            }
+        }
+
+        public string Street
+        {
+            get => _street;
+            set
+            {
+                _street = value;
+                OnPropertyChanged("Street");
+            }
+        }
+
+        public int Streetnumber
+        {
+            get => _streetnumber;
+            set
+            {
+                _streetnumber = value;
+                OnPropertyChanged("Streetnumber");
+            }
+        }
+
+        public int Postalcode
+        {
+            get => _postalcode;
+            set
+            {
+                _postalcode = value;
+                OnPropertyChanged("Postalcode");
+            }
+        }
+
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                OnPropertyChanged("City");
+            }
+        }
+
+        public DateTime Birthday
+        {
+            get => _birthday;
+            set
+            {
+                _birthday = value;
+                OnPropertyChanged("Birthday");
+            }
+        }
+
+        public int Phonenumber
+        {
+            get => _phonenumber;
+            set
+            {
+                _phonenumber = value;
+                OnPropertyChanged("Phonenumber");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,12 +137,12 @@ namespace Patientenverwaltung_WPF
         public override int GetHashCode()
         {
             var hash = 0;
-            hash += firstname.Trim().Length;
-            hash += secondname.Trim().Length;
-            hash += street.Trim().Length;
-            hash += streetnumber * 1500;
-            hash += postalcode * 17+99;
-            hash += city.Trim().Length;
+            hash += Firstname.Trim().Length;
+            hash += Secondname.Trim().Length;
+            hash += Street.Trim().Length;
+            hash += Streetnumber * 1500;
+            hash += Postalcode * 17 + 99;
+            hash += City.Trim().Length;
             //hash += birthday.GetHashCode();
 
             return hash;

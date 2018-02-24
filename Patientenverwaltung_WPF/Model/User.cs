@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Patientenverwaltung_WPF
 {
     public class User : Datamodel, IDataErrorInfo
     {
-        public long   UserId { get; set; }
+        public long UserId { get; set; }
         public string Title { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
@@ -19,24 +14,27 @@ namespace Patientenverwaltung_WPF
         {
             get
             {
-                switch(columnName)
+                switch (columnName)
                 {
                     case "UserId":
-                        if (UserId < 0) return "UserId darf nicht kleiner 0 sein"; break;
+                        if (UserId < 0) return "UserId darf nicht kleiner 0 sein";
+                        break;
                     case "Title":
-                        if (string.IsNullOrEmpty(Title)) return "Feld darf nicht leer sein."; break;
+                        if (string.IsNullOrEmpty(Title)) return "Feld darf nicht leer sein.";
+                        break;
                     case "Name":
-                        if (string.IsNullOrEmpty(Name)) return "Feld darf nicht leer sein."; break;
+                        if (string.IsNullOrEmpty(Name)) return "Feld darf nicht leer sein.";
+                        break;
                     case "Username":
-                        if (string.IsNullOrEmpty(Username)) return "Feld darf nicht leer sein."; break;
-
+                        if (string.IsNullOrEmpty(Username)) return "Feld darf nicht leer sein.";
+                        break;
                 }
 
                 return string.Empty;
             }
         }
 
-        public string Error { get; }
+        public string Error { get; set; }
 
         public void SetValues(User user, bool overwriteValues = false)
         {
@@ -54,9 +52,9 @@ namespace Patientenverwaltung_WPF
                 if (string.IsNullOrEmpty(user.Title) || user.Title != Title) Title = user.Title;
                 if (string.IsNullOrEmpty(user.Name) || user.Name != Name) Name = user.Name;
                 if (string.IsNullOrEmpty(user.Username) || user.Username != Username) Username = user.Username;
-                if (string.IsNullOrEmpty(user.Passwordhash) || user.Passwordhash != Passwordhash ) Passwordhash = user.Passwordhash;
+                if (string.IsNullOrEmpty(user.Passwordhash) || user.Passwordhash != Passwordhash)
+                    Passwordhash = user.Passwordhash;
             }
-               
         }
     }
 }

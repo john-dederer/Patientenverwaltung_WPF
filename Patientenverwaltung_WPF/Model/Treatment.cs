@@ -1,30 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace Patientenverwaltung_WPF
 {
     public class Treatment : Datamodel, INotifyPropertyChanged
     {
-        private long treatmentId = 0;
-        private long patientId = 0;
-
-        private DateTime date = DateTime.Now;
-        private string description = "";
-        private string other = "";
-
+        private DateTime _date = DateTime.Now;
+        private string _description = "";
+        private string _other = "";
+        private long _patientId;
+        private long _treatmentId;
 
 
+        public long TreatmentId
+        {
+            get => _treatmentId;
+            set
+            {
+                _treatmentId = value;
+                OnPropertyChanged(nameof(TreatmentId));
+            }
+        }
 
-        public long TreatmentId { get { return treatmentId; } set { treatmentId = value; OnPropertyChanged(nameof(TreatmentId)); } }
-        public long PatientId { get { return patientId; } set { patientId = value; OnPropertyChanged(nameof(PatientId)); } }
+        public long PatientId
+        {
+            get => _patientId;
+            set
+            {
+                _patientId = value;
+                OnPropertyChanged(nameof(PatientId));
+            }
+        }
 
-        public DateTime Date { get { return date; } set { date = value; OnPropertyChanged(nameof(Date)); } }
-        public string Description { get { return description; } set { description = value; OnPropertyChanged(nameof(Description)); } }
-        public string Other { get { return other; } set { other = value; OnPropertyChanged(nameof(Other)); } }
+        public DateTime Date
+        {
+            get => _date;
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public string Other
+        {
+            get => _other;
+            set
+            {
+                _other = value;
+                OnPropertyChanged(nameof(Other));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,10 +72,10 @@ namespace Patientenverwaltung_WPF
         public override int GetHashCode()
         {
             var hash = 0;
-            hash += patientId.GetHashCode();
-            hash += date.GetHashCode();
-            hash += description.Trim().Length;
-            hash += other.Trim().Length;
+            hash += PatientId.GetHashCode();
+            hash += Date.GetHashCode();
+            hash += Description.Trim().Length;
+            hash += Other.Trim().Length;
 
             return hash;
         }
