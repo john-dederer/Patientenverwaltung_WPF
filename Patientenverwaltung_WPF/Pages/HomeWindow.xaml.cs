@@ -48,7 +48,7 @@ namespace Patientenverwaltung_WPF
             InitializeComponent();
 
             // Patient Properties
-            Patient = new CurrentPatient();            
+            Patient = new CurrentPatient();
             Patients = CurrentContext.GetPatientListOC();
             Patient.Patient = CurrentContext.GetPatient();
             Treatment = new CurrentTreatment();
@@ -79,6 +79,7 @@ namespace Patientenverwaltung_WPF
                 btnUpdatePatient.Visibility = Visibility.Hidden;
                 btnAddTreatmentForPatient.Visibility = Visibility.Hidden;
                 btnChooseHI.Visibility = Visibility.Hidden;
+                SearchFieldTreatment.Visibility = Visibility.Hidden;
 
                 txtBoxFirstname.Focus();
             }
@@ -95,7 +96,7 @@ namespace Patientenverwaltung_WPF
 
                 if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
 
-                HIName.Focus();                
+                HIName.Focus();
             }
         }
 
@@ -117,6 +118,7 @@ namespace Patientenverwaltung_WPF
             btnAddTreatmentForPatient.Visibility = Visibility.Visible;
             btnChooseHI.Visibility = Visibility.Visible;
             btnUpdatePatient.Visibility = Visibility.Visible;
+            SearchFieldTreatment.Visibility = Visibility.Visible;
 
             // Show only treatments for my patient
             viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
@@ -173,12 +175,14 @@ namespace Patientenverwaltung_WPF
         private void AddTreatment(object sender, RoutedEventArgs e)
         {
             AddTreatment window = new AddTreatment(Patient.Patient.PatientId);
-            if (window.ShowDialog() == true)
+            Nullable<bool> dialogResult = window.ShowDialog();
+
+            if (dialogResult == true)
             {
                 Treatment.Treatment = window.Treatment;
                 Treatments.Add(Treatment.Treatment);
 
-                viewFilter.Refresh();
+                viewFilterTreatment.Refresh();
             }
         }
 
@@ -186,7 +190,7 @@ namespace Patientenverwaltung_WPF
         {
             ChangeUIToHealthinsurance(null, null);
             ChoosingHealthinsurance = true;
-            
+
         }
 
         private void Healthinsurance_Chosen(object sender, RoutedEventArgs e)
@@ -224,7 +228,7 @@ namespace Patientenverwaltung_WPF
                 {
                     // healthinsurance already exists
                 }
-            }            
+            }
         }
 
         private void UpdatePatient(object sender, RoutedEventArgs e)
@@ -288,7 +292,7 @@ namespace Patientenverwaltung_WPF
             if (UIState.Equals(UIState.Patient))
             {
                 // Disable Patient UI elements
-                MakePatientUIVisible(false);                
+                MakePatientUIVisible(false);
             }
             else if (UIState.Equals(UIState.Healthinsurance))
             {
@@ -346,7 +350,7 @@ namespace Patientenverwaltung_WPF
 
             AddHealthinsuranceCtrl.Visibility = visibility;
             CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
-            Healthinsurancelist.Visibility = visibility;            
+            Healthinsurancelist.Visibility = visibility;
         }
 
         private void MakePatientUIVisible(bool visible)
@@ -357,6 +361,7 @@ namespace Patientenverwaltung_WPF
             TreatmentList.Visibility = Visibility.Hidden;
             Patientlist.Visibility = visibility;
             AddPatientCtrl.Visibility = visibility;
+            SearchFieldTreatment.Visibility = Visibility.Hidden;
         }
 
         private void searchField_Changed(object sender, TextChangedEventArgs e)
@@ -376,14 +381,16 @@ namespace Patientenverwaltung_WPF
             if (UIState == UIState.Patient)
             {
                 viewFilter = CollectionViewSource.GetDefaultView(Patients);
-                viewFilter.Filter = delegate (object item) {
+                viewFilter.Filter = delegate (object item)
+                {
                     return ((Patient)item).Firstname.ToLower().Contains(txtSearchField.Text.ToLower());
                 };
             }
             else if (UIState == UIState.Healthinsurance)
             {
                 viewFilter = CollectionViewSource.GetDefaultView(Healthinsurances);
-                viewFilter.Filter = delegate (object item) {
+                viewFilter.Filter = delegate (object item)
+                {
                     return ((Healthinsurance)item).Name.ToLower().Contains(txtSearchField.Text.ToLower());
                 };
             }
@@ -459,7 +466,8 @@ namespace Patientenverwaltung_WPF
             }
 
             viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
-            viewFilterTreatment.Filter = delegate (object item) {
+            viewFilterTreatment.Filter = delegate (object item)
+            {
                 if (item == null) return false;
                 var forPatient = ((Treatment)item).PatientId.Equals(Patient.Patient.PatientId);
                 var fromDate = ((Treatment)item).Date.ToLongDateString().Contains(txtSearchFieldTreatment.Text);

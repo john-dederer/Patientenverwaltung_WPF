@@ -51,8 +51,9 @@ namespace Patientenverwaltung_WPF
             {
                 if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(Treatment))
                 {
-                    // Successfully created      
-                    this.Close();
+                    // Successfully created 
+                    DialogResult = true;
+                    Close();
 
                 }
                 else

@@ -50,6 +50,7 @@ namespace Patientenverwaltung_WPF
 
             CurrentContext.GetSettings().UpdateJSON();
 
+            DialogResult = true;
             Close();
         }
     }
