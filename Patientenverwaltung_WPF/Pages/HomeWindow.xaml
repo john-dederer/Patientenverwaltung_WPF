@@ -239,7 +239,7 @@
                         <DataTemplate>
                             
                             <!--Anfang ListItemCtrl -->
-                            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Loaded="PatientGridItem_Loaded">
                                 <Grid.ColumnDefinitions>
                                     <!-- Selection Indicator -->
                                     <ColumnDefinition Width="Auto"/>
@@ -250,7 +250,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Selection Indicator -->
-                                <Border Background="Orange" Width="5"/>
+                                <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
 
                                 <!-- Profile picture padding-->
                                 <Border Grid.Column="1" Padding="8">
@@ -327,12 +327,12 @@
 
         <Grid x:Name="Healthinsurancelist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl x:Name="HIItemsCtrl" ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
                             <!--Anfang ListItemCtrl -->
-                            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="SelectHealthinsuranceFromList">
+                            <Grid x:Name="PleaseGod" DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="SelectHealthinsuranceFromList" Loaded="HIGridItem_Loaded" >
                                 <Grid.ColumnDefinitions>
                                     <!-- Selection Indicator -->
                                     <ColumnDefinition Width="Auto"/>
@@ -343,7 +343,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Selection Indicator -->
-                                <Border Background="Orange" Width="5"/>
+                                <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
 
                                 <!-- Profile picture padding-->
                                 <Border Grid.Column="1" Padding="8">

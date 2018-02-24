@@ -20,7 +20,7 @@ namespace Patientenverwaltung_WPF
     /// </summary>
     public partial class InfoMessageWindow : Window
     {
-        public InfoMessageWindow(string toDisplay = "", int timeToDisplay = 3)
+        public InfoMessageWindow(string toDisplay = "", int timeToDisplay = 2)
         {
             InitializeComponent();
 

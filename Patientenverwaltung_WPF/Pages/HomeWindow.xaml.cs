@@ -43,6 +43,12 @@ namespace Patientenverwaltung_WPF
         // Choosing HI for patient
         public bool ChoosingHealthinsurance = false;
 
+        // Selection Indicators
+        public Border SelectionIndicatorPatient { get; set; }
+        public Border SelectionIndicatorHI { get; set; }
+        public bool HIAdded { get; private set; }
+        public bool PatientAdded { get; private set; }
+
         public HomeWindow()
         {
             InitializeComponent();
@@ -114,6 +120,17 @@ namespace Patientenverwaltung_WPF
             // Selected Item as current Patient Context
             Patient.Patient = test;
 
+            // Selection indicator
+            var grid = (Grid)sender;
+            var selIndicator = (Border)grid.FindName("selIndicator");
+
+            // Remove old selection indicator
+            if (SelectionIndicatorPatient != null) SelectionIndicatorPatient.Visibility = Visibility.Hidden;
+
+            SelectionIndicatorPatient = selIndicator;
+            selIndicator.Visibility = Visibility.Visible;
+
+
             TreatmentList.Visibility = Visibility.Visible;
             CreatePatientMask.Visibility = Visibility.Visible;
             btnAddPatient.Visibility = Visibility.Hidden;
@@ -137,6 +154,16 @@ namespace Patientenverwaltung_WPF
         private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
         {
             Healthinsurance healthinsurance = ((Grid)sender).Tag as Healthinsurance;
+
+            // Selection indicator
+            var grid = (Grid)sender;
+            var selIndicator = (Border)grid.FindName("selIndicator");
+
+            // Remove old selection indicator
+            if (SelectionIndicatorHI != null) SelectionIndicatorHI.Visibility = Visibility.Hidden;
+
+            SelectionIndicatorHI = selIndicator;
+            selIndicator.Visibility = Visibility.Visible;
 
             Healthinsurance.Healthinsurance = healthinsurance;
             CreateHealthinsuranceMask.Visibility = Visibility.Visible;
@@ -173,6 +200,8 @@ namespace Patientenverwaltung_WPF
                     btnUpdatePatient.Visibility = Visibility.Visible;
                     btnAddTreatmentForPatient.Visibility = Visibility.Visible;
                     btnDeletePatient.Visibility = Visibility.Visible;
+
+                    PatientAdded = true;
 
                     InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich angelegt");
                     infoMessageWindow.ShowDialog();
@@ -241,6 +270,8 @@ namespace Patientenverwaltung_WPF
                     btnAddHI.Visibility = Visibility.Hidden;
                     btnDeleteHI.Visibility = Visibility.Visible;
                     btnUpdateHI.Visibility = Visibility.Visible;
+
+                    HIAdded = true;
 
                     InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung erfolgreich angelgt");
                     infoMessageWindow.ShowDialog();
@@ -388,6 +419,9 @@ namespace Patientenverwaltung_WPF
             AddHealthinsuranceCtrl.Visibility = visibility;
             CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
             Healthinsurancelist.Visibility = visibility;
+
+            // Remove selection indicator
+            if (SelectionIndicatorHI != null) SelectionIndicatorHI.Visibility = Visibility.Hidden;
         }
 
         private void MakePatientUIVisible(bool visible)
@@ -399,6 +433,9 @@ namespace Patientenverwaltung_WPF
             Patientlist.Visibility = visibility;
             AddPatientCtrl.Visibility = visibility;
             SearchFieldTreatment.Visibility = Visibility.Hidden;
+
+            // Remove selection indicator
+            if (SelectionIndicatorPatient != null) SelectionIndicatorPatient.Visibility = Visibility.Hidden;
         }
 
         private void searchField_Changed(object sender, TextChangedEventArgs e)
@@ -621,6 +658,34 @@ namespace Patientenverwaltung_WPF
             {
 
             }
+        }
+
+        private void HIGridItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var selInd = (Border)grid.FindName("selIndicator");
+
+            // Set last added Items selection indicator
+            SelectionIndicatorHI = selInd;
+
+            if (HIAdded) SelectionIndicatorHI.Visibility = Visibility.Visible;
+
+            // Reset AddedBoolean
+            HIAdded = false;
+        }
+
+        private void PatientGridItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var selInd = (Border)grid.FindName("selIndicator");
+
+            // Set last added Items selection indicator
+            SelectionIndicatorPatient = selInd;
+
+            if (PatientAdded) SelectionIndicatorPatient.Visibility = Visibility.Visible;
+
+            // Reset AddedBoolean
+            PatientAdded = false;
         }
     }
 }
