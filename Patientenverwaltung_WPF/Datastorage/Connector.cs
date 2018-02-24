@@ -60,6 +60,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         internal abstract bool Select(User user, out User returned);
         internal abstract List<Healthinsurance> GetHealthinsuranceList();
+        internal abstract List<Treatment> GetTreatmentList();
 
         /// <summary>
         /// Select returns a patient instance
@@ -581,6 +582,15 @@ namespace Patientenverwaltung_WPF
 
             return deserialzedList;
         }
+
+        internal override List<Treatment> GetTreatmentList()
+        {
+            var deserialzedList = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
+
+            if (deserialzedList == null) deserialzedList = new List<Treatment>();
+
+            return deserialzedList;
+        }
     }
 
     public class Connector_SQL : Connector
@@ -639,6 +649,11 @@ namespace Patientenverwaltung_WPF
         {
             throw new NotImplementedException();
         }
+
+        internal override List<Treatment> GetTreatmentList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Connector_XML : Connector
@@ -694,6 +709,11 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override List<Healthinsurance> GetHealthinsuranceList()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override List<Treatment> GetTreatmentList()
         {
             throw new NotImplementedException();
         }

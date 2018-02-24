@@ -15,6 +15,8 @@ namespace Patientenverwaltung_WPF
         private static ObservableCollection<Patient> PatientListViewModel;
         private static List<Patient> PatientList;
         private static Patient Patient;
+        private static ObservableCollection<Treatment> TreatmentListViewModel;
+        private static List<Treatment> TreatmentList;
 
         private static List<Healthinsurance> HealthinsuranceList;
         private static Healthinsurance Healthinsurance;
@@ -52,6 +54,22 @@ namespace Patientenverwaltung_WPF
         {
             if (IdCounter == null) IdCounter = new IdCounter();
             return ref IdCounter;
+        }
+
+        internal static ref ObservableCollection<Treatment> GetTreatmentListOC()
+        {
+            TreatmentListViewModel = new ObservableCollection<Treatment>(GetTreatmentList());
+
+            return ref TreatmentListViewModel;
+        }
+
+        internal static ref List<Treatment> GetTreatmentList()
+        {
+            if (TreatmentList == null) TreatmentList = new List<Treatment>();
+
+            // GetData from storage
+            TreatmentList = Factory.Get(GetSettings().Savetype).GetTreatmentList();
+            return ref TreatmentList;
         }
 
         public static ref Patient GetPatient()

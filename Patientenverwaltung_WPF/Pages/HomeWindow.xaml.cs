@@ -24,10 +24,12 @@ namespace Patientenverwaltung_WPF
     public partial class HomeWindow : Window
     {
         ICollectionView viewFilter = null;
+        ICollectionView viewFilterTreatment = null;
 
         // Properties for Patient UI
         public ObservableCollection<Patient> Patients { get; set; }
         public CurrentPatient Patient { get; set; }
+        public CurrentTreatment Treatment { get; set; }
         public ObservableCollection<Treatment> Treatments { get; set; }
 
         // Properties for Healthinsurance UI
@@ -49,7 +51,8 @@ namespace Patientenverwaltung_WPF
             Patient = new CurrentPatient();            
             Patients = CurrentContext.GetPatientListOC();
             Patient.Patient = CurrentContext.GetPatient();
-            Treatments = new ObservableCollection<Treatment>();
+            Treatment = new CurrentTreatment();
+            Treatments = CurrentContext.GetTreatmentListOC();
 
             // Healthinsurance Properties
             Healthinsurance = new CurrentHealthinsurance();
@@ -61,6 +64,7 @@ namespace Patientenverwaltung_WPF
             // First UIState is Patient
             UIState = UIState.Patient;
             viewFilter = CollectionViewSource.GetDefaultView(Patients);
+            viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
         }
 
         private void AddPatient_MouseDown(object sender, MouseButtonEventArgs e)
@@ -113,6 +117,16 @@ namespace Patientenverwaltung_WPF
             btnAddTreatmentForPatient.Visibility = Visibility.Visible;
             btnChooseHI.Visibility = Visibility.Visible;
             btnUpdatePatient.Visibility = Visibility.Visible;
+
+            // Show only treatments for my patient
+            viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
+            viewFilterTreatment.Filter = delegate (object item)
+            {
+                if (item == null) return false;
+                return ((Treatment)item).PatientId.Equals(Patient.Patient.PatientId);
+            };
+
+            viewFilterTreatment.Refresh();
         }
 
         private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
@@ -161,9 +175,10 @@ namespace Patientenverwaltung_WPF
             AddTreatment window = new AddTreatment(Patient.Patient.PatientId);
             if (window.ShowDialog() == true)
             {
-                Treatments.Add(window.Treatment);
+                Treatment.Treatment = window.Treatment;
+                Treatments.Add(Treatment.Treatment);
 
-                DataGridTreatment.Items.Refresh();
+                viewFilter.Refresh();
             }
         }
 
@@ -378,6 +393,82 @@ namespace Patientenverwaltung_WPF
 
 
         }
+
+        private void TreatmentItem_FocusLost(object sender, RoutedEventArgs e)
+        {
+            var grid = (Grid)sender;
+            var btn = (Button)grid.FindName("btnUpdateTreatment");
+            btn.Visibility = Visibility.Collapsed;
+
+            var txtDesc = (TextBox)grid.FindName("txtDescription");
+            txtDesc.IsReadOnly = true;
+            txtDesc.MaxLines = 3;
+
+            var txtOth = (TextBox)grid.FindName("txtOther");
+            txtOth.IsReadOnly = true;
+            txtOth.MaxLines = 3;
+        }
+
+        private void TreatmentItem_Selected(object sender, RoutedEventArgs e)
+        {
+            var treatment = ((Grid)sender).Tag as Treatment;
+            Treatment.Treatment = treatment;
+
+            var grid = (Grid)sender;
+            var btn = (Button)grid.FindName("btnUpdateTreatment");
+            btn.Visibility = Visibility.Visible;
+
+            var txtDesc = (TextBox)grid.FindName("txtDescription");
+            txtDesc.IsReadOnly = false;
+            txtDesc.MaxLines = 10;
+
+            var txtOth = (TextBox)grid.FindName("txtOther");
+            txtOth.IsReadOnly = false;
+            txtOth.MaxLines = 10;
+        }
+
+        private void UpdateTreatment(object sender, RoutedEventArgs e)
+        {
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Treatment.Treatment))
+            {
+                // Show treatment updated successfully
+            }
+            else
+            {
+                // show Update failed
+            }
+        }
+
+        private void searchFieldTreatment_Changed(object sender, TextChangedEventArgs e)
+        {
+            if (txtSearchFieldTreatment.Text == string.Empty)
+            {
+                viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
+
+                viewFilterTreatment.Filter = delegate (object item)
+                {
+                    if (item == null) return false;
+                    var forPatient = ((Treatment)item).PatientId.Equals(Patient.Patient.PatientId);
+
+                    return forPatient;
+                };
+
+                viewFilterTreatment.Refresh();
+
+                return;
+            }
+
+            viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
+            viewFilterTreatment.Filter = delegate (object item) {
+                if (item == null) return false;
+                var forPatient = ((Treatment)item).PatientId.Equals(Patient.Patient.PatientId);
+                var fromDate = ((Treatment)item).Date.ToLongDateString().Contains(txtSearchFieldTreatment.Text);
+
+                return (forPatient && fromDate);
+            };
+
+            viewFilterTreatment.Refresh();
+        }
     }
 }
 
@@ -406,6 +497,23 @@ public class CurrentHealthinsurance : INotifyPropertyChanged
     private Healthinsurance healthinsurance = new Healthinsurance();
 
     public Healthinsurance Healthinsurance { get { return healthinsurance; } set { healthinsurance = value; OnPropertyChanged("Healthinsurance"); } }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged(string name)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+}
+
+/// <summary>
+/// Helperclass to achieve a realod of a list
+/// </summary>
+public class CurrentTreatment : INotifyPropertyChanged
+{
+    private Treatment treatment = new Treatment();
+
+    public Treatment Treatment { get { return treatment; } set { treatment = value; OnPropertyChanged("Treatment"); } }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

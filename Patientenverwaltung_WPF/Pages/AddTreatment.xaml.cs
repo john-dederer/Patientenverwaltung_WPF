@@ -30,7 +30,9 @@ namespace Patientenverwaltung_WPF
 
             Treatment = new Treatment
             {
-                PatientId = patientId
+ 
+                    PatientId = patientId
+                           
             };
 
 
@@ -41,15 +43,9 @@ namespace Patientenverwaltung_WPF
         {
             // Behandlung erfassen
             // First we have to check if the treatment already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Treatment, out Treatment returned))
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Treatment))
             {
-                if (returned == null) return;
 
-                if (Treatment.GetHashCode() == returned.GetHashCode())
-                {
-                    // Show treatment already exists
-
-                }
             }
             else
             {

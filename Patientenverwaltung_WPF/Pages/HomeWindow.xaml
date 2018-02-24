@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
         xmlns:conv="clr-namespace:Patientenverwaltung_WPF.Converter"
         mc:Ignorable="d"
-        Title="Home" MinHeight="734" Height="734.262" MinWidth="1139" Width="1139.439" SizeToContent="WidthAndHeight">
-    
+        Title="Home" MinHeight="734" Height="734.262" MinWidth="1139" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
+    <!-- SizeToContent="WidthAndHeight" -->
 
-        <Grid x:Name="gridNavBarLeft">
+
+    <Grid x:Name="gridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
             <ColumnDefinition Width="90*"/>
@@ -19,10 +20,12 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="303*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Border x:Name="NavBarLeft" BorderBrush="Black" BorderThickness="1" MinHeight="703" Height="Auto" Margin="0.039,0,0,0" MinWidth="100" Width="100" MaxWidth="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="5" Grid.ColumnSpan="2">
+        
+        <Border x:Name="NavBarLeft" BorderBrush="Black" BorderThickness="1" MinHeight="703" Height="Auto" Margin="0.039,0,0,0" MinWidth="100" Width="100" MaxWidth="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="6" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
             </Border.Background>
@@ -71,7 +74,7 @@
                 <Ellipse Canvas.Left="8" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
             </Canvas>
         </Button>
-        <local:Test x:Name="TestLogo" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <local:Test x:Name="TestLogo" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <!-- Search field -->
         <Grid x:Name="SearchField" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
@@ -135,7 +138,7 @@
             <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.City, UpdateSourceTrigger=PropertyChanged}" TabIndex="6"/>
             <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Phonenumber, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="8"/>
             <TextBox x:Name="txtBoxInsuranceId" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.InsuranceId, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="9"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectedDate="{Binding Path=Patient.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Height="30" SelectedDate="{Binding Path=Patient.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button x:Name="btnAddPatient" IsEnabled="True" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Patient anlegen" Background="White" Margin="10,0" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Click="AddPatient"/>
             <Button x:Name="btnUpdatePatient" Grid.Column="1" Grid.Row="5" Content="Patient ändern" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="UpdatePatient"/>
@@ -144,24 +147,88 @@
         </Grid>
 
 
-        <Grid x:Name="TreatmentList" Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Margin="0,0,0,10" Visibility="Hidden">
-            <ScrollViewer>
-                <DataGrid x:Name="DataGridTreatment" ItemsSource="{Binding Treatments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nr." Width="Auto" Binding="{Binding TreatmentId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Datum" Width="Auto" Binding="{Binding Date}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Beschreibung" Width="Auto" Binding="{Binding Description}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Sonstiges" Width="Auto" Binding="{Binding Other}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                    
-                    
-                </DataGrid>
+        <!-- Treatment List -->
+        <!-- Search field -->
+        <Grid x:Name="SearchFieldTreatment" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Visibility="Visible">
+            <Border
+            BorderThickness="2"
+            VerticalAlignment="Center"
+            CornerRadius="5" Background="LightGray">
+                <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="searchIconTreatment" Width="24" Height="24">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <!--Unknown tag: metadata-->
+                        <!--Unknown tag: sodipodi:namedview-->
+                        <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="circle2Treatment" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                        <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="line4Treatment" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    </Canvas>
+                    <TextBox x:Name="txtSearchFieldTreatment" Width="260" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchFieldTreatment_Changed"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+
+        <Grid x:Name="TreatmentList" Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="3" Width="Auto" MinWidth="100" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Treatments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden" Margin="0,10,0,0">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <!--Anfang ListItemCtrl -->
+                            <Grid DataContext="{Binding}" Tag="{Binding}" Grid.ColumnSpan="2" Background="#FFEAEAEA" Margin="5" GotFocus="TreatmentItem_Selected" LostFocus="TreatmentItem_FocusLost">
+                                <Grid.ColumnDefinitions>
+                                    <!-- Selection Indicator -->
+                                    <ColumnDefinition Width="70"/>
+                                    <!-- Profile picture -->
+                                    <ColumnDefinition Width="200*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30*"/>
+                                    <RowDefinition Height="30*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,0,2">
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Date}" TextWrapping="Wrap" Margin="5"/>
+                                </Border>
+
+                                <!-- When clicked on item, Textblock expands and button to edit appear -->
+                                
+                                <!-- Main content -->
+                                <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Center" >
+                                    <!-- Description -->
+                                    
+                                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,2,2">
+                                        <StackPanel>
+                                            <TextBlock Text="Beschreibung" Margin="5,5,5,0"/>
+                                            <TextBox x:Name="txtDescription" Text="{Binding Description}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" FontFamily="Arial" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
+                                        <StackPanel>
+                                            <TextBlock Text="Sonstiges" Margin="5,5,5,0"/>
+                                            <TextBox x:Name="txtOther" Text="{Binding Other}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+
+                                <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
+                                    <Button x:Name="btnUpdateTreatment" Margin="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="UpdateTreatment"/>
+                                </Border>
+                            </Grid>
+                            <!-- Ende ListItemCtrl -->
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </Grid>
 
-        <!--<local:PatientListControl x:Name="ListCtrl" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Width="100"/>-->
-
-        <Grid x:Name="Patientlist" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
+        <Grid x:Name="Patientlist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
@@ -253,7 +320,7 @@
         </Grid>
         <!-- Healthinsurance Mask end -->
 
-        <Grid x:Name="Healthinsurancelist" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden">
+        <Grid x:Name="Healthinsurancelist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
