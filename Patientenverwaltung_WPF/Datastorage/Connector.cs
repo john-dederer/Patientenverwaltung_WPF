@@ -261,6 +261,16 @@ namespace Patientenverwaltung_WPF
 
                 deserializedList.RemoveAt(index);
 
+                // Remove all Treatments for Patient
+                var treatmentList = JsonConvert.DeserializeObject<List<Treatment>>(File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"));
+                if (treatmentList != null)
+                {
+                    var anz = treatmentList.RemoveAll(x => x.PatientId == patient.PatientId);
+                    var json = JsonConvert.SerializeObject(treatmentList, Formatting.Indented);
+
+                    File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
+                }                
+
                 jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);              
             }
             else if (datamodel.GetType() == typeof(Healthinsurance))
