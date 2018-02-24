@@ -17,19 +17,15 @@ namespace Patientenverwaltung_WPF.Converter
             if (value != null && Enum.IsDefined(value.GetType(), value) == false)
                 return DependencyProperty.UnsetValue;
 
-            if (value != null)
-            {
-                var parameterValue = Enum.Parse(value.GetType(), parameterString);
+            if (value == null) return null;
+            var parameterValue = Enum.Parse(value.GetType(), parameterString);
 
-                return parameterValue.Equals(value);
-            }
-            return null;
+            return parameterValue.Equals(value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var parameterString = parameter as string;
-            return parameterString == null ? DependencyProperty.UnsetValue : Enum.Parse(targetType, parameterString);
+            return !(parameter is string parameterString) ? DependencyProperty.UnsetValue : Enum.Parse(targetType, parameterString);
         }
 
         #endregion
