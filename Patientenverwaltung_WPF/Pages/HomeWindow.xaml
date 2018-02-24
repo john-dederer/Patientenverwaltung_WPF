@@ -13,7 +13,7 @@
     <Grid x:Name="gridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
-            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="110*"/>
             <ColumnDefinition Width="253*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -219,7 +219,10 @@
                                 </StackPanel>
 
                                 <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
-                                    <Button x:Name="btnUpdateTreatment" Margin="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="UpdateTreatment"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnUpdateTreatment" Margin="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="UpdateTreatment"/>
+                                        <Button x:Name="btnDeleteTreatment" Margin="10" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung löschen" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="DeleteTreatment"/>
+                                    </StackPanel>
                                 </Border>
                             </Grid>
                             <!-- Ende ListItemCtrl -->
@@ -243,7 +246,7 @@
                                     <!-- Profile picture -->
                                     <ColumnDefinition Width="Auto"/>
                                     <!-- Main Content -->
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="80*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Selection Indicator -->
@@ -371,3 +374,5 @@
 
     </Grid>
 </Window>
+
+    

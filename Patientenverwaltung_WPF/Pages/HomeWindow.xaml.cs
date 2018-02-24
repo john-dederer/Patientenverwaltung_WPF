@@ -80,6 +80,7 @@ namespace Patientenverwaltung_WPF
                 btnAddTreatmentForPatient.Visibility = Visibility.Hidden;
                 btnChooseHI.Visibility = Visibility.Hidden;
                 SearchFieldTreatment.Visibility = Visibility.Hidden;
+                btnDeletePatient.Visibility = Visibility.Hidden;
 
                 txtBoxFirstname.Focus();
             }
@@ -93,6 +94,7 @@ namespace Patientenverwaltung_WPF
                 Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
                 btnAddHI.Visibility = Visibility.Visible;
                 btnUpdateHI.Visibility = Visibility.Hidden;
+                btnDeleteHI.Visibility = Visibility.Hidden;
 
                 if (ChoosingHealthinsurance) btnHIChosen.Visibility = Visibility.Visible;
 
@@ -154,6 +156,8 @@ namespace Patientenverwaltung_WPF
                 InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} exisitert bereits");
                 infoMessageWindow.ShowDialog();
 
+                btnAddPatient.Visibility = Visibility.Hidden;
+                btnChooseHI.Visibility = Visibility.Visible;
                 btnUpdatePatient.Visibility = Visibility.Visible;
                 btnAddTreatmentForPatient.Visibility = Visibility.Visible;
                 btnDeletePatient.Visibility = Visibility.Visible;
@@ -164,7 +168,11 @@ namespace Patientenverwaltung_WPF
                 {
                     // Successfully created                    
                     Patients.Add(Patient.Patient);
+                    btnAddPatient.Visibility = Visibility.Hidden;
                     btnChooseHI.Visibility = Visibility.Visible;
+                    btnUpdatePatient.Visibility = Visibility.Visible;
+                    btnAddTreatmentForPatient.Visibility = Visibility.Visible;
+                    btnDeletePatient.Visibility = Visibility.Visible;
 
                     InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich angelegt");
                     infoMessageWindow.ShowDialog();
@@ -436,6 +444,9 @@ namespace Patientenverwaltung_WPF
             var btn = (Button)grid.FindName("btnUpdateTreatment");
             btn.Visibility = Visibility.Collapsed;
 
+            var btnDelete = (Button)grid.FindName("btnDeleteTreatment");
+            btnDelete.Visibility = Visibility.Collapsed;
+
             var txtDesc = (TextBox)grid.FindName("txtDescription");
             txtDesc.IsReadOnly = true;
             txtDesc.MaxLines = 3;
@@ -453,6 +464,9 @@ namespace Patientenverwaltung_WPF
             var grid = (Grid)sender;
             var btn = (Button)grid.FindName("btnUpdateTreatment");
             btn.Visibility = Visibility.Visible;
+
+            var btnDelete = (Button)grid.FindName("btnDeleteTreatment");
+            btnDelete.Visibility = Visibility.Visible;
 
             var txtDesc = (TextBox)grid.FindName("txtDescription");
             txtDesc.IsReadOnly = false;
@@ -569,6 +583,37 @@ namespace Patientenverwaltung_WPF
                 else
                 {
                     var infoMsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht gelöscht werden");
+                    infoMsg.ShowDialog();
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void DeleteTreatment(object sender, RoutedEventArgs e)
+        {
+            // Ask for confirmation
+            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} wirklich löschen ?");
+
+            if (boxWindow.ShowDialog() == true)
+            {
+                if (Factory.Get(CurrentContext.GetSettings().Savetype).Delete(Treatment.Treatment))
+                {
+                    var index = Treatments.IndexOf(Treatment.Treatment);
+                    if (index == -1) return;
+
+                    Treatments.RemoveAt(index);
+
+                    var infoMsg = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} erfolgreich gelöscht");
+                    infoMsg.ShowDialog();
+
+                    Treatment.Treatment = new Patientenverwaltung_WPF.Treatment();                    
+                }
+                else
+                {
+                    var infoMsg = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} konnte nicht gelöscht werden");
                     infoMsg.ShowDialog();
                 }
             }
