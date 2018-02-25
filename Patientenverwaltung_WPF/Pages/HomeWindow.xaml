@@ -1,15 +1,14 @@
 ﻿<Window x:Class="Patientenverwaltung_WPF.HomeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
-        xmlns:conv="clr-namespace:Patientenverwaltung_WPF.Converter"
         mc:Ignorable="d"
         Title="Home" MinHeight="734" Height="734.262" MinWidth="1139" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
     <!-- SizeToContent="WidthAndHeight" -->
 
-    <Grid x:Name="gridNavBarLeft">
+    <Grid x:Name="GridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
             <ColumnDefinition Width="110*"/>

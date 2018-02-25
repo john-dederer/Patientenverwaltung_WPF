@@ -1,56 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using Patientenverwaltung_WPF;
-using Patientenverwaltung_WPF.Converter;
 using Patientenverwaltung_WPF.Notification;
 using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF
 {
     /// <summary>
-    /// Interaktionslogik für HomeWindow.xaml
+    ///     Interaktionslogik für HomeWindow.xaml
     /// </summary>
     public partial class HomeWindow : Window
     {
-        ICollectionView viewFilter = null;
-        ICollectionView viewFilterTreatment = null;
-
-        // Properties for Patient UI
-        public ObservableCollection<Patient> Patients { get; set; }
-        public CurrentPatient Patient { get; set; }
-        public CurrentTreatment Treatment { get; set; }
-        public ObservableCollection<Treatment> Treatments { get; set; }
-
-        // Properties for Healthinsurance UI
-        public CurrentHealthinsurance Healthinsurance { get; set; }
-        public ObservableCollection<Healthinsurance> Healthinsurances { get; set; }
-        public HealthinsuranceViewModel HealthinsuranceTest { get; set; }
-
-
-        // Properties for UIState
-        public UIState UIState { get; set; }
-
         // Choosing HI for patient
-        public bool ChoosingHealthinsurance = false;
+        public bool ChoosingHealthinsurance;
 
-        // Selection Indicators
-        public Border SelectionIndicatorPatient { get; set; }
-        public Border SelectionIndicatorHI { get; set; }
-        public bool HIAdded { get; private set; }
-        public bool PatientAdded { get; private set; }
+        private ICollectionView viewFilter;
+        private ICollectionView _viewFilterTreatment;
 
         public HomeWindow()
         {
@@ -71,16 +40,40 @@ namespace Patientenverwaltung_WPF
             // Test
             //Healthinsurance = HealthinsuranceViewModel.SharedViewModel();
 
-            DataContext = this;
-
-            // First UIState is Patient
-            UIState = UIState.Patient;
-            viewFilter = CollectionViewSource.GetDefaultView(Patients);
-            viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
+            //DataContext = this;
+            //
+            //// First UIState is Patient
+            //UiState = UIState.Patient;
+            //viewFilter = CollectionViewSource.GetDefaultView(Patients);
+            //_viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
 
             UiHelper.SwitchUiToPatient();
-            
         }
+
+        /*
+        // Properties for Patient UI
+        public ObservableCollection<Patient> Patients { get; set; }
+
+        public CurrentPatient Patient { get; set; }
+        public CurrentTreatment Treatment { get; set; }
+        public ObservableCollection<Treatment> Treatments { get; set; }
+
+        // Properties for Healthinsurance UI
+        public CurrentHealthinsurance Healthinsurance { get; set; }
+
+        public ObservableCollection<Healthinsurance> Healthinsurances { get; set; }
+        public HealthinsuranceViewModel HealthinsuranceTest { get; set; }
+
+
+        // Properties for UIState
+        public UIState UiState { get; set; }
+
+        // Selection Indicators
+        public Border SelectionIndicatorPatient { get; set; }
+
+        public Border SelectionIndicatorHI { get; set; }
+        public bool HIAdded { get; private set; }
+        public bool PatientAdded { get; private set; }
 
         private void AddPatient_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -89,7 +82,7 @@ namespace Patientenverwaltung_WPF
                 CreatePatientMask.Visibility = Visibility.Visible;
                 //TreatmentList.Visibility = Visibility.Hidden;
                 PatientViewModel.SharedViewModel().NewPatient = new Patient();
-                Patient.Patient = new Patientenverwaltung_WPF.Patient();
+                Patient.Patient = new Patient();
 
                 //btnAddPatient.Visibility = Visibility.Visible;
                 //btnUpdatePatient.Visibility = Visibility.Hidden;
@@ -107,7 +100,7 @@ namespace Patientenverwaltung_WPF
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 CreateHealthinsuranceMask.Visibility = Visibility.Visible;
-                Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
+                Healthinsurance.Healthinsurance = new Healthinsurance();
                 //btnAddHI.Visibility = Visibility.Visible;
                 //btnUpdateHI.Visibility = Visibility.Hidden;
                 //btnDeleteHI.Visibility = Visibility.Hidden;
@@ -119,20 +112,20 @@ namespace Patientenverwaltung_WPF
         }
 
         /// <summary>
-        /// Selecting item from patient list
+        ///     Selecting item from patient list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Patient test = ((Grid)sender).Tag as Patient;
+            var test = ((Grid) sender).Tag as Patient;
 
             // Selected Item as current Patient Context
             Patient.Patient = test;
 
             // Selection indicator
-            var grid = (Grid)sender;
-            var selIndicator = (Border)grid.FindName("selIndicator");
+            var grid = (Grid) sender;
+            var selIndicator = (Border) grid.FindName("selIndicator");
 
             // Remove old selection indicator
             if (SelectionIndicatorPatient != null) SelectionIndicatorPatient.Visibility = Visibility.Hidden;
@@ -143,31 +136,31 @@ namespace Patientenverwaltung_WPF
 
             //TreatmentList.Visibility = Visibility.Visible;
             CreatePatientMask.Visibility = Visibility.Visible;
-           //btnAddPatient.Visibility = Visibility.Hidden;
-           //btnAddTreatmentForPatient.Visibility = Visibility.Visible;
-           //btnChooseHI.Visibility = Visibility.Visible;
-           //btnUpdatePatient.Visibility = Visibility.Visible;
+            //btnAddPatient.Visibility = Visibility.Hidden;
+            //btnAddTreatmentForPatient.Visibility = Visibility.Visible;
+            //btnChooseHI.Visibility = Visibility.Visible;
+            //btnUpdatePatient.Visibility = Visibility.Visible;
             //SearchFieldTreatment.Visibility = Visibility.Visible;
             //btnDeletePatient.Visibility = Visibility.Visible;
 
             // Show only treatments for my patient
-            viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
-            viewFilterTreatment.Filter = delegate (object item)
+            _viewFilterTreatment = CollectionViewSource.GetDefaultView(Treatments);
+            _viewFilterTreatment.Filter = delegate(object item)
             {
                 if (item == null) return false;
-                return ((Treatment)item).PatientId.Equals(Patient.Patient.PatientId);
+                return ((Treatment) item).PatientId.Equals(Patient.Patient.PatientId);
             };
 
-            viewFilterTreatment.Refresh();
+            _viewFilterTreatment.Refresh();
         }
 
         private void SelectHealthinsuranceFromList(object sender, RoutedEventArgs e)
         {
-            Healthinsurance healthinsurance = ((Grid)sender).Tag as Healthinsurance;
+            var healthinsurance = ((Grid) sender).Tag as Healthinsurance;
 
             // Selection indicator
-            var grid = (Grid)sender;
-            var selIndicator = (Border)grid.FindName("selIndicator");
+            var grid = (Grid) sender;
+            var selIndicator = (Border) grid.FindName("selIndicator");
 
             // Remove old selection indicator
             if (SelectionIndicatorHI != null) SelectionIndicatorHI.Visibility = Visibility.Hidden;
@@ -190,7 +183,9 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(Patient.Patient))
             {
                 // Show patient already exists
-                InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} exisitert bereits");
+                var infoMessageWindow =
+                    new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} exisitert bereits");
                 infoMessageWindow.ShowDialog();
 
                 //btnAddPatient.Visibility = Visibility.Hidden;
@@ -205,20 +200,24 @@ namespace Patientenverwaltung_WPF
                 {
                     // Successfully created                    
                     Patients.Add(Patient.Patient);
-                   //btnAddPatient.Visibility = Visibility.Hidden;
-                   //btnChooseHI.Visibility = Visibility.Visible;
-                   //btnUpdatePatient.Visibility = Visibility.Visible;
-                   //btnAddTreatmentForPatient.Visibility = Visibility.Visible;
-                   //btnDeletePatient.Visibility = Visibility.Visible;
+                    //btnAddPatient.Visibility = Visibility.Hidden;
+                    //btnChooseHI.Visibility = Visibility.Visible;
+                    //btnUpdatePatient.Visibility = Visibility.Visible;
+                    //btnAddTreatmentForPatient.Visibility = Visibility.Visible;
+                    //btnDeletePatient.Visibility = Visibility.Visible;
 
                     PatientAdded = true;
 
-                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich angelegt");
+                    var infoMessageWindow = new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich angelegt");
                     infoMessageWindow.ShowDialog();
                 }
                 else
                 {
-                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht angelegt werden");
+                    var infoMessageWindow = new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {
+                                Patient.Patient.Secondname
+                            } konnte nicht angelegt werden");
                     infoMessageWindow.ShowDialog();
                 }
             }
@@ -226,15 +225,15 @@ namespace Patientenverwaltung_WPF
 
         private void AddTreatment(object sender, RoutedEventArgs e)
         {
-            AddTreatment window = new AddTreatment(Patient.Patient.PatientId);
-            Nullable<bool> dialogResult = window.ShowDialog();
+            var window = new AddTreatment(Patient.Patient.PatientId);
+            var dialogResult = window.ShowDialog();
 
             if (dialogResult == true)
             {
                 Treatment.Treatment = window.Treatment;
                 Treatments.Add(Treatment.Treatment);
 
-                viewFilterTreatment.Refresh();
+                _viewFilterTreatment.Refresh();
             }
         }
 
@@ -242,7 +241,6 @@ namespace Patientenverwaltung_WPF
         {
             ChangeUIToHealthinsurance(null, null);
             ChoosingHealthinsurance = true;
-
         }
 
         private void Healthinsurance_Chosen(object sender, RoutedEventArgs e)
@@ -253,12 +251,20 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
             {
                 // HI added to patient
-                var infomsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} für Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} ausgewählt");
+                var infomsg =
+                    new InfoMessageWindow(
+                        $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} für Patient {
+                                Patient.Patient.Firstname
+                            } {Patient.Patient.Secondname} ausgewählt");
                 infomsg.ShowDialog();
             }
             else
             {
-                var infomsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte für Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} nicht ausgewählt werden");
+                var infomsg =
+                    new InfoMessageWindow(
+                        $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte für Patient {
+                                Patient.Patient.Firstname
+                            } {Patient.Patient.Secondname} nicht ausgewählt werden");
                 infomsg.ShowDialog();
             }
 
@@ -283,19 +289,19 @@ namespace Patientenverwaltung_WPF
 
                     HIAdded = true;
 
-                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung erfolgreich angelgt");
+                    var infoMessageWindow = new InfoMessageWindow("Krankenversicherung erfolgreich angelgt");
                     infoMessageWindow.ShowDialog();
                 }
                 else
                 {
                     // healthinsurance already exists
-                    InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung konnte nicht angelegt werden");
+                    var infoMessageWindow = new InfoMessageWindow("Krankenversicherung konnte nicht angelegt werden");
                     infoMessageWindow.ShowDialog();
                 }
             }
             else
             {
-                InfoMessageWindow infoMessageWindow = new InfoMessageWindow("Krankenversicherung exisitert bereits");
+                var infoMessageWindow = new InfoMessageWindow("Krankenversicherung exisitert bereits");
                 infoMessageWindow.ShowDialog();
             }
         }
@@ -305,12 +311,18 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Patient.Patient))
             {
                 // Successfully updated
-                var infoMessage = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich geändert.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich geändert.");
                 infoMessage.ShowDialog();
             }
             else
             {
-                var infoMessage = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht geändert werden.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {
+                                Patient.Patient.Secondname
+                            } konnte nicht geändert werden.");
                 infoMessage.ShowDialog();
             }
         }
@@ -320,30 +332,33 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Healthinsurance.Healthinsurance))
             {
                 // Successfully updated
-                var infoMessage = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich geändert.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich geändert.");
                 infoMessage.ShowDialog();
             }
             else
             {
-                var infoMessage = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht geändert werden.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht geändert werden.");
                 infoMessage.ShowDialog();
             }
         }
 
         private void ChangeUIToSettings(object sender, RoutedEventArgs e)
         {
-            if (UIState.Equals(UIState.Patient))
+            if (UiState.Equals(UIState.Patient))
             {
                 // Disable Patient UI elements
                 MakePatientUIVisible(false);
             }
-            else if (UIState.Equals(UIState.Healthinsurance))
+            else if (UiState.Equals(UIState.Healthinsurance))
             {
                 // Do nothing
                 MakeHealthinsuranceUIVisible(false);
-
             }
-            else if (UIState.Equals(UIState.Settings))
+            else if (UiState.Equals(UIState.Settings))
             {
                 // Do nothing
             }
@@ -353,12 +368,12 @@ namespace Patientenverwaltung_WPF
             //UIState = UIState.Settings;
 
             // Show Settings page
-            SettingsWindow window = new SettingsWindow();
+            var window = new SettingsWindow();
 
             if (window.ShowDialog() == true)
             {
-                if (UIState == UIState.Patient) ChangeUIToPatients(null, null);
-                else if (UIState == UIState.Healthinsurance) ChangeUIToHealthinsurance(null, null);
+                if (UiState == UIState.Patient) ChangeUIToPatients(null, null);
+                else if (UiState == UIState.Healthinsurance) ChangeUIToHealthinsurance(null, null);
 
                 var infomsg = new InfoMessageWindow("Einstellungen erfolgreich geändert");
                 infomsg.ShowDialog();
@@ -367,16 +382,16 @@ namespace Patientenverwaltung_WPF
 
         private void ChangeUIToHealthinsurance(object sender, RoutedEventArgs e)
         {
-            if (UIState.Equals(UIState.Patient))
+            if (UiState.Equals(UIState.Patient))
             {
                 // Disable Patient UI elements
                 MakePatientUIVisible(false);
             }
-            else if (UIState.Equals(UIState.Healthinsurance))
+            else if (UiState.Equals(UIState.Healthinsurance))
             {
                 // Do nothing
             }
-            else if (UIState.Equals(UIState.Settings))
+            else if (UiState.Equals(UIState.Settings))
             {
                 // Disable Settings UI elements
                 MakeSettingsUIVisible(false);
@@ -388,21 +403,21 @@ namespace Patientenverwaltung_WPF
             //Healthinsurances = CurrentContext.GetHealthinsuranceOC();
             //viewFilter = CollectionViewSource.GetDefaultView(Healthinsurances);
 
-            UIState = UIState.Healthinsurance;
+            UiState = UIState.Healthinsurance;
         }
 
         private void ChangeUIToPatients(object sender, RoutedEventArgs e)
         {
-            if (UIState.Equals(UIState.Patient))
+            if (UiState.Equals(UIState.Patient))
             {
                 // Do nothing                
             }
-            else if (UIState.Equals(UIState.Healthinsurance))
+            else if (UiState.Equals(UIState.Healthinsurance))
             {
                 // Disable Healthinsurance UI elements
                 MakeHealthinsuranceUIVisible(false);
             }
-            else if (UIState.Equals(UIState.Settings))
+            else if (UiState.Equals(UIState.Settings))
             {
                 // Disable Settings UI elements
                 MakeSettingsUIVisible(false);
@@ -414,7 +429,7 @@ namespace Patientenverwaltung_WPF
             //Patients = CurrentContext.GetPatientListOC();
             //viewFilter = CollectionViewSource.GetDefaultView(Patients);
 
-            UIState = UIState.Patient;
+            UiState = UIState.Patient;
         }
 
         private void MakeSettingsUIVisible(bool visible)
@@ -450,7 +465,7 @@ namespace Patientenverwaltung_WPF
 
         private void searchField_Changed(object sender, TextChangedEventArgs e)
         {
-            /*
+            
             if (txtSearchField.Text == string.Empty)
             {
                 viewFilter.Filter = null;
@@ -482,45 +497,44 @@ namespace Patientenverwaltung_WPF
 
 
             viewFilter.Refresh();
-            */
-
+            
         }
 
         private void TreatmentItem_FocusLost(object sender, RoutedEventArgs e)
         {
-            var grid = (Grid)sender;
-            var btn = (Button)grid.FindName("btnUpdateTreatment");
+            var grid = (Grid) sender;
+            var btn = (Button) grid.FindName("btnUpdateTreatment");
             btn.Visibility = Visibility.Collapsed;
 
-            var btnDelete = (Button)grid.FindName("btnDeleteTreatment");
+            var btnDelete = (Button) grid.FindName("btnDeleteTreatment");
             btnDelete.Visibility = Visibility.Collapsed;
 
-            var txtDesc = (TextBox)grid.FindName("txtDescription");
+            var txtDesc = (TextBox) grid.FindName("txtDescription");
             txtDesc.IsReadOnly = true;
             txtDesc.MaxLines = 3;
 
-            var txtOth = (TextBox)grid.FindName("txtOther");
+            var txtOth = (TextBox) grid.FindName("txtOther");
             txtOth.IsReadOnly = true;
             txtOth.MaxLines = 3;
         }
 
         private void TreatmentItem_Selected(object sender, RoutedEventArgs e)
         {
-            var treatment = ((Grid)sender).Tag as Treatment;
+            var treatment = ((Grid) sender).Tag as Treatment;
             Treatment.Treatment = treatment;
 
-            var grid = (Grid)sender;
-            var btn = (Button)grid.FindName("btnUpdateTreatment");
+            var grid = (Grid) sender;
+            var btn = (Button) grid.FindName("btnUpdateTreatment");
             btn.Visibility = Visibility.Visible;
 
-            var btnDelete = (Button)grid.FindName("btnDeleteTreatment");
+            var btnDelete = (Button) grid.FindName("btnDeleteTreatment");
             btnDelete.Visibility = Visibility.Visible;
 
-            var txtDesc = (TextBox)grid.FindName("txtDescription");
+            var txtDesc = (TextBox) grid.FindName("txtDescription");
             txtDesc.IsReadOnly = false;
             txtDesc.MaxLines = 10;
 
-            var txtOth = (TextBox)grid.FindName("txtOther");
+            var txtOth = (TextBox) grid.FindName("txtOther");
             txtOth.IsReadOnly = false;
             txtOth.MaxLines = 10;
         }
@@ -530,60 +544,68 @@ namespace Patientenverwaltung_WPF
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(Treatment.Treatment))
             {
                 // Show treatment updated successfully
-                var infoMessage = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich geändert.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {
+                                Patient.Patient.Secondname
+                            } erfolgreich geändert.");
                 infoMessage.ShowDialog();
             }
             else
             {
                 // show Update failed
-                var infoMessage = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht geändert werden.");
+                var infoMessage =
+                    new InfoMessageWindow(
+                        $@"Behandlung {Treatment.Treatment.TreatmentId} für {Patient.Patient.Firstname} {
+                                Patient.Patient.Secondname
+                            } konnte nicht geändert werden.");
                 infoMessage.ShowDialog();
             }
         }
 
-      
+
         private void DeletePatient(object sender, RoutedEventArgs e)
         {
             // Ask for confirmation
-            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} wirklich löschen ?");
+            var boxWindow =
+                new MessageBoxWindow(
+                    $@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} wirklich löschen ?");
 
             if (boxWindow.ShowDialog() == true)
-            {
                 if (Factory.Get(CurrentContext.GetSettings().Savetype).Delete(Patient.Patient))
                 {
                     var index = Patients.IndexOf(Patient.Patient);
                     if (index == -1) return;
 
-                    Patients.RemoveAt(index);                   
+                    Patients.RemoveAt(index);
 
-                    var infoMsg = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich gelöscht");
+                    var infoMsg = new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} erfolgreich gelöscht");
                     infoMsg.ShowDialog();
 
-                    Patient.Patient = new Patientenverwaltung_WPF.Patient();
+                    Patient.Patient = new Patient();
                     CreatePatientMask.Visibility = Visibility.Hidden;
                     //TreatmentList.Visibility = Visibility.Hidden;
                     //SearchFieldTreatment.Visibility = Visibility.Hidden;
-                    viewFilterTreatment = null;
+                    _viewFilterTreatment = null;
                 }
                 else
                 {
-                    var infoMsg = new InfoMessageWindow($@"Patient {Patient.Patient.Firstname} {Patient.Patient.Secondname} konnte nicht gelöscht werden");
+                    var infoMsg = new InfoMessageWindow(
+                        $@"Patient {Patient.Patient.Firstname} {
+                                Patient.Patient.Secondname
+                            } konnte nicht gelöscht werden");
                     infoMsg.ShowDialog();
                 }
-            }
-            else
-            {
-
-            }            
         }
 
         private void DeleteHealthinsurance(object sender, RoutedEventArgs e)
         {
             // Ask for confirmation
-            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} wirklich löschen ?");
+            var boxWindow =
+                new MessageBoxWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} wirklich löschen ?");
 
             if (boxWindow.ShowDialog() == true)
-            {
                 if (Factory.Get(CurrentContext.GetSettings().Savetype).Delete(Healthinsurance.Healthinsurance))
                 {
                     var index = Healthinsurances.IndexOf(Healthinsurance.Healthinsurance);
@@ -591,28 +613,30 @@ namespace Patientenverwaltung_WPF
 
                     Healthinsurances.RemoveAt(index);
 
-                    var infoMsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich gelöscht");
+                    var infoMsg =
+                        new InfoMessageWindow(
+                            $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} erfolgreich gelöscht");
                     infoMsg.ShowDialog();
 
-                    Healthinsurance.Healthinsurance = new Patientenverwaltung_WPF.Healthinsurance();
-                    CreateHealthinsuranceMask.Visibility = Visibility.Hidden;                                                           
+                    Healthinsurance.Healthinsurance = new Healthinsurance();
+                    CreateHealthinsuranceMask.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    var infoMsg = new InfoMessageWindow($@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht gelöscht werden");
+                    var infoMsg = new InfoMessageWindow(
+                        $@"Krankenversicherung {Healthinsurance.Healthinsurance.Name} konnte nicht gelöscht werden");
                     infoMsg.ShowDialog();
                 }
-            }
-            else
-            {
-
-            }
         }
 
         private void DeleteTreatment(object sender, RoutedEventArgs e)
         {
             // Ask for confirmation
-            MessageBoxWindow boxWindow = new MessageBoxWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} wirklich löschen ?");
+            var boxWindow =
+                new MessageBoxWindow(
+                    $@"Behandlung {Treatment.Treatment.TreatmentId} vom {
+                            Treatment.Treatment.Date.ToShortDateString()
+                        } wirklich löschen ?");
 
             if (boxWindow.ShowDialog() == true)
             {
@@ -623,27 +647,29 @@ namespace Patientenverwaltung_WPF
 
                     Treatments.RemoveAt(index);
 
-                    var infoMsg = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} erfolgreich gelöscht");
+                    var infoMsg = new InfoMessageWindow(
+                        $@"Behandlung {Treatment.Treatment.TreatmentId} vom {
+                                Treatment.Treatment.Date.ToShortDateString()
+                            } erfolgreich gelöscht");
                     infoMsg.ShowDialog();
 
-                    Treatment.Treatment = new Patientenverwaltung_WPF.Treatment();                    
+                    Treatment.Treatment = new Treatment();
                 }
                 else
                 {
-                    var infoMsg = new InfoMessageWindow($@"Behandlung {Treatment.Treatment.TreatmentId} vom {Treatment.Treatment.Date.ToShortDateString()} konnte nicht gelöscht werden");
+                    var infoMsg = new InfoMessageWindow(
+                        $@"Behandlung {Treatment.Treatment.TreatmentId} vom {
+                                Treatment.Treatment.Date.ToShortDateString()
+                            } konnte nicht gelöscht werden");
                     infoMsg.ShowDialog();
                 }
-            }
-            else
-            {
-
             }
         }
 
         private void HIGridItem_Loaded(object sender, RoutedEventArgs e)
         {
             var grid = sender as Grid;
-            var selInd = (Border)grid.FindName("selIndicator");
+            var selInd = (Border) grid.FindName("selIndicator");
 
             // Set last added Items selection indicator
             SelectionIndicatorHI = selInd;
@@ -657,7 +683,7 @@ namespace Patientenverwaltung_WPF
         private void PatientGridItem_Loaded(object sender, RoutedEventArgs e)
         {
             var grid = sender as Grid;
-            var selInd = (Border)grid.FindName("selIndicator");
+            var selInd = (Border) grid.FindName("selIndicator");
 
             // Set last added Items selection indicator
             SelectionIndicatorPatient = selInd;
@@ -670,20 +696,28 @@ namespace Patientenverwaltung_WPF
 
         private void OpenHITest(object sender, RoutedEventArgs e)
         {
-            HealthinsuranceTestWindow test = new HealthinsuranceTestWindow();
+            var test = new HealthinsuranceTestWindow();
             test.ShowDialog();
         }
     }
 }
 
 /// <summary>
-/// Helperclass to achieve a reload of a list
+///     Helperclass to achieve a reload of a list
 /// </summary>
 public class CurrentPatient : INotifyPropertyChanged
 {
     private Patient patient = new Patient();
 
-    public Patient Patient { get { return patient; } set { patient = value; OnPropertyChanged("Patient"); } }
+    public Patient Patient
+    {
+        get => patient;
+        set
+        {
+            patient = value;
+            OnPropertyChanged("Patient");
+        }
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -694,13 +728,21 @@ public class CurrentPatient : INotifyPropertyChanged
 }
 
 /// <summary>
-/// Helperclass to achieve a realod of a list
+///     Helperclass to achieve a realod of a list
 /// </summary>
 public class CurrentHealthinsurance : INotifyPropertyChanged
 {
     private Healthinsurance healthinsurance = new Healthinsurance();
 
-    public Healthinsurance Healthinsurance { get { return healthinsurance; } set { healthinsurance = value; OnPropertyChanged("Healthinsurance"); } }
+    public Healthinsurance Healthinsurance
+    {
+        get => healthinsurance;
+        set
+        {
+            healthinsurance = value;
+            OnPropertyChanged("Healthinsurance");
+        }
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -711,13 +753,21 @@ public class CurrentHealthinsurance : INotifyPropertyChanged
 }
 
 /// <summary>
-/// Helperclass to achieve a realod of a list
+///     Helperclass to achieve a realod of a list
 /// </summary>
 public class CurrentTreatment : INotifyPropertyChanged
 {
     private Treatment treatment = new Treatment();
 
-    public Treatment Treatment { get { return treatment; } set { treatment = value; OnPropertyChanged("Treatment"); } }
+    public Treatment Treatment
+    {
+        get => treatment;
+        set
+        {
+            treatment = value;
+            OnPropertyChanged("Treatment");
+        }
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -726,13 +776,7 @@ public class CurrentTreatment : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
-
-/// <summary>
-/// Defines the current UIState
-/// </summary>
-public enum UIState
-{
-    Patient,
-    Healthinsurance,
-    Settings
+*/
+       
+    }
 }

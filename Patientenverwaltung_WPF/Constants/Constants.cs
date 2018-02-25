@@ -15,4 +15,14 @@
         Private,
         ByLaw
     }
+
+    /// <summary>
+    ///     Defines the current UIState
+    /// </summary>
+    public enum UIState
+    {
+        Patient,
+        Healthinsurance,
+        Settings
+    }
 }
