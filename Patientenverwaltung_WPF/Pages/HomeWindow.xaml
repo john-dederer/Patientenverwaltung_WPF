@@ -9,7 +9,6 @@
         Title="Home" MinHeight="734" Height="734.262" MinWidth="1139" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
     <!-- SizeToContent="WidthAndHeight" -->
 
-
     <Grid x:Name="gridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
@@ -24,84 +23,28 @@
             <RowDefinition Height="303*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        
+
         <Border x:Name="NavBarLeft" BorderBrush="Black" BorderThickness="1" MinHeight="703" Height="Auto" Margin="0.039,0,0,0" MinWidth="100" Width="100" MaxWidth="100" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.RowSpan="6" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
             </Border.Background>
         </Border>
+
+        <local:SwitchToPatientUi Grid.Column="0" Grid.Row="0"/>
+        <local:SwitchToHiUi Grid.Column="0" Grid.Row="1"/>
+        <local:SwitchToSettingsUi Grid.Column="0" Grid.Row="2" />
         
-        <Button x:Name="btnSettings" Style="{DynamicResource SimpleButton}" Grid.Row="2" Grid.Column="0" BorderBrush="{x:Null}" Click="ChangeUIToSettings">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
-            </Button.Background>
-            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg3715" Width="24" Height="24">
-                <Canvas.RenderTransform>
-                    <TranslateTransform X="0" Y="0"/>
-                </Canvas.RenderTransform>
-                <Canvas.Resources/>
-                <!--Unknown tag: metadata-->
-                <!--Unknown tag: sodipodi:namedview-->
-                <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="9" Canvas.Top="9" Width="6" Height="6" Name="circle3711" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                <Path Name="path3713" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-            </Canvas>
-        </Button>
-        <Button x:Name="btnHealthinsurance" Style="{DynamicResource SimpleButton}" Grid.Row="1" Grid.Column="0" BorderBrush="{x:Null}" Click="ChangeUIToHealthinsurance">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
-            </Button.Background>
-            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg42" Width="24" Height="24">
-                <Canvas.RenderTransform>
-                    <TranslateTransform X="0" Y="0"/>
-                </Canvas.RenderTransform>
-                <Canvas.Resources/>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path38" StrokeThickness="2" Stroke="white" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <Polyline xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="9 22 9 12 15 12 15 22" Name="polyline40" FillRule="NonZero" StrokeThickness="2" Stroke="white" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-            </Canvas>
-        </Button>
-        <Button x:Name="btnPatients" Style="{DynamicResource SimpleButton}" Grid.Column="0" BorderBrush="{x:Null}" Click="ChangeUIToPatients">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource BackgroundColorMain}"/>
-            </Button.Background>
-            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg6" Width="24" Height="24">
-                <Canvas.RenderTransform>
-                    <TranslateTransform X="0" Y="0"/>
-                </Canvas.RenderTransform>
-                <Canvas.Resources/>
-                <!--Unknown tag: metadata-->
-                <!--Unknown tag: sodipodi:namedview-->
-                <Path Name="path2" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <Ellipse Canvas.Left="8" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-            </Canvas>
-        </Button>
+        
         <local:Test x:Name="TestLogo" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <!-- Search field -->
-        <Grid x:Name="SearchField" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
-            <Border
-            BorderThickness="2"
-            VerticalAlignment="Center"
-            CornerRadius="5" Background="LightGray">
-                <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="searchIcon" Width="24" Height="24">
-                        <Canvas.RenderTransform>
-                            <TranslateTransform X="0" Y="0"/>
-                        </Canvas.RenderTransform>
-                        <Canvas.Resources/>
-                        <!--Unknown tag: metadata-->
-                        <!--Unknown tag: sodipodi:namedview-->
-                        <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="circle2" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                        <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="line4" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                    </Canvas>
-                    <TextBox x:Name="txtSearchField" Width="260" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchField_Changed"/>
-                </StackPanel>
-            </Border>
-        </Grid>
+       <local:Searchfield Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10"/>
 
         <!-- Add patient -->
-        <local:AddPatient x:Name="AddPatientCtrl" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0" MouseDown="AddPatient_MouseDown" MouseLeftButtonDown="AddPatient_MouseDown"/>
-        
+        <local:AddPatient x:Name="AddPatientCtrl" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0"/>
+
+        <local:CreatePatient x:Name="CreatePatientMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <!-- Create Patient mask -->
+        <!--
         <Grid x:Name="CreatePatientMask" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" DataContext="{Binding Patient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -118,7 +61,7 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <!-- Labels -->
+           
             <Label x:Name="lblFirstname" Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="0" Width="67.43"/>
             <Label x:Name="lblSecondname" Content="Nachname" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="2" Width="80.167"/>
             <Label x:Name="lblStreet" Content="Straße" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="1" Grid.Column="0" Width="48.477"/>
@@ -129,7 +72,7 @@
             <Label x:Name="lblPhonenumber" Content="Telefonnummer" HorizontalAlignment="Left" Margin="9.998,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3" Width="119.087"/>
             <Label x:Name="lblInsuranceId" Content="Versicherungsnummer" HorizontalAlignment="Left" Margin="9.998,10.5,5,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="0" Grid.Row="4" Width="Auto"/>
 
-            <!-- Textboxes -->
+           
             <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Firstname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="1"/>
             <TextBox x:Name="txtBoxSecondname" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Secondname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="2"/>
             <TextBox x:Name="txtBoxStree" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Street, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="3"/>
@@ -146,143 +89,70 @@
             <Button x:Name="btnChooseHI" Grid.Column="2" Grid.Row="5" Content="Krankenversicherung wählen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="ChooseHealthinsurance"/>
             <Button x:Name="btnDeletePatient" Grid.Column="3" Grid.Row="5" Content="Patient löschen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="DeletePatient"/>
         </Grid>
+        -->
 
 
-        <!-- Treatment List -->
-        <!-- Search field -->
-        <Grid x:Name="SearchFieldTreatment" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" Visibility="Hidden">
-            <Border
-            BorderThickness="2"
-            VerticalAlignment="Center"
-            CornerRadius="5" Background="LightGray">
-                <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="searchIconTreatment" Width="24" Height="24">
-                        <Canvas.RenderTransform>
-                            <TranslateTransform X="0" Y="0"/>
-                        </Canvas.RenderTransform>
-                        <Canvas.Resources/>
-                        <!--Unknown tag: metadata-->
-                        <!--Unknown tag: sodipodi:namedview-->
-                        <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="circle2Treatment" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                        <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="line4Treatment" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                    </Canvas>
-                    <TextBox x:Name="txtSearchFieldTreatment" Width="400" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" ToolTip="Suchen" TextChanged="searchFieldTreatment_Changed"/>
-                </StackPanel>
-            </Border>
-        </Grid>
+        <local:SearchTreatments Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5"/>
 
-
-        <Grid x:Name="TreatmentList" Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="3" Width="Auto" MinWidth="100" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Treatments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden" Margin="0,10,0,0">
-
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-
-                            <!--Anfang ListItemCtrl -->
-                            <Grid DataContext="{Binding}" Tag="{Binding}" Grid.ColumnSpan="2" Background="#FFEAEAEA" Margin="5" GotFocus="TreatmentItem_Selected" LostFocus="TreatmentItem_FocusLost">
-                                <Grid.ColumnDefinitions>
-                                    <!-- Selection Indicator -->
-                                    <ColumnDefinition Width="70"/>
-                                    <!-- Profile picture -->
-                                    <ColumnDefinition Width="200*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30*"/>
-                                    <RowDefinition Height="30*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,0,2">
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Date}" TextWrapping="Wrap" Margin="5"/>
-                                </Border>
-
-                                <!-- When clicked on item, Textblock expands and button to edit appear -->
-                                
-                                <!-- Main content -->
-                                <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Center" >
-                                    <!-- Description -->
-                                    
-                                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,2,2">
-                                        <StackPanel>
-                                            <TextBlock Text="Beschreibung" Margin="5,5,5,0"/>
-                                            <TextBox x:Name="txtDescription" Text="{Binding Description}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" FontFamily="Arial" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}"/>
-                                        </StackPanel>
-                                    </Border>
-
-                                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
-                                        <StackPanel>
-                                            <TextBlock Text="Sonstiges" Margin="5,5,5,0"/>
-                                            <TextBox x:Name="txtOther" Text="{Binding Other}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}"/>
-                                        </StackPanel>
-                                    </Border>
-                                </StackPanel>
-
-                                <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="btnUpdateTreatment" Margin="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="UpdateTreatment"/>
-                                        <Button x:Name="btnDeleteTreatment" Margin="10" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" Content="Behandlung löschen" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="DeleteTreatment"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                            <!-- Ende ListItemCtrl -->
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-
+        <local:TreatmentListControl Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0, 80"/>
+        <local:PatientListControl x:Name="Patientlist" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
+        
+        <!--
         <Grid x:Name="Patientlist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             
-                            <!--Anfang ListItemCtrl -->
+ 
                             <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Loaded="PatientGridItem_Loaded">
                                 <Grid.ColumnDefinitions>
-                                    <!-- Selection Indicator -->
+
                                     <ColumnDefinition Width="Auto"/>
-                                    <!-- Profile picture -->
+
                                     <ColumnDefinition Width="Auto"/>
-                                    <!-- Main Content -->
+
                                     <ColumnDefinition Width="80*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Selection Indicator -->
+
                                 <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
 
-                                <!-- Profile picture padding-->
                                 <Border Grid.Column="1" Padding="8">
-                                    <!-- Profile picture background -->
+                                    
                                     <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        <!-- Profile picture initials -->
+                                        
                                         <TextBlock Text="{Binding Secondname}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
                                     </Border>
                                 </Border>
 
 
-                                <!-- Main content -->
+                                
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" >
-                                    <!-- Name -->
+                                    
                                     <TextBlock Text="{Binding Firstname}" FontFamily="Arial"/>
 
-                                    <!-- Birthday -->
+                                    
                                     <TextBlock Text="{Binding Birthday}"/>
                                 </StackPanel>
                             </Grid>
-                            <!-- Ende ListItemCtrl -->
+                            
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-
+        -->
+        
         <!-- Add Healthinsurance -->
-        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Margin="10,0,0,0" MouseLeftButtonDown="AddHealthinsurance_MouseDown" Visibility="Hidden"/>
+        <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Margin="10,0,0,0"/>
 
-        <!-- Healthinsurance Mask -->
+        <local:CreateHealthinsurance  x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+        
+        <!-- Bleibt vorläufig bis code behind in MVVM pattern verschwunden ist -->
+        <!--
         <Grid x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" Visibility="Hidden" DataContext="{Binding Healthinsurance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            
 
             <Grid.Resources>
                 <conv:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -309,68 +179,123 @@
             <Label Grid.Column="2" Grid.Row="1" Content="Nummer"/>
             <Label Grid.Column="0" Grid.Row="2" Content="PLZ"/>
             <Label Grid.Column="2" Grid.Row="2" Content="Stadt"/>
-            <RadioButton IsChecked="{Binding Path=Healthinsurance.State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Private}"  Grid.Column="0" Grid.Row="3" Content="Privatversicherung" Margin="10, 0" />
-            <RadioButton IsChecked="{Binding Path=Healthinsurance.State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ByLaw}" Grid.Column="1" Grid.Row="3" Content="Gesetzliche Versicherung" Margin="10, 0"/>
+            <RadioButton IsChecked="{Binding State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Private}"  Grid.Column="0" Grid.Row="3" Content="Privatversicherung" Margin="10, 0" />
+            <RadioButton IsChecked="{Binding State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ByLaw}" Grid.Column="1" Grid.Row="3" Content="Gesetzliche Versicherung" Margin="10, 0"/>
 
-            <TextBox x:Name="HIName" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5" MinWidth="100" Text="{Binding Path=Healthinsurance.Name, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="HIStreet" Grid.Column="1" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Path=Healthinsurance.Street, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="HIStreetnumber" Grid.Column="3" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Path=Healthinsurance.Streetnumber, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="HIPostalcode" Grid.Column="1" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding Path=Healthinsurance.Postalcode, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox x:Name="HICity" Grid.Column="3" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding Path=Healthinsurance.City, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="HIName" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5" MinWidth="100" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox x:Name="HIStreet" Grid.Column="1" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Street, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                </TextBox>
+            <TextBox x:Name="HIStreetnumber" Grid.Column="3" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Streetnumber, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox x:Name="HIPostalcode" Grid.Column="1" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding Postalcode,  Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox x:Name="HICity" Grid.Column="3" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding City,  Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
-            <Button x:Name="btnAddHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung anlegen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Click="AddHealthinsurance"/>
-            <Button x:Name="btnUpdateHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung ändern" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Click="UpdateHealthinsurance"/>
-            <Button x:Name="btnHIChosen" Grid.Column="1" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung wählen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Click="Healthinsurance_Chosen" Visibility="Hidden"/>
-            <Button x:Name="btnDeleteHI" Grid.Column="2" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung löschen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Click="DeleteHealthinsurance" Visibility="Hidden"/>
+            <Button x:Name="btnAddHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung anlegen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding Path=Healthinsurancetest.NewHealthinsurance.CreateCommand}"/>
+            <Button x:Name="btnUpdateHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung ändern" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding UpdateCommand}"/>
+            <Button x:Name="btnHIChosen" Grid.Column="1" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung wählen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding ChooseCommand}"/>
+            <Button x:Name="btnDeleteHI" Grid.Column="2" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung löschen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding DeleteCommand}"/>
         </Grid>
+        -->
         <!-- Healthinsurance Mask end -->
 
+        <local:HealthinsuranceListControl x:Name="Healthinsurancelist" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        
+        <!-- Vorläufig nur auskommentiert lassen, bis Codebehind in MVVM Pattern verschwunden ist -->
+        <!--
         <Grid x:Name="Healthinsurancelist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="HIItemsCtrl" ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
-                            <!--Anfang ListItemCtrl -->
+                            
                             <Grid x:Name="PleaseGod" DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="SelectHealthinsuranceFromList" Loaded="HIGridItem_Loaded" >
                                 <Grid.ColumnDefinitions>
-                                    <!-- Selection Indicator -->
+                                    
                                     <ColumnDefinition Width="Auto"/>
-                                    <!-- Profile picture -->
+                                    
                                     <ColumnDefinition Width="Auto"/>
-                                    <!-- Main Content -->
+                                    
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Selection Indicator -->
+                               
                                 <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
 
-                                <!-- Profile picture padding-->
+                                
                                 <Border Grid.Column="1" Padding="8">
-                                    <!-- Profile picture background -->
+                                    
                                     <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        <!-- Profile picture initials -->
+                                        
                                         <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
                                     </Border>
                                 </Border>
 
 
-                                <!-- Main content -->
+                                
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" >
-                                    <!-- Name -->
+                                    
                                     <TextBlock Text="{Binding Street}" FontFamily="Arial"/>
 
-                                    <!-- Birthday -->
+                                    
                                     <TextBlock Text="{Binding City}"/>
                                 </StackPanel>
                             </Grid>
-                            <!-- Ende ListItemCtrl -->
+                            
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-
+        -->
 
     </Grid>
 </Window>

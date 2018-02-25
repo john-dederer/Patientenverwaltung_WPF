@@ -11,6 +11,8 @@ namespace Patientenverwaltung_WPF
         public CreatePatient()
         {
             InitializeComponent();
+
+            DataContext = PatientViewModel.SharedViewModel();
         }
     }
 }

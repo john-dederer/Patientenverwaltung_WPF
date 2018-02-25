@@ -3,146 +3,84 @@ using System.ComponentModel;
 
 namespace Patientenverwaltung_WPF
 {
-    public class Patient : Datamodel, INotifyPropertyChanged
+    public class Patient : PropertyChangedNotification
     {
-        private DateTime _birthday = DateTime.Now;
-        private string _city = "";
-        private string _firstname = "";
-        private long _healthinsuranceId;
-        private long _insuranceId;
-        private long _patientId;
-        private int _phonenumber;
-        private int _postalcode;
-        private string _secondname = "";
-        private string _street = "";
-        private int _streetnumber;
-
         public long PatientId
         {
-            get => _patientId;
-            set
-            {
-                _patientId = value;
-                OnPropertyChanged("PatientId");
-            }
+            get { return GetValue(() => PatientId); }
+            set { SetValue(() => PatientId, value); }            
         }
 
         public long HealthinsuranceId
         {
-            get => _healthinsuranceId;
-            set
-            {
-                _healthinsuranceId = value;
-                OnPropertyChanged("HealthinsuranceId");
-            }
+            get { return GetValue(() => HealthinsuranceId); }
+            set { SetValue(() => HealthinsuranceId, value); }
         }
 
         public long InsuranceId
         {
-            get => _insuranceId;
-            set
-            {
-                _insuranceId = value;
-                OnPropertyChanged("InsuranceId");
-            }
+            get { return GetValue(() => InsuranceId); }
+            set { SetValue(() => InsuranceId, value); }
         }
 
         public string Firstname
         {
-            get => _firstname;
-            set
-            {
-                _firstname = value;
-                OnPropertyChanged("Firstname");
-            }
+            get { return GetValue(() => Firstname); }
+            set { SetValue(() => Firstname, value); }
         }
 
         public string Secondname
         {
-            get => _secondname;
-            set
-            {
-                _secondname = value;
-                OnPropertyChanged("Secondname");
-            }
+            get { return GetValue(() => Secondname); }
+            set { SetValue(() => Secondname, value); }
         }
 
         public string Street
         {
-            get => _street;
-            set
-            {
-                _street = value;
-                OnPropertyChanged("Street");
-            }
+            get { return GetValue(() => Street); }
+            set { SetValue(() => Street, value); }
         }
 
         public int Streetnumber
         {
-            get => _streetnumber;
-            set
-            {
-                _streetnumber = value;
-                OnPropertyChanged("Streetnumber");
-            }
+            get { return GetValue(() => Streetnumber); }
+            set { SetValue(() => Streetnumber, value); }
         }
 
         public int Postalcode
         {
-            get => _postalcode;
-            set
-            {
-                _postalcode = value;
-                OnPropertyChanged("Postalcode");
-            }
+            get { return GetValue(() => Postalcode); }
+            set { SetValue(() => Postalcode, value); }
         }
 
         public string City
         {
-            get => _city;
-            set
-            {
-                _city = value;
-                OnPropertyChanged("City");
-            }
+            get { return GetValue(() => City); }
+            set { SetValue(() => City, value); }
         }
 
         public DateTime Birthday
         {
-            get => _birthday;
-            set
-            {
-                _birthday = value;
-                OnPropertyChanged("Birthday");
-            }
+            get { return GetValue(() => Birthday); }
+            set { SetValue(() => Birthday, value); }
         }
 
         public int Phonenumber
         {
-            get => _phonenumber;
-            set
-            {
-                _phonenumber = value;
-                OnPropertyChanged("Phonenumber");
-            }
+            get { return GetValue(() => Phonenumber); }
+            set { SetValue(() => Phonenumber, value); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
 
         public override int GetHashCode()
         {
             var hash = 0;
-            hash += Firstname.Trim().Length;
-            hash += Secondname.Trim().Length;
-            hash += Street.Trim().Length;
+            if (Firstname != null) hash += Firstname.Trim().Length;
+            if (Secondname != null) hash += Secondname.Trim().Length;
+            if (Street != null) hash += Street.Trim().Length;
             hash += Streetnumber * 1500;
             hash += Postalcode * 17 + 99;
-            hash += City.Trim().Length;
+            if (City != null) hash += City.Trim().Length;
             //hash += birthday.GetHashCode();
 
             return hash;

@@ -17,5 +17,9 @@
         <Path Name="path2" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
         <Ellipse Canvas.Left="8" Canvas.Top="3" Width="8" Height="8" Name="circle4" StrokeThickness="2" Stroke="White" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
     </Canvas>
+    
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter">
+        
+    </BooleanToVisibilityConverter>
 
 </ResourceDictionary>

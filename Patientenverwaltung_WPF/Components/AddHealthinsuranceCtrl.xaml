@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="340">
-    <Grid>
+    <Grid MouseLeftButtonDown="ShowHiUi" Visibility="{Binding ShowAddHiUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Border
             BorderThickness="2"
             VerticalAlignment="Center"

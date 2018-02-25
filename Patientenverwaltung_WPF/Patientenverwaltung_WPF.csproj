@@ -41,6 +41,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -68,23 +69,53 @@
       <DependentUpon>AddPatient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\CreatePatient.xaml.cs" />
+    <Compile Include="Components\HealthinsuranceListControl.xaml.cs">
+      <DependentUpon>HealthinsuranceListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\HealthinsuranceListItemControl.xaml.cs">
+      <DependentUpon>HealthinsuranceListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\PatientListControl.xaml.cs" />
     <Compile Include="Components\PatientListItemControl.xaml.cs" />
     <Compile Include="Components\Searchfield.xaml.cs">
       <DependentUpon>Searchfield.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\SearchTreatments.xaml.cs">
+      <DependentUpon>SearchTreatments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SwitchToHiUi.xaml.cs">
+      <DependentUpon>SwitchToHiUi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SwitchToPatientUi.xaml.cs">
+      <DependentUpon>SwitchToPatientUi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SwitchToSettingsUi.xaml.cs">
+      <DependentUpon>SwitchToSettingsUi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\TreatmentListControl.xaml.cs">
+      <DependentUpon>TreatmentListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\TreatmentListItemControl.xaml.cs">
+      <DependentUpon>TreatmentListItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\EnumBooleanConverter.cs" />
+    <Compile Include="CustomValidationAttributes\UniqueHealthinsuranceName.cs" />
+    <Compile Include="CustomValidationAttributes\UniqueHealthinsuranceId.cs" />
     <Compile Include="Datastorage\Connector.cs" />
     <Compile Include="Datastorage\CurrentContext.cs" />
     <Compile Include="Datastorage\Factory.cs" />
     <Compile Include="Datastorage\IdCounter.cs" />
     <Compile Include="Model\Datamodel.cs" />
+    <Compile Include="CustomValidationAttributes\ExcludeCharAttribute.cs" />
     <Compile Include="Model\Healthinsurance.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Treatment.cs" />
+    <Compile Include="ViewModel\TreatmentViewModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Constants\Base.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Notification\PropertyChangedNotification.cs" />
+    <Compile Include="Notification\UiHelper.cs" />
     <Compile Include="Pages\AddTreatment.xaml.cs">
       <DependentUpon>AddTreatment.xaml</DependentUpon>
     </Compile>
@@ -95,6 +126,9 @@
       <DependentUpon>CreateAccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\CreateHealthinsurance.xaml.cs" />
+    <Compile Include="Pages\HealthinsuranceTestWindow.xaml.cs">
+      <DependentUpon>HealthinsuranceTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomescreenPage.xaml.cs">
       <DependentUpon>HomescreenPage.xaml</DependentUpon>
     </Compile>
@@ -125,8 +159,10 @@
     <Compile Include="Components\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\HealthinsuranceViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Page Include="Components\AddHealthinsuranceCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,6 +175,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Components\HealthinsuranceListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\HealthinsuranceListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\PatientListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,6 +192,30 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\Searchfield.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SearchTreatments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SwitchToHiUi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SwitchToPatientUi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SwitchToSettingsUi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TreatmentListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TreatmentListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +258,10 @@
     <Page Include="Components\CreateHealthinsurance.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\HealthinsuranceTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\HomescreenPage.xaml">
       <SubType>Designer</SubType>

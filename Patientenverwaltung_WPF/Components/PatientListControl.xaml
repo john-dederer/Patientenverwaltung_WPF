@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:Patientenverwaltung_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
+    <Grid Background="White" Visibility="{Binding ShowPatientListUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:PatientListItemControl DataContext="{Binding}" Width="100"/>
+            <ItemsControl ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate >
+                        <local:PatientListItemControl DataContext="{Binding}" MinWidth="100"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -11,14 +11,9 @@ namespace Patientenverwaltung_WPF
     {
         public PatientListControl()
         {
-            InitializeComponent();
+            InitializeComponent();        
 
-            Patients = CurrentContext.GetPatientListOc();
-
-
-            DataContext = this;
+            DataContext = PatientViewModel.SharedViewModel();
         }
-
-        public ObservableCollection<Patient> Patients { get; set; }
     }
 }

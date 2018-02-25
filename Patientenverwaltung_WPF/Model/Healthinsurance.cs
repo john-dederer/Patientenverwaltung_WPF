@@ -1,111 +1,73 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Patientenverwaltung_WPF
 {
-    public class Healthinsurance : Datamodel, INotifyPropertyChanged
+    public class Healthinsurance : PropertyChangedNotification
     {
-        private string _city = string.Empty;
-        private long _healthinsuranceId;
-        private string _name = string.Empty;
-        private int _postalcode;
-        private HealthinsuranceState _state = HealthinsuranceState.ByLaw;
-        private string _street = string.Empty;
-        private int _streetnumber;
-
+        //[UniqueHealthinsuranceId(ErrorMessage = "Krankenversicherung existiert bereits")]
         public long HealthinsuranceId
         {
-            get => _healthinsuranceId;
-            set
-            {
-                _healthinsuranceId = value;
-                OnPropertyChanged(nameof(HealthinsuranceId));
-            }
+           get { return GetValue(() => HealthinsuranceId); }
+           set { SetValue(() => HealthinsuranceId, value); }
         }
 
+        [Required]       
+        [UniqueHealthinsuranceName]
+        [StringLength(50, ErrorMessage = "Nicht mehr als 50 Zeichen erlaubt. Mindestens 3", MinimumLength = 3)]
         public string Name
         {
-            get => _name;
-            set
-            {
-                if (value != string.Empty) _name = value;
-                OnPropertyChanged(nameof(_name));
-            }
+            get { return GetValue(() => Name); }
+            set { SetValue(() => Name, value); }
         }
 
+//        [ExcludeChar("/")]
         public string Street
         {
-            get => _street;
-            set
-            {
-                _street = value;
-                OnPropertyChanged(nameof(_street));
-            }
+            get { return GetValue(() => Street); }
+            set { SetValue(() => Street, value); }
         }
 
         public int Streetnumber
         {
-            get => _streetnumber;
-            set
-            {
-                _streetnumber = value;
-                OnPropertyChanged(nameof(_streetnumber));
-            }
+            get { return GetValue(() => Streetnumber); }
+            set { SetValue(() => Streetnumber, value); }
         }
 
         public int Postalcode
         {
-            get => _postalcode;
-            set
-            {
-                _postalcode = value;
-                OnPropertyChanged(nameof(_postalcode));
-            }
+            get { return GetValue(() => Postalcode); }
+            set { SetValue(() => Postalcode, value); }
         }
 
         public string City
         {
-            get => _city;
-            set
-            {
-                _city = value;
-                OnPropertyChanged(nameof(_city));
-            }
+            get { return GetValue(() => City); }
+            set { SetValue(() => City, value); }
         }
 
         public HealthinsuranceState State
         {
-            get => _state;
-            set
-            {
-                _state = value;
-                OnPropertyChanged(nameof(_state));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            get { return GetValue(() => State); }
+            set { SetValue(() => State, value); }
         }
 
         public override int GetHashCode()
         {
             var hash = 0;
-            hash += Name.Trim().Length;
-            hash += Street.Trim().Length;
+            if (Name != null) hash += Name.Trim().Length;
+            if (Street != null) hash += Street.Trim().Length;
             hash += Streetnumber * 1234;
             hash += Postalcode * 231;
-            hash += City.Trim().Length;
+            if (City != null) hash += City.Trim().Length;
             hash += State.GetHashCode();
 
             return hash;
         }
-    }
-
-    public enum HealthinsuranceState
-    {
-        Private,
-        ByLaw
     }
 }

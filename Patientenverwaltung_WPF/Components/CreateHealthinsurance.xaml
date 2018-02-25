@@ -3,38 +3,113 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converter="clr-namespace:Patientenverwaltung_WPF.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500" MinHeight="300" MinWidth="500">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+             d:DesignHeight="180" d:DesignWidth="600">
+    <Grid Background="White" Visibility="{Binding ShowCreateHiMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <StackPanel Width="Auto" Margin="10,0">
+            <Grid x:Name="Grid" DataContext="{Binding NewHealthinsurance, ValidatesOnDataErrors=True}">
+                <Grid.Resources>
+                    <converter:EnumBooleanConverter x:Key="enumBooleanConverter" />
+                </Grid.Resources>
 
-        
-        <Label Grid.Column="0" Grid.Row="0" Content="Name"/>
-        <Label Grid.Column="0" Grid.Row="1" Content="Strasse"/>
-        <Label Grid.Column="2" Grid.Row="1" Content="Nummer"/>
-        <Label Grid.Column="0" Grid.Row="2" Content="PLZ"/>
-        <Label Grid.Column="2" Grid.Row="2" Content="Stadt"/>
-        <RadioButton Grid.Column="0" Grid.Row="3" Content="Privatversicherung" Margin="10, 0"/>
-        <RadioButton Grid.Column="1" Grid.Row="3" Content="Gesetzliche Versicherung" Margin="10, 0"/>
-        
-        <TextBox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5" MinWidth="100"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="5" MinWidth="100"/>
-        <TextBox Grid.Column="3" Grid.Row="1" Margin="5" MinWidth="100"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="5" MinWidth="100"/>
-        <TextBox Grid.Column="3" Grid.Row="2" Margin="5" MinWidth="100"/>
-        
-        <Button Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung anlegen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white"/>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Name"/>
+                <Label Grid.Column="0" Grid.Row="1" Content="Strasse"/>
+                <Label Grid.Column="2" Grid.Row="1" Content="Nummer"/>
+                <Label Grid.Column="0" Grid.Row="2" Content="PLZ"/>
+                <Label Grid.Column="2" Grid.Row="2" Content="Stadt"/>
+                <RadioButton IsChecked="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Private}"  Grid.Column="0" Grid.Row="3" Content="Privatversicherung" Margin="10, 0" />
+                <RadioButton IsChecked="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ByLaw}" Grid.Column="1" Grid.Row="3" Content="Gesetzliche Versicherung" Margin="10, 0"/>
+
+                <TextBox x:Name="HIName" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5" MinWidth="100" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox x:Name="HIStreet" Grid.Column="1" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox x:Name="HIStreetnumber" Grid.Column="3" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Streetnumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox x:Name="HIPostalcode" Grid.Column="1" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding Postalcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox x:Name="HICity" Grid.Column="3" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
+            <Grid x:Name="ButtonGrid" Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnAddHI"    Grid.Column="0" Grid.Row="0" Height="30" Margin="10" Content="Krankenversicherung anlegen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding CreateCommand}"/>
+                <Button x:Name="btnUpdateHI" Grid.Column="1" Grid.Row="0" Height="30" Margin="10" Content="Krankenversicherung ändern" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding UpdateCommand}"/>
+                <Button x:Name="btnHIChosen" Grid.Column="2" Grid.Row="0" Height="30" Margin="10" Content="Krankenversicherung wählen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding ChooseCommand}"/>
+                <Button x:Name="btnDeleteHI" Grid.Column="3" Grid.Row="0" Height="30" Margin="10" Content="Krankenversicherung löschen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding DeleteCommand}"/>
+
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

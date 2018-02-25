@@ -12,5 +12,23 @@ namespace Patientenverwaltung_WPF
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Sets the selected item as current patient
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PatientItemSelected(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PatientViewModel.SharedViewModel().NewPatient = DataContext as Patient;
+
+            // Update the Ui
+            PatientViewModel.SharedViewModel().ShowCreateMaskUi = true;
+
+            // Show only treatments for patient
+            TreatmentViewModel.SharedViewModel().FilterTreatments();
+            TreatmentViewModel.SharedViewModel().ShowTreatmentListUi = true;
+            TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = true;
+        }
     }
 }

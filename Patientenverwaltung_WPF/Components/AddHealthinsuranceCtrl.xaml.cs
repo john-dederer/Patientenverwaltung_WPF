@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF
 {
@@ -11,6 +12,14 @@ namespace Patientenverwaltung_WPF
         public AddHealthinsuranceCtrl()
         {
             InitializeComponent();
+
+            DataContext = HealthinsuranceViewModel.SharedViewModel();
+        }
+
+        private void ShowHiUi(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance = new Healthinsurance();
+            HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = true;
         }
     }
 }
