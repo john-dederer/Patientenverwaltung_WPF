@@ -27,30 +27,37 @@ namespace Patientenverwaltung_WPF
         }
 
 //        [ExcludeChar("/")]
+        [Required(ErrorMessage = "Straße muss angegeben werden")]
         public string Street
         {
             get { return GetValue(() => Street); }
             set { SetValue(() => Street, value); }
         }
 
-        public int Streetnumber
+        [Required(ErrorMessage = "Straßennummer muss angegeben werden")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Darf nur aus Nummern bestehen")]
+        public string Streetnumber
         {
             get { return GetValue(() => Streetnumber); }
             set { SetValue(() => Streetnumber, value); }
         }
 
-        public int Postalcode
+        [Required(ErrorMessage = "Postleitzahl muss angegeben werden")]
+        [RegularExpression(@"^(?!00000|99999)(0[0-9]\d{3}|[0-9]\d{4})$", ErrorMessage = "Bitte Postleitzahl bestehend aus 5 Nummern eingeben")]
+        public string Postalcode
         {
             get { return GetValue(() => Postalcode); }
             set { SetValue(() => Postalcode, value); }
         }
 
+        [Required(ErrorMessage = "Stadt muss angegeben werden")]
         public string City
         {
             get { return GetValue(() => City); }
             set { SetValue(() => City, value); }
         }
 
+        [Required(ErrorMessage = "Status muss angegeben werden")]
         public HealthinsuranceState State
         {
             get { return GetValue(() => State); }
@@ -62,8 +69,8 @@ namespace Patientenverwaltung_WPF
             var hash = 0;
             if (Name != null) hash += Name.Trim().Length;
             if (Street != null) hash += Street.Trim().Length;
-            hash += Streetnumber * 1234;
-            hash += Postalcode * 231;
+            if (Streetnumber != null) hash += Streetnumber.Trim().Length;
+            if (Postalcode != null) hash += Postalcode.Trim().Length;
             if (City != null) hash += City.Trim().Length;
             hash += State.GetHashCode();
 

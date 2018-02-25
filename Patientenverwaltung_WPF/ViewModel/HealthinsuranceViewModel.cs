@@ -237,6 +237,9 @@ namespace Patientenverwaltung_WPF.ViewModel
             Clear(this);
         }
 
+        /// <summary>
+        /// Filters the list , based on a predicate if needed
+        /// </summary>
         public void FilterList()
         {
             if (!string.IsNullOrEmpty(FilterPredicate))

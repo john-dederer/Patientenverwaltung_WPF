@@ -11,12 +11,11 @@ using System.Windows.Data;
 
 namespace Patientenverwaltung_WPF
 {
-    class PatientViewModel : PropertyChangedNotification
+    public class PatientViewModel : PropertyChangedNotification
     {
         private static PatientViewModel _PatientViewModel;
         private static ICollectionView  _collectionView = null;
         
-
         /// <summary>
         /// List of all Patients
         /// </summary>
@@ -125,7 +124,7 @@ namespace Patientenverwaltung_WPF
             Patients = CurrentContext.GetPatientListOc();
 
             // Relay commands
-            NewPatient = new Patient();
+            NewPatient = new Patient {Birthday = DateTime.Now};
             CreateCommand = new RelayCommand(Create, CanCreate);
             UpdateCommand = new RelayCommand(Update, CanDelete);
             CreateTreatmentCommand = new RelayCommand(CreateTreatment, CanDelete);
@@ -133,7 +132,7 @@ namespace Patientenverwaltung_WPF
             DeleteCommand = new RelayCommand(Delete, CanDelete);
 
             // Init static variables
-            Errors = 0;
+            //Errors = 0;
             FilterPredicate = string.Empty;
             ShowCreateMaskUi = false;
             ShowTreatmentListUi = false;
@@ -175,7 +174,7 @@ namespace Patientenverwaltung_WPF
         /// <param name="parameter"></param>
         public void Clear(object parameter)
         {
-            NewPatient = new Patient();
+            NewPatient = new Patient {Birthday = DateTime.Now};
         }
 
         /// <summary>
@@ -186,8 +185,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         public bool CanCreate(object parameter)
         {
-            var res = !string.IsNullOrEmpty(NewPatient.Firstname);
-            return (Errors == 0) && (res);
+            return Errors == 0;
         }
 
         /// <summary>
@@ -198,7 +196,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         public bool CanDelete(object parameter)
         {
-            return !string.IsNullOrEmpty(NewPatient.Firstname);
+            return !string.IsNullOrEmpty(NewPatient.Firstname) && Errors == 0;
         }
 
         /// <summary>

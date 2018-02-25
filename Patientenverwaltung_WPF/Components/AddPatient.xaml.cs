@@ -17,7 +17,7 @@ namespace Patientenverwaltung_WPF
 
         private void ShowCreatePatientUi(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            PatientViewModel.SharedViewModel().NewPatient = new Patient();
+            PatientViewModel.SharedViewModel().Clear(this);
             PatientViewModel.SharedViewModel().ShowCreateMaskUi = true;
 
             TreatmentViewModel.SharedViewModel().FilterTreatments();
