@@ -30,7 +30,8 @@ namespace Patientenverwaltung_WPF
 
             // Center message box
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
+
+            if(Application.Current.MainWindow != this) Owner = Application.Current.MainWindow;
         }
 
         private void CloseInSeconds(int timeToDisplay)
