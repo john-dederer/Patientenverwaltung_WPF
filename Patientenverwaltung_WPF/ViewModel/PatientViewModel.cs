@@ -149,6 +149,8 @@ namespace Patientenverwaltung_WPF
         {
             if (!Factory.Get(CurrentContext.GetSettings().Savetype).Create(NewPatient)) return;
             Patients.Add(NewPatient);
+
+            TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = true;
         }
 
         /// <summary>
