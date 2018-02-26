@@ -10,6 +10,13 @@ namespace Patientenverwaltung_WPF
     {
         bool CloseAfterSave = false;
 
+        public InitialSettingsPage()
+        {
+            InitializeComponent();
+
+            DataContext = CurrentContext.GetSettings();
+        }
+
         public InitialSettingsPage(bool closeAfterSave = false)
         {
             InitializeComponent();
