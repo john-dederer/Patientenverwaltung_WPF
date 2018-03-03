@@ -122,7 +122,7 @@
         </EventTrigger>
     </Page.Triggers>
 
-    <Grid x:Name="Login">
+    <Grid x:Name="Login" DataContext="{Binding NewUser, ValidatesOnDataErrors=True}">
         <Grid.Background>
             <SolidColorBrush Color="{DynamicResource BackgroundColor}"/>
         </Grid.Background>
@@ -132,7 +132,17 @@
             <ColumnDefinition Width="160.862"/>
             <ColumnDefinition Width="49.978"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,219.828,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" TabIndex="3" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxUsername_TextChanged">
+        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,219.828,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" RenderTransformOrigin="0.5,0.5" TabIndex="3" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -152,7 +162,7 @@
                 </TransformGroup>
             </TextBlock.RenderTransform><Run Text="Username"/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="18.828" Margin="0,265.048,0,0" TextWrapping="Wrap" Text="Passwort" VerticalAlignment="Top" Width="112.526" Foreground="White"/>
-        <Button x:Name="btnCreateAccount" Content="Anlegen" HorizontalAlignment="Left" Height="35" Margin="0,352,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="144.32" Background="#FF0414AE" Foreground="White" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Click="btnCreateAccount_Click" TabIndex="5">
+        <Button x:Name="btnCreateAccount" Content="Anlegen" HorizontalAlignment="Left" Height="35" Margin="0,352,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="144.32" Background="#FF0414AE" Foreground="White" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Command="{Binding CreateCommand}" CommandParameter="{Binding ElementName=passwordBox}" TabIndex="5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -170,8 +180,30 @@
         </Button>
         <Button x:Name="btnBackToLogin" Content="Zurück" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="86.84,506.09,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="147.751" Background="#FF0414AE" Foreground="White" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Click="btnBackToLogin_Click" TabIndex="6"/>
         <local:Test Grid.ColumnSpan="2" Grid.Column="1" Margin="135.751,28.667,136.111,472.423"/>
-        <PasswordBox x:Name="passwordBox" Grid.Column="1" HorizontalAlignment="Left" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="321.862" Grid.ColumnSpan="2" Height="31.268" VerticalContentAlignment="Center" AutomationProperties.IsRequiredForForm="True" TabIndex="4" PasswordChanged="passwordBox_PasswordChanged"/>
-        <TextBox x:Name="txtBoxName" HorizontalAlignment="Right" Height="31.236" Margin="0,153.788,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="2" Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxName_TextChanged">
+
+        
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="0,-31.268,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <PasswordBox x:Name="passwordBox" local:PasswordHelper.Attach="True" local:PasswordHelper.Password="{Binding Text, ElementName=plainPw , Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="322" Height="31.268" VerticalContentAlignment="Center" TabIndex="4"/>
+            <TextBox Height="32" x:Name="plainPw" Text="{Binding Passwordhash, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Visibility="Hidden"/>
+        </StackPanel>
+        
+        
+        <TextBox x:Name="txtBoxName" HorizontalAlignment="Right" Height="31.236" Margin="0,153.788,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="2" Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -190,7 +222,16 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBlock.RenderTransform></TextBlock>
-        <TextBox x:Name="txtBoxTitle" HorizontalAlignment="Right" Height="31.236" Margin="0,91.121,0,0" Style="{DynamicResource SimpleTextBox}" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" ToolTip="Benutzername des Benutzer" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" AutomationProperties.HelpText="Benutzername eingeben" AutomationProperties.IsRequiredForForm="True" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="1" Text="{Binding Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextChanged="txtBoxTitle_TextChanged">
+        <TextBox x:Name="txtBoxTitle" HorizontalAlignment="Right" Height="31.236" Margin="0,91.121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Opacity="0.17" TabIndex="1" Text="{Binding Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF
 {
@@ -19,19 +20,26 @@ namespace Patientenverwaltung_WPF
     /// Interaktionslogik für CreateAccountPage.xaml
     /// </summary>
     public partial class CreateAccountPage : Page
-    {
+    {     
         public CreateAccountPage()
         {
             InitializeComponent();
 
-            DataContext = CurrentContext.GetUser();
+            DataContext = UserViewModel.SharedViewModel();
+            btnCreateAccount.DataContext = UserViewModel.SharedViewModel();
 
+            Loaded += CreateAccountPage_Loaded;
+        }
+
+        private void CreateAccountPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //UserViewModel.Errors = 0;
         }
 
         private void btnBackToLogin_Click(object sender, RoutedEventArgs e)
         {
             // Clear the page
-            ClearPage();
+            //ClearPage();
 
             // Load login page
             MainWindow.UpdatePage(Constants.LoginPageUri);
@@ -43,67 +51,13 @@ namespace Patientenverwaltung_WPF
             txtBoxName.Clear();
             txtBoxUsername.Clear();
             passwordBox.Clear();
+            plainPw.Clear();
         }
-
-        private void btnCreateAccount_Click(object sender, RoutedEventArgs e)
+    
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
         {
-            if (txtBoxTitle.Text == string.Empty || txtBoxName.Text == string.Empty || txtBoxUsername.Text == string.Empty || passwordBox.SecurePassword.Length == 0)
-            {
-                lblInfo.Content = "Bitte alle Felder ausfüllen";
-                return;
-            }
-            else
-            {
-                lblInfo.Content = "";
-            }
-
-            // First we have to check if username already exists
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Select(CurrentContext.GetUser(), out User returned))
-            {
-                if (returned == null) return;
-
-                if (CurrentContext.GetUser().Username == returned.Username)
-                {
-                    // Show username already exists
-                    lblInfo.Content = $@"{txtBoxUsername.Text} existiert bereits";
-                }
-            }
-            else
-            {
-                // To not breakt the MVVM pattern we hash the password asap
-                CurrentContext.GetUser().Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
-
-                if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(CurrentContext.GetUser()))
-                {
-                    // Successfully created
-                    lblInfo.Content = "Account erfolgreich angelegt";
-                }
-                else
-                {
-                    // Username already exists
-                    lblInfo.Content = $@"{txtBoxUsername.Text} existiert bereits";
-                }
-            }
-        }
-
-        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            btnCreateAccount.IsEnabled = passwordBox.SecurePassword.Length != 0;
-        }
-
-        private void txtBoxTitle_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxTitle.Text);
-        }
-
-        private void txtBoxName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxName.Text);
-        }
-
-        private void txtBoxUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnCreateAccount.IsEnabled = !string.IsNullOrEmpty(txtBoxUsername.Text);
+            if (e.Action == ValidationErrorEventAction.Added) UserViewModel.Errors += 1;
+            if (e.Action == ValidationErrorEventAction.Removed) UserViewModel.Errors -= 1;
         }
     }
 }

@@ -18,6 +18,9 @@ namespace Patientenverwaltung_WPF
         private static Healthinsurance _healthinsurance;
         private static ObservableCollection<Healthinsurance> _healthinsuranceViewModel;
 
+        private static ObservableCollection<User> _userCollection;
+        private static List<User> _userList;
+
         public static ref Settings GetSettings()
         {
             if (_settings == null) _settings = new Settings();
@@ -94,6 +97,22 @@ namespace Patientenverwaltung_WPF
             // GetData from storage
             _healthinsuranceList = Factory.Get(GetSettings().Savetype).GetHealthinsuranceList();
             return ref _healthinsuranceList;
+        }
+
+        public static ref ObservableCollection<User> GetUserOc()
+        {
+            _userCollection = new ObservableCollection<User>(GetUserList());
+
+            return ref _userCollection;
+        }
+
+        private static ref List<User> GetUserList()
+        {
+            if (_userList == null) _userList = new List<User>();
+
+            // GetData from storage
+            _userList = Factory.Get(GetSettings().Savetype).GetUserList();
+            return ref _userList;
         }
     }
 }

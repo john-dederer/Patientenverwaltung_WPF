@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF.Pages
 {
@@ -24,7 +25,7 @@ namespace Patientenverwaltung_WPF.Pages
         {
             InitializeComponent();
 
-            DataContext = CurrentContext.GetUser();
+            DataContext = UserViewModel.SharedViewModel().NewUser;
         }
 
         private void btnback_Click(object sender, RoutedEventArgs e)
@@ -49,9 +50,9 @@ namespace Patientenverwaltung_WPF.Pages
             var hash = CurrentContext.GetUser().Passwordhash;
 
             // To not breakt the MVVM pattern we hash the password asap
-            CurrentContext.GetUser().Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
+            UserViewModel.SharedViewModel().NewUser.Passwordhash = PasswordStorage.CreateHash(passwordBox.Password);
 
-            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(CurrentContext.GetUser()))
+            if (Factory.Get(CurrentContext.GetSettings().Savetype).Update(UserViewModel.SharedViewModel().NewUser))
             {
                 MainWindow.UpdatePage(Constants.LoginPageUri);
             }

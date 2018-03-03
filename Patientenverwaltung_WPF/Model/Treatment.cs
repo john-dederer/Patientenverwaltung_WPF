@@ -3,70 +3,36 @@ using System.ComponentModel;
 
 namespace Patientenverwaltung_WPF
 {
-    public class Treatment : Datamodel, INotifyPropertyChanged
+    public class Treatment : PropertyChangedNotification
     {
-        private DateTime _date = DateTime.Now;
-        private string _description = "";
-        private string _other = "";
-        private long _patientId;
-        private long _treatmentId;
-
-
         public long TreatmentId
         {
-            get => _treatmentId;
-            set
-            {
-                _treatmentId = value;
-                OnPropertyChanged(nameof(TreatmentId));
-            }
+            get { return GetValue(() => TreatmentId); }
+            set { SetValue(() => TreatmentId, value); }
         }
 
         public long PatientId
         {
-            get => _patientId;
-            set
-            {
-                _patientId = value;
-                OnPropertyChanged(nameof(PatientId));
-            }
+            get { return GetValue(() => PatientId); }
+            set { SetValue(() => PatientId, value); }
         }
 
         public DateTime Date
         {
-            get => _date;
-            set
-            {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
+            get { return GetValue(() => Date); }
+            set { SetValue(() => Date, value); }
         }
 
         public string Description
         {
-            get => _description;
-            set
-            {
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
+            get { return GetValue(() => Description); }
+            set { SetValue(() => Description, value); }
         }
 
         public string Other
         {
-            get => _other;
-            set
-            {
-                _other = value;
-                OnPropertyChanged(nameof(Other));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            get { return GetValue(() => Other); }
+            set { SetValue(() => Other, value); }
         }
 
         public override int GetHashCode()
@@ -74,8 +40,8 @@ namespace Patientenverwaltung_WPF
             var hash = 0;
             hash += PatientId.GetHashCode();
             hash += Date.GetHashCode();
-            hash += Description.Trim().Length;
-            hash += Other.Trim().Length;
+            if (Description != null) hash += Description.Trim().Length;
+            if (Other != null) hash += Other.Trim().Length;
 
             return hash;
         }

@@ -59,8 +59,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         internal abstract bool Select(User user, out User returned);
 
-        internal abstract List<Healthinsurance> GetHealthinsuranceList();
-        internal abstract List<Treatment> GetTreatmentList();
+        
 
         /// <summary>
         ///     Select returns a patient instance
@@ -78,7 +77,29 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         internal abstract bool Select(Treatment treatment, out Treatment returned);
 
+        /// <summary>
+        /// Return the current List of patients
+        /// </summary>
+        /// <returns></returns>
         internal abstract List<Patient> GetPatientList();
+
+        /// <summary>
+        /// Return the current List of users
+        /// </summary>
+        /// <returns></returns>
+        internal abstract List<User> GetUserList();
+
+        /// <summary>
+        /// Return the current List of healthinsurances
+        /// </summary>
+        /// <returns></returns>
+        internal abstract List<Healthinsurance> GetHealthinsuranceList();
+
+        /// <summary>
+        /// Return the current List of treatments
+        /// </summary>
+        /// <returns></returns>
+        internal abstract List<Treatment> GetTreatmentList();
     }
 
     public class ConnectorJson : Connector
@@ -514,9 +535,16 @@ namespace Patientenverwaltung_WPF
         {
             var deserialzedList =
                 JsonConvert.DeserializeObject<List<Patient>>(
-                    File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"));
+                    File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}")) ?? new List<Patient>();
 
-            if (deserialzedList == null) deserialzedList = new List<Patient>();
+            return deserialzedList;
+        }
+
+        internal override List<User> GetUserList()
+        {
+            var deserialzedList =
+                JsonConvert.DeserializeObject<List<User>>(
+                    File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}")) ?? new List<User>();
 
             return deserialzedList;
         }
@@ -668,6 +696,11 @@ namespace Patientenverwaltung_WPF
             throw new NotImplementedException();
         }
 
+        internal override List<User> GetUserList()
+        {
+            throw new NotImplementedException();
+        }
+
         internal override bool Select(Treatment treatment, out Treatment returned)
         {
             throw new NotImplementedException();
@@ -727,6 +760,11 @@ namespace Patientenverwaltung_WPF
         }
 
         internal override List<Patient> GetPatientList()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override List<User> GetUserList()
         {
             throw new NotImplementedException();
         }

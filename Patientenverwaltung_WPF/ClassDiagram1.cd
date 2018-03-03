@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Patientenverwaltung_WPF.Patient">
+    <Position X="3.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAEAAAQAAAAAIAAAAQCAACAAIAIAAAAIAACAAEAA=</HashCode>
+      <FileName>Model\Patient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.PropertyChangedNotification">
+    <Position X="7.25" Y="3" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAoAAAAEAAQAQgABgAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Notification\PropertyChangedNotification.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.Healthinsurance">
+    <Position X="0.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAACQACAAAAIAAAAIABCAAAAA=</HashCode>
+      <FileName>Model\Healthinsurance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.ViewModel.HealthinsuranceViewModel">
+    <Position X="8.75" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQACEBABAAAAQEACsBEAAEgAgkBAEAAAAABABBCAQA=</HashCode>
+      <FileName>ViewModel\HealthinsuranceViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.PatientViewModel">
+    <Position X="11.75" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAUFARAAgAQEAAoAEAAAAIAEBAEAAhAAFABBAAAA=</HashCode>
+      <FileName>ViewModel\PatientViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.TreatmentViewModel">
+    <Position X="15" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAQBAEFABAAAAQEAAgAAAAAAAAEBAEACAAAQihBAAAA=</HashCode>
+      <FileName>ViewModel\TreatmentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.Datamodel">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAgAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Datamodel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Patientenverwaltung_WPF.Treatment">
+    <Position X="6" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAQAgAAAAAAAAAAAAAAAAAIABAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Treatment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

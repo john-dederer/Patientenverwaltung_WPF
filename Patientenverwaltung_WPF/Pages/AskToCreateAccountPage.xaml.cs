@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF.Pages
 {
@@ -32,6 +33,8 @@ namespace Patientenverwaltung_WPF.Pages
 
         private void btnYes_Click(object sender, RoutedEventArgs e)
         {
+            //UserViewModel.SharedViewModel().NewUser = new User();
+            UserViewModel.Errors = 0;
             MainWindow.UpdatePage(Constants.CreateAccountPageUri);
         }
     }

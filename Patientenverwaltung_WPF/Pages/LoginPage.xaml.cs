@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Patientenverwaltung_WPF.ViewModel;
 
 namespace Patientenverwaltung_WPF.Pages
 {
@@ -31,7 +33,15 @@ namespace Patientenverwaltung_WPF.Pages
             InitializeSettings();
 
             // Set DataContext
-            DataContext = CurrentContext.GetUser();
+            DataContext = UserViewModel.SharedViewModel();
+            btnLogin.DataContext = UserViewModel.SharedViewModel();
+
+            Loaded += LoginPage_Loaded;
+        }
+
+        private void LoginPage_Loaded(object sender, RoutedEventArgs e)
+        {           
+            UserViewModel.Errors = 0;
         }
 
         private void InitializeSettings()
@@ -102,6 +112,12 @@ namespace Patientenverwaltung_WPF.Pages
         private void btnPasswordForgotten_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.UpdatePage(Constants.ResetPasswordPageUri);
+        }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added) UserViewModel.Errors += 1;
+            if (e.Action == ValidationErrorEventAction.Removed) UserViewModel.Errors -= 1;
         }
     }
 }

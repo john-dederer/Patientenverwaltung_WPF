@@ -13,7 +13,7 @@ namespace Patientenverwaltung_WPF
 {
     public class PatientViewModel : PropertyChangedNotification
     {
-        private static PatientViewModel _PatientViewModel;
+        private static PatientViewModel _patientViewModel;
         private static ICollectionView  _collectionView = null;
         
         /// <summary>
@@ -121,7 +121,7 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         public static PatientViewModel SharedViewModel()
         {
-            return _PatientViewModel ?? (_PatientViewModel = new PatientViewModel());
+            return _patientViewModel ?? (_patientViewModel = new PatientViewModel());
         }
 
         /// <summary>

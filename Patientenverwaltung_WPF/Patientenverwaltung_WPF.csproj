@@ -96,6 +96,7 @@
       <DependentUpon>TreatmentListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\EnumBooleanConverter.cs" />
+    <Compile Include="CustomValidationAttributes\UniqueUsername.cs" />
     <Compile Include="CustomValidationAttributes\UniqueHealthinsuranceName.cs" />
     <Compile Include="CustomValidationAttributes\UniqueHealthinsuranceId.cs" />
     <Compile Include="Datastorage\Connector.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Model\Healthinsurance.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Treatment.cs" />
+    <Compile Include="PasswordStorage\PasswordHelper.cs" />
     <Compile Include="ViewModel\TreatmentViewModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Constants\Base.cs" />
@@ -158,8 +160,8 @@
     </Compile>
     <Compile Include="ViewModel\HealthinsuranceViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
-    <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
     <Page Include="Components\AddHealthinsuranceCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -335,6 +337,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
