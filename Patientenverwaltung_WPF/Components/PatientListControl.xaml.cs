@@ -77,6 +77,10 @@ namespace Patientenverwaltung_WPF
                     var selInd = GetSelectionIndicator(patientListItem);
                     selInd.Visibility = System.Windows.Visibility.Visible;
 
+                    // Remove selction indicator from last selected item
+                    if (_lastItemSelected != null) _lastItemSelected.Visibility = System.Windows.Visibility.Hidden;
+
+                    // Set the last selection indicator to newly added item
                     _lastItemSelected = selInd;
                 }
             }

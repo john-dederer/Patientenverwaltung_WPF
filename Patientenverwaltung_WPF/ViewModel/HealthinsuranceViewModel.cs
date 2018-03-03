@@ -174,7 +174,7 @@ namespace Patientenverwaltung_WPF.ViewModel
         /// <returns></returns>
         public bool CanCreate(object parameter)
         {
-            return Errors == 0 && !string.IsNullOrEmpty(NewHealthinsurance.Name);
+            return Errors == 0 && !string.IsNullOrEmpty(NewHealthinsurance.Name) && IsHIBeingCreated;
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Patientenverwaltung_WPF.ViewModel
         /// <returns></returns>
         public bool CanExecute(object parameter)
         {
-            return Errors == 0 && !string.IsNullOrEmpty(NewHealthinsurance.Name);
+            return Errors == 0 && !string.IsNullOrEmpty(NewHealthinsurance.Name) && !IsHIBeingCreated;
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Patientenverwaltung_WPF.ViewModel
         /// <returns></returns>
         public bool CanDelete(object parameter)
         {
-            return !string.IsNullOrEmpty(NewHealthinsurance.Name);
+            return !string.IsNullOrEmpty(NewHealthinsurance.Name) && !IsHIBeingCreated;
         }
 
         /// <summary>
@@ -245,6 +245,8 @@ namespace Patientenverwaltung_WPF.ViewModel
 
             Healthinsurances.Remove(NewHealthinsurance);
             Clear(this);
+
+            ShowCreateHiMask = false;
         }
 
         /// <summary>
