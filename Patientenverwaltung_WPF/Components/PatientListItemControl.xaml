@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              Height="60"
              d:DesignHeight="60" d:DesignWidth="300">
-    <Grid DataContext="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="PatientItemSelected">
+    <Grid x:Name="GridItem" DataContext="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="PatientItemSelected" Unloaded="Unloade_Event">
         <Grid.ColumnDefinitions>
             <!-- Selection Indicator -->
             <ColumnDefinition Width="Auto"/>
@@ -17,14 +17,14 @@
         </Grid.ColumnDefinitions>
 
         <!-- Selection Indicator -->
-        <Border Background="Orange" Width="5"/>
+        <Border x:Name="SelectionIndicator" Background="Orange" Width="4" Visibility="Hidden"/>
 
         <!-- Profile picture padding-->
         <Border Grid.Column="1" Padding="8">
             <!-- Profile picture background -->
             <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <!-- Profile picture initials -->
-                <TextBlock Text="{Binding Secondname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
+                <TextBlock Text="{Binding Secondname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25" Width="25"/>
             </Border>
         </Border>
 

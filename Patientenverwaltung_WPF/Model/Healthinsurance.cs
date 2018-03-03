@@ -18,12 +18,12 @@ namespace Patientenverwaltung_WPF
         }
 
         [Required]       
-        [UniqueHealthinsuranceName]
+        [UniqueHealthinsuranceName(ErrorMessage = "Name exisitert bereits")]
         [StringLength(50, ErrorMessage = "Nicht mehr als 50 Zeichen erlaubt. Mindestens 3", MinimumLength = 3)]
         public string Name
         {
             get { return GetValue(() => Name); }
-            set { SetValue(() => Name, value); }
+            set { SetValue(() => Name, value.Trim()); }
         }
 
 //        [ExcludeChar("/")]
@@ -31,7 +31,7 @@ namespace Patientenverwaltung_WPF
         public string Street
         {
             get { return GetValue(() => Street); }
-            set { SetValue(() => Street, value); }
+            set { SetValue(() => Street, value.Trim()); }
         }
 
         [Required(ErrorMessage = "Straßennummer muss angegeben werden")]

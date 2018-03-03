@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
         mc:Ignorable="d"
-        Title="Home" MinHeight="734" Height="734.262" MinWidth="1139" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
+        Title="Home" MinHeight="734" Height="734.262" MinWidth="1250" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
     <!-- SizeToContent="WidthAndHeight" -->
 
     <Grid x:Name="GridNavBarLeft">
@@ -36,7 +36,7 @@
         
         <local:Test x:Name="TestLogo" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-       <local:Searchfield Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10"/>
+       <local:Searchfield Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10"/>
 
         <!-- Add patient -->
         <local:AddPatient x:Name="AddPatientCtrl" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0"/>

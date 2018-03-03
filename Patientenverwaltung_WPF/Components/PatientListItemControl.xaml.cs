@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Patientenverwaltung_WPF
 {
@@ -29,6 +30,14 @@ namespace Patientenverwaltung_WPF
             TreatmentViewModel.SharedViewModel().FilterTreatments();
             TreatmentViewModel.SharedViewModel().ShowTreatmentListUi = true;
             TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = true;
+
+
+
+        }
+
+        private void Unloade_Event(object sender, RoutedEventArgs e)
+        {
+            var test = sender;
         }
     }
 }

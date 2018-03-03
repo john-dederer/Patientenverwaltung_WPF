@@ -3,15 +3,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
              xmlns:local="clr-namespace:Patientenverwaltung_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Storyboard x:Key="OnLoaded1"/>
+    </UserControl.Resources>
     <Grid Background="White" Visibility="{Binding ShowPatientListUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate >
                     <DataTemplate >
-                        <local:PatientListItemControl DataContext="{Binding}" MinWidth="100"/>
+                        <local:PatientListItemControl DataContext="{Binding}" MinWidth="100" MouseLeftButtonDown="PatientSelected"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

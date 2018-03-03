@@ -11,7 +11,7 @@
             <ItemsControl ItemsSource="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:HealthinsuranceListItemControl DataContext="{Binding}" MinWidth="100"/>
+                        <local:HealthinsuranceListItemControl DataContext="{Binding}" MinWidth="100" MouseLeftButtonDown="HISelected"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

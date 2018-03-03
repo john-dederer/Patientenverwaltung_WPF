@@ -21,11 +21,36 @@ namespace Patientenverwaltung_WPF
     /// </summary>
     public partial class HealthinsuranceListControl : UserControl
     {
+        private Border _lastItemSelected;
+
         public HealthinsuranceListControl()
         {
             InitializeComponent();
 
             DataContext = HealthinsuranceViewModel.SharedViewModel();
         }
+
+        private void HISelected(object sender, MouseButtonEventArgs e)
+        {
+            if (_lastItemSelected == null)
+            {
+                _lastItemSelected = GetSelectionIndicator(sender);
+                _lastItemSelected.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                _lastItemSelected.Visibility = System.Windows.Visibility.Hidden;
+
+                _lastItemSelected = GetSelectionIndicator(sender);
+                _lastItemSelected.Visibility = System.Windows.Visibility.Visible;
+            }
+        }      
+
+        internal static Border GetSelectionIndicator(object sender)
+        {
+            var grid = (Grid)((HealthinsuranceListItemControl)sender).FindName("GridItem");
+            return (Border)grid.FindName("SelectionIndicator");
+        }
+
     }
 }

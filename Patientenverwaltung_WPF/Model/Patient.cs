@@ -18,6 +18,8 @@ namespace Patientenverwaltung_WPF
             set { SetValue(() => HealthinsuranceId, value); }
         }
 
+        [Required(ErrorMessage = "Versicherungsnummer bitte angeben")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Darf nur aus Nummern bestehen")]
         public long InsuranceId
         {
             get { return GetValue(() => InsuranceId); }

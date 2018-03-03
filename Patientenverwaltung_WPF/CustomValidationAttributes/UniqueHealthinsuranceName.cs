@@ -12,7 +12,10 @@ namespace Patientenverwaltung_WPF
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var contains = HealthinsuranceViewModel.SharedViewModel().Healthinsurances.Select(x => x.Name).Equals(value.ToString());
+            var contains =
+                HealthinsuranceViewModel.SharedViewModel().Healthinsurances.ToList()
+                    .Exists(x => x.Name.Equals(value.ToString())) &&
+                HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance.Name != value.ToString();
 
             if (contains)
                 return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));

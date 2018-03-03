@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Patientenverwaltung_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
+    <Grid x:Name="GridItem" DataContext="{Binding}" Tag="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
         <!--Anfang ListItemCtrl -->
             <Grid.ColumnDefinitions>
                 <!-- Selection Indicator -->
@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
         
             <!-- Selection Indicator -->
-            <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
+            <Border x:Name="SelectionIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
 
             <!-- Profile picture padding-->
             <Border Grid.Column="1" Padding="8">
