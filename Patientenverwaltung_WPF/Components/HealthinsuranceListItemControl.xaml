@@ -6,6 +6,22 @@
              xmlns:local="clr-namespace:Patientenverwaltung_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation To="#FF67CBC6" Duration="0:0:0.3" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="GridItem"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation To="White" Duration="0:0:0.3" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="GridItem"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid x:Name="GridItem" DataContext="{Binding}" Tag="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
         <!--Anfang ListItemCtrl -->
             <Grid.ColumnDefinitions>

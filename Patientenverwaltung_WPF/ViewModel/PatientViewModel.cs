@@ -101,6 +101,15 @@ namespace Patientenverwaltung_WPF
         }
 
         /// <summary>
+        /// Indicating if currently a patient is being added
+        /// </summary>
+        public bool IsPatientBeingCreated
+        {
+            get { return GetValue(() => IsPatientBeingCreated); }
+            set { SetValue(() => IsPatientBeingCreated, value); }
+        }
+
+        /// <summary>
         /// Filter predicate for Listfiltering
         /// </summary>
         public string FilterPredicate { get; set; }
@@ -138,6 +147,7 @@ namespace Patientenverwaltung_WPF
             ShowTreatmentListUi = false;
             ShowAddPatientUi = false;
             ShowPatientListUi = false;
+            IsPatientBeingCreated = false;
         }
 
         /// <summary>
@@ -151,6 +161,8 @@ namespace Patientenverwaltung_WPF
             Patients.Add(NewPatient);
 
             TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = true;
+
+            IsPatientBeingCreated = false;
         }
 
         /// <summary>
@@ -187,18 +199,18 @@ namespace Patientenverwaltung_WPF
         /// <returns></returns>
         public bool CanCreate(object parameter)
         {
-            return Errors == 0;
+            return Errors == 0 && IsPatientBeingCreated;
         }
 
         /// <summary>
         /// Predicate for relay commands.
-        /// Checks if patient is not null
+        /// Checks if patient is not null, no errors exist and patient was selected from list
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
         public bool CanDelete(object parameter)
         {
-            return !string.IsNullOrEmpty(NewPatient.Firstname) && Errors == 0;
+            return !string.IsNullOrEmpty(NewPatient.Firstname) && Errors == 0 && !IsPatientBeingCreated;
         }
 
         /// <summary>
@@ -232,7 +244,11 @@ namespace Patientenverwaltung_WPF
             if (!Factory.Get(CurrentContext.GetSettings().Savetype).Delete(NewPatient)) return;
             Patients.Remove(NewPatient);
 
-            Clear(this);
+            ShowCreateMaskUi = false;
+            ShowTreatmentListUi = false;
+            TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = false;
+
+            Clear(this);            
         }
 
         /// <summary>

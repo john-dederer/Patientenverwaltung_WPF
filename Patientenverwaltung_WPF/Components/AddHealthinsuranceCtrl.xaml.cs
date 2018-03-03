@@ -20,6 +20,7 @@ namespace Patientenverwaltung_WPF
         {
             HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance = new Healthinsurance();
             HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = true;
+            HealthinsuranceViewModel.SharedViewModel().IsHIBeingCreated = true;
         }
     }
 }

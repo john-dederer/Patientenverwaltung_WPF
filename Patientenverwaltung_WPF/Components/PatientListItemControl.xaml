@@ -6,7 +6,25 @@
              mc:Ignorable="d" 
              Height="60"
              d:DesignHeight="60" d:DesignWidth="300">
-    <Grid x:Name="GridItem" DataContext="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="PatientItemSelected" Unloaded="Unloade_Event">
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation To="#FF67CBC6" Duration="0:0:0.3" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="GridItem"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ColorAnimation To="White" Duration="0:0:0.3" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="GridItem"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    
+    <Grid x:Name="GridItem" DataContext="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="PatientItemSelected">
         <Grid.ColumnDefinitions>
             <!-- Selection Indicator -->
             <ColumnDefinition Width="Auto"/>
@@ -28,12 +46,12 @@
             </Border>
         </Border>
 
-        
+
         <!-- Main content -->
         <StackPanel Grid.Column="2" VerticalAlignment="Center" >
             <!-- Name -->
             <TextBlock Text="{Binding Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial"/>
-            
+
             <!-- Birthday -->
             <TextBlock Text="{Binding Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>

@@ -19,6 +19,7 @@ namespace Patientenverwaltung_WPF
         {
             PatientViewModel.SharedViewModel().Clear(this);
             PatientViewModel.SharedViewModel().ShowCreateMaskUi = true;
+            PatientViewModel.SharedViewModel().IsPatientBeingCreated = true;
 
             TreatmentViewModel.SharedViewModel().FilterTreatments();
             TreatmentViewModel.SharedViewModel().ShowSearchTreatmentUi = false;

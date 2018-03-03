@@ -33,10 +33,11 @@ namespace Patientenverwaltung_WPF
         /// <param name="e"></param>
         private void UIElement_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance = DataContext as Healthinsurance;
+            HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance = DataContext as Healthinsurance;           
 
             // Update the Ui
             HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = true;
+            HealthinsuranceViewModel.SharedViewModel().IsHIBeingCreated = false;
         }
     }
 }

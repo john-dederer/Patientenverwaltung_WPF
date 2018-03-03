@@ -12,10 +12,10 @@
     </UserControl.Resources>
     <Grid Background="White" Visibility="{Binding ShowPatientListUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl x:Name="ItemsControl" ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ItemListChangedSize">
                 <ItemsControl.ItemTemplate >
                     <DataTemplate >
-                        <local:PatientListItemControl DataContext="{Binding}" MinWidth="100" MouseLeftButtonDown="PatientSelected"/>
+                        <local:PatientListItemControl x:Name="PatientItemCtrl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="PatientSelected" IsVisibleChanged="ListDisappeared" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

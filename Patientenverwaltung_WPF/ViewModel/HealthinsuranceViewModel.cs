@@ -96,6 +96,15 @@ namespace Patientenverwaltung_WPF.ViewModel
         }
 
         /// <summary>
+        /// Checks if HI is to be created
+        /// </summary>
+        public bool IsHIBeingCreated
+        {
+            get { return GetValue(() => IsHIBeingCreated); }
+            set { SetValue(() => IsHIBeingCreated, value); }
+        }
+
+        /// <summary>
         /// Filtering predicate for healthinsurance list
         /// </summary>
         public string FilterPredicate { get; set; }
@@ -131,6 +140,7 @@ namespace Patientenverwaltung_WPF.ViewModel
             ShowAddHiUi = false;
             ShowHiListUi = false;
             ChoosingHiForPatient = false;
+            IsHIBeingCreated = false;
         }
 
         /// <summary>
@@ -143,7 +153,7 @@ namespace Patientenverwaltung_WPF.ViewModel
             if (!Factory.Get(CurrentContext.GetSettings().Savetype).Create(NewHealthinsurance)) return;
             Healthinsurances.Add(NewHealthinsurance);
 
-            Clear(this);
+            IsHIBeingCreated = false;
         }
 
         /// <summary>

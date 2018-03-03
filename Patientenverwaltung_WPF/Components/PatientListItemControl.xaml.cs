@@ -11,7 +11,7 @@ namespace Patientenverwaltung_WPF
     {
         public PatientListItemControl()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         /// <summary>
@@ -25,6 +25,7 @@ namespace Patientenverwaltung_WPF
 
             // Update the Ui
             PatientViewModel.SharedViewModel().ShowCreateMaskUi = true;
+            PatientViewModel.SharedViewModel().IsPatientBeingCreated = false;
 
             // Show only treatments for patient
             TreatmentViewModel.SharedViewModel().FilterTreatments();
@@ -33,11 +34,6 @@ namespace Patientenverwaltung_WPF
 
 
 
-        }
-
-        private void Unloade_Event(object sender, RoutedEventArgs e)
-        {
-            var test = sender;
         }
     }
 }

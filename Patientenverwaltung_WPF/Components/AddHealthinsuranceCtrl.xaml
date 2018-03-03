@@ -21,7 +21,7 @@
                     <Line X1="20" Y1="8" X2="20" Y2="14" Name="Line6" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                     <Line X1="23" Y1="11" X2="17" Y2="11" Name="Line8" StrokeThickness="2" Stroke="#FF0576C5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                 </Canvas>
-                <Label Content="Krankenversicherung hinzufügen" ToolTip="Krankenversicherung hinzufügen" Margin="10" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0576C5" FontSize="18" Height="50" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label Content="Krankenversicherung hinzufügen" ToolTip="Krankenversicherung hinzufügen" Margin="10" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0576C5" FontSize="17.5" Height="50" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

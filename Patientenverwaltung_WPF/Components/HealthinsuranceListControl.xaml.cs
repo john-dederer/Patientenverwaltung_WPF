@@ -30,6 +30,10 @@ namespace Patientenverwaltung_WPF
             DataContext = HealthinsuranceViewModel.SharedViewModel();
         }
 
+        /// <summary>
+        /// When list item is selected, make the selection indicator visible
+        /// </summary>
+        /// <param name="sender">ListItem</param>      
         private void HISelected(object sender, MouseButtonEventArgs e)
         {
             if (_lastItemSelected == null)
@@ -46,11 +50,52 @@ namespace Patientenverwaltung_WPF
             }
         }      
 
+        /// <summary>
+        /// Helper method to return the selection indicator from the selected list item
+        /// </summary>
+        /// <param name="sender">ListItem</param>
+        /// <returns></returns>
         internal static Border GetSelectionIndicator(object sender)
         {
             var grid = (Grid)((HealthinsuranceListItemControl)sender).FindName("GridItem");
             return (Border)grid.FindName("SelectionIndicator");
         }
 
+        /// <summary>
+        /// Is triggered when the UI changes to an other view
+        /// </summary>
+        /// <param name="sender">ListItem</param>
+        private void ListDisappeared(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            var border = GetSelectionIndicator(sender);
+            border.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Triggered when listsize changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemListChangedSize(object sender, SizeChangedEventArgs e)
+        {  
+            // Check if we have to set the selection indicator
+            if (!string.IsNullOrEmpty(HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance.Name))
+            {
+                // Find HI in list which was just added
+                foreach (var curItem in ItemsControl.Items)
+                {
+                    var hiModel = curItem as Healthinsurance;
+
+                    if (hiModel.GetHashCode() != HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance.GetHashCode()) continue;
+
+                    var container = ItemsControl.ItemContainerGenerator.ContainerFromItem(curItem) as FrameworkElement;
+                    var hiListItem = ItemsControl.ItemTemplate.FindName("HIItemControl", container) as HealthinsuranceListItemControl;
+                    var selInd = GetSelectionIndicator(hiListItem);
+                    selInd.Visibility = System.Windows.Visibility.Visible;
+
+                    _lastItemSelected = selInd;
+                }            
+            }
+        }
     }
 }

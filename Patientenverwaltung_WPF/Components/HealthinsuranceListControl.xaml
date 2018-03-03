@@ -8,10 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="White" Visibility="{Binding ShowHiListUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl x:Name="ItemsControl" ItemsSource="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ItemListChangedSize">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:HealthinsuranceListItemControl DataContext="{Binding}" MinWidth="100" MouseLeftButtonDown="HISelected"/>
+                        <local:HealthinsuranceListItemControl x:Name="HIItemControl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="HISelected" IsVisibleChanged="ListDisappeared"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
