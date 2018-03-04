@@ -11,7 +11,7 @@
             <ItemsControl x:Name="ItemsControl" ItemsSource="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ItemListChangedSize">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:HealthinsuranceListItemControl x:Name="HIItemControl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="HISelected" Height="60" IsVisibleChanged="ListDisappeared"/>
+                        <local:HealthinsuranceListItemControl x:Name="HIItemControl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="HISelected" Height="60" IsVisibleChanged="ListDisappeared" Loaded="HIItemControl_OnLoaded"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

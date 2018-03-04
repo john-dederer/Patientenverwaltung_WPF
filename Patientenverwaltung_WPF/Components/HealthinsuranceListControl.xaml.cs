@@ -101,5 +101,30 @@ namespace Patientenverwaltung_WPF
                 }            
             }
         }
+
+        private void HIItemControl_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (HealthinsuranceViewModel.SharedViewModel().IsHIBeingUpdated)
+            {
+                // Find HI in list which was just added
+                foreach (var curItem in ItemsControl.Items)
+                {
+                    var hiModel = curItem as Healthinsurance;
+
+                    if (hiModel.GetHashCode() != HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance.GetHashCode()) continue;
+
+                    var container = ItemsControl.ItemContainerGenerator.ContainerFromItem(curItem) as FrameworkElement;
+                    var hiListItem = ItemsControl.ItemTemplate.FindName("HIItemControl", container) as HealthinsuranceListItemControl;
+
+                    var selInd = GetSelectionIndicator(hiListItem);
+                    selInd.Visibility = Visibility.Visible;
+
+                    // Set the last selection indicator to newly updated item
+                    _lastItemSelected = selInd;
+
+                    HealthinsuranceViewModel.SharedViewModel().IsHIBeingUpdated = false;
+                }
+            }
+        }
     }
 }

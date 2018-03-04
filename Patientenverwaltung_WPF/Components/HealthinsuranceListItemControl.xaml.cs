@@ -23,7 +23,7 @@ namespace Patientenverwaltung_WPF
     {
         public HealthinsuranceListItemControl()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         /// <summary>
@@ -38,6 +38,13 @@ namespace Patientenverwaltung_WPF
             // Update the Ui
             HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = true;
             HealthinsuranceViewModel.SharedViewModel().IsHIBeingCreated = false;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var healthinsurance = DataContext as Healthinsurance;
+            if (healthinsurance.State == HealthinsuranceState.ByLaw) { HIByLawIcon.Visibility = Visibility.Visible; }
+            else { HiPrivateIcon.Visibility = Visibility.Visible; }            
         }
     }
 }

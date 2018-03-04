@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Patientenverwaltung_WPF
@@ -34,6 +35,40 @@ namespace Patientenverwaltung_WPF
 
 
 
+        }
+
+        private void GridItem_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var patient = DataContext as Patient;
+
+            var ageSpan = DateTime.Now.Subtract(patient.Birthday);
+            var age = new DateTime(ageSpan.Ticks).Year - 1;
+
+            if (age <= 3)
+            {
+                // baby
+                BabyIcon.Visibility = Visibility.Visible;
+            }
+            else if (age <= 15)
+            {
+                // child
+                ChildIcon.Visibility = Visibility.Visible;
+            }
+            else if (age <= 21)
+            {
+                // teenager
+                TeenagerIcon.Visibility = Visibility.Visible;
+            }
+            else if (age <= 55)
+            {
+                // adult
+                AdultIcon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // elderly
+                ElderlyIcon.Visibility = Visibility.Visible;
+            }
         }
     }
 }

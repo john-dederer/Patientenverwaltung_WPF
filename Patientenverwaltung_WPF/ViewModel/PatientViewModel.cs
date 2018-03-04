@@ -110,10 +110,14 @@ namespace Patientenverwaltung_WPF
         }
 
         /// <summary>
+        /// Indicating if currently a patient is being updated
+        /// </summary>
+        public bool IsPatientBeingUpdated { get; set; }
+
+        /// <summary>
         /// Filter predicate for Listfiltering
         /// </summary>
-        public string FilterPredicate { get; set; }
-
+        public string FilterPredicate { get; set; }        
 
         /// <summary>
         /// Viewmodel used as the datacontext in the view
@@ -148,6 +152,7 @@ namespace Patientenverwaltung_WPF
             ShowAddPatientUi = false;
             ShowPatientListUi = false;
             IsPatientBeingCreated = false;
+            IsPatientBeingUpdated = false;
         }
 
         /// <summary>
@@ -221,6 +226,12 @@ namespace Patientenverwaltung_WPF
         public void Update(object parameter)
         {
             Factory.Get(CurrentContext.GetSettings().Savetype).Update(NewPatient);
+
+            IsPatientBeingUpdated = true;
+
+            var index = Patients.IndexOf(NewPatient);
+            Patients.Remove(NewPatient);
+            Patients.Insert(index, NewPatient);
         }
 
         /// <summary>

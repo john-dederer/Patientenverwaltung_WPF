@@ -15,7 +15,7 @@
             <ItemsControl x:Name="ItemsControl" ItemsSource="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="ItemListChangedSize">
                 <ItemsControl.ItemTemplate >
                     <DataTemplate >
-                        <local:PatientListItemControl x:Name="PatientItemCtrl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="PatientSelected" IsVisibleChanged="ListDisappeared" />
+                        <local:PatientListItemControl x:Name="PatientItemCtrl" DataContext="{Binding}" MinWidth="330" MouseLeftButtonDown="PatientSelected" IsVisibleChanged="ListDisappeared" Loaded="PatientItemCtrl_OnLoaded"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

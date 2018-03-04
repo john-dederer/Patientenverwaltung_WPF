@@ -85,5 +85,30 @@ namespace Patientenverwaltung_WPF
                 }
             }
         }
+
+        private void PatientItemCtrl_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (PatientViewModel.SharedViewModel().IsPatientBeingUpdated)
+            {
+                // Find HI in list which was just added
+                foreach (var curItem in ItemsControl.Items)
+                {
+                    var patientModel = curItem as Patient;
+
+                    if (patientModel.GetHashCode() != PatientViewModel.SharedViewModel().NewPatient.GetHashCode()) continue;
+
+                    var container = ItemsControl.ItemContainerGenerator.ContainerFromItem(curItem) as FrameworkElement;
+                    var hiListItem = ItemsControl.ItemTemplate.FindName("PatientItemCtrl", container) as PatientListItemControl;
+
+                    var selInd = GetSelectionIndicator(hiListItem);
+                    selInd.Visibility = Visibility.Visible;
+
+                    // Set the last selection indicator to newly updated item
+                    _lastItemSelected = selInd;
+
+                    PatientViewModel.SharedViewModel().IsPatientBeingUpdated = false;
+                }
+            }
+        }
     }
 }

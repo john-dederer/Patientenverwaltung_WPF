@@ -105,6 +105,15 @@ namespace Patientenverwaltung_WPF.ViewModel
         }
 
         /// <summary>
+        /// Checks if HI is to be updated
+        /// </summary>
+        public bool IsHIBeingUpdated
+        {
+            get { return GetValue(() => IsHIBeingUpdated); }
+            set { SetValue(() => IsHIBeingUpdated, value); }
+        }
+
+        /// <summary>
         /// Filtering predicate for healthinsurance list
         /// </summary>
         public string FilterPredicate { get; set; }
@@ -141,6 +150,7 @@ namespace Patientenverwaltung_WPF.ViewModel
             ShowHiListUi = false;
             ChoosingHiForPatient = false;
             IsHIBeingCreated = false;
+            IsHIBeingUpdated = false;
         }
 
         /// <summary>
@@ -207,6 +217,12 @@ namespace Patientenverwaltung_WPF.ViewModel
         public void Update(object parameter)
         {
             Factory.Get(CurrentContext.GetSettings().Savetype).Update(NewHealthinsurance);
+            IsHIBeingUpdated = true;
+
+            var index = Healthinsurances.IndexOf(NewHealthinsurance);
+
+            Healthinsurances.Remove(NewHealthinsurance);
+            Healthinsurances.Insert(index, NewHealthinsurance);
         }
 
         /// <summary>

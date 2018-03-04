@@ -22,7 +22,8 @@
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
-    <Grid x:Name="GridItem" DataContext="{Binding}" Tag="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
+    <Grid x:Name="GridItem" DataContext="{Binding}" Tag="{Binding}" Background="White" MinWidth="120" MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown" Loaded="OnLoaded">
+
         <!--Anfang ListItemCtrl -->
             <Grid.ColumnDefinitions>
                 <!-- Selection Indicator -->
@@ -35,24 +36,38 @@
         
             <!-- Selection Indicator -->
             <Border x:Name="SelectionIndicator" Background="Orange" Width="4" Visibility="Hidden"/>
+        
+        <Canvas x:Name="HiPrivateIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Height="25" Width="25" Grid.Column="1" Visibility="Hidden" Margin="5,0">
+            <Path Name="path3722" Fill="#000000" Data="M6 7v-7h13v10h5v14h-23v-17h5zm0 16v-4h-1v4h1zm8-4h-3v4h3v-4zm6 0h-1v4h1v-4zm2-7h-3v6h2v4h1v-10zm-5-10h-9v20h1v-5h7v5h1v-20zm-13 20v-4h2v-9h-3v13h1zm17-6h-1v-2h1v2zm-17-2h1v2h-1v-2zm8 1h-2v-2h2v2zm3 0h-2v-2h2v2zm-10-4v2h-1v-2h1zm7 1h-2v-2h2v2zm3 0h-2v-2h2v2zm-3-3h-2v-2h2v2zm3 0h-2v-2h2v2zm-3-3h-2v-2h2v2zm3 0h-2v-2h2v2z"/>
+        </Canvas>
+        <Canvas x:Name="HIByLawIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="24" Height="24" Grid.Column="1" Visibility="Hidden"  Margin="5,0">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3742" Fill="#000000" Data="M24 24h-24v-2h.998l.009-6h21.993v6h1v2zm-3-6h-18v4h2v-2c0-.552.448-1 1-1s1 .448 1 1v2h2v-2c0-.552.448-1 1-1s1 .448 1 1v2h2v-2c0-.552.448-1 1-1s1 .448 1 1v2h2v-2c0-.552.448-1 1-1s1 .448 1 1v2h2v-4zm2-3h-21.991l.003-2h3.988v-3h2v3h2v-3h2v3h2v-3h2v3h2v-3h2v3h4v2zm-8-13h-3v1c2.966 0 6.158 1.979 7 6h-14c.547-3.78 3.638-5.827 6-6v-3h4v2zm.954 5c-.88-1.1-2.229-2-3.954-2-1.96 0-3.264.837-4.086 2h8.04z"/>
+        </Canvas>
+        <!--
+        <Border Grid.Column="1" Padding="8">
 
-            <!-- Profile picture padding-->
-            <Border Grid.Column="1" Padding="8">
-                <!-- Profile picture background -->
-                <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                    <!-- Profile picture initials -->
-                <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
-                </Border>
+            <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+
+                <TextBlock Style="{DynamicResource ItemControl}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextTrimming="WordEllipsis" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
             </Border>
-
-
-            <!-- Main content -->
+        </Border>
+        -->
+        
+        
+        <!-- Main content -->
             <StackPanel Grid.Column="2" VerticalAlignment="Center" >
                 <!-- Name -->
-                <TextBlock Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial"/>
+            <TextBlock Style="{DynamicResource ItemControl}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Birthday -->
-                <TextBlock Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock  Style="{DynamicResource ItemControl}"  >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="Postalcode" />
+                        <Binding Path="City"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
             </StackPanel>
         </Grid>
         <!-- Ende ListItemCtrl -->
