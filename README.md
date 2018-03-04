@@ -34,6 +34,9 @@ Das Layout ist inspiriert von diesem Mockup:
 
 https://github.com/icons8/WPF-UI-Framework/blob/master/WPF%20Framework.png
 
+___
+Präsentation:
 
+Eine Prezi zu diesem Projekt kann [hier](http://prezi.com/tdwwnjwaxdfe/?utm_campaign=share&utm_medium=copy&rc=ex0share) gefunden werden.
 ___
 Viele Lösungen zu unseren Problemen kamen von Stackoverflow.
