@@ -56,6 +56,7 @@
         <Setter Property="BorderBrush" Value="#FF0576C5"/>
         <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="Padding" Value="5,0"/>
+        <Setter Property="Background" Value="White"/>
         
         <Style.Triggers>
             <EventTrigger RoutedEvent="MouseEnter">
@@ -83,6 +84,7 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
         
     </Style>
     

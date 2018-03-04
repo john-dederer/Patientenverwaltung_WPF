@@ -29,10 +29,9 @@ namespace Patientenverwaltung_WPF
             InitializeComponent();
 
             Treatment = new Treatment
-            {
- 
-                    PatientId = patientId
-                           
+            { 
+                    PatientId = patientId,
+                    Date = DateTime.Now                           
             };
 
 
