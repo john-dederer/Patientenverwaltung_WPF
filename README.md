@@ -24,12 +24,13 @@ Das Programm ist, da mit WPF erstellt, nur auf Windows Betriebssystemen lauffäh
 
 ___
 ## NuGet-Pakete die verwendet wurden:
-
-- https://github.com/Fody/Costura            (Dll in .exe embedden)
-- https://github.com/JamesNK/Newtonsoft.Json (JSON / XML Framework)
+NuGet Paket | Link | Beschreibung
+--- | --- | ---
+Fody.Costura | https://github.com/Fody/Costura | Dll in .exe embedden
+Newtonsoft.Json | https://github.com/JamesNK/Newtonsoft.Json | JSON / XML Framework
 
 ___
-## Icon Websites die verwendet wurde:
+## Icon Websites die verwendet wurden:
 
 - https://fontawesome.com
 - https://iconmonstr.com
