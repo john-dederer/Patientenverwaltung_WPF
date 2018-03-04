@@ -25,105 +25,33 @@
                     </Grid.RowDefinitions>
 
                     <!-- Labels -->
-                    <Label x:Name="lblFirstname" Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="0" Width="67.43"/>
-                    <Label x:Name="lblSecondname" Content="Nachname" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="2" Width="80.167"/>
-                    <Label x:Name="lblStreet" Content="Straße" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="1" Grid.Column="0" Width="48.477"/>
-                    <Label x:Name="lblStreetnumber" Content="Straßennummer" HorizontalAlignment="Left" Margin="9.996,10,10,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="1" Width="121.854"/>
-                    <Label x:Name="lblPostalcode" Content="Postleitzahl" HorizontalAlignment="Left" Margin="10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="2" Grid.Column="0" Width="86.827"/>
-                    <Label x:Name="lblCity" Content="Stadt" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="2" Width="39.54"/>
-                    <Label x:Name="lblBirthday" Content="Geburtstag" HorizontalAlignment="Left" Margin="10,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="3" Grid.Column="0" Width="84.47"/>
-                    <Label x:Name="lblPhonenumber" Content="Telefonnummer" HorizontalAlignment="Left" Margin="9.998,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3" Width="119.087"/>
-                    <Label x:Name="lblInsuranceId" Content="Versicherungsnummer" HorizontalAlignment="Left" Margin="9.998,10.5,5,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="0" Grid.Row="4" Width="Auto"/>
+                    <Label x:Name="lblFirstname" Content="Vorname"  Margin="10,10,0,10" Height="30" FontSize="16" Grid.Row="0" Grid.Column="0"/>
+                    <Label x:Name="lblSecondname" Content="Nachname"  Margin="9.996,10,0,10" Height="30" FontSize="16" Grid.Row="0" Grid.Column="2"/>
+                    <Label x:Name="lblStreet" Content="Straße"  Margin="10,10,0,10" Height="30" FontSize="16" Grid.Row="1" Grid.Column="0"/>
+                    <Label x:Name="lblStreetnumber" Content="Straßennummer"  Margin="9.996,10,10,10" Height="30" FontSize="16" Grid.Column="2" Grid.Row="1"/>
+                    <Label x:Name="lblPostalcode" Content="Postleitzahl"  Margin="10" Height="30" FontSize="16" Grid.Row="2" Grid.Column="0"/>
+                    <Label x:Name="lblCity" Content="Stadt"  Margin="9.996,10,0,10" Height="30" FontSize="16" Grid.Column="2" Grid.Row="2"/>
+                    <Label x:Name="lblBirthday" Content="Geburtstag"  Margin="10,10.5,0,9.5" Height="30" FontSize="16" Grid.Row="3" Grid.Column="0"/>
+                    <Label x:Name="lblPhonenumber" Content="Telefonnummer"  Margin="9.998,10.5,0,9.5" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3"/>
+                    <Label x:Name="lblInsuranceId" Content="Versicherungsnummer"  Margin="9.998,10.5,5,9.5" Height="30" FontSize="16" Grid.Column="0" Grid.Row="4"/>
 
                     <!-- Textboxes -->
-                <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="1">
-                    <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">   
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxSecondname" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Secondname, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="2">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxStree" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Street, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="3">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxStreetnumber" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Streetnumber, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="4">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxPostalcode" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Postalcode, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="5">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding City, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" MaxWidth="170" TabIndex="6">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Phonenumber, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="8">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-                <TextBox x:Name="txtBoxInsuranceId" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding InsuranceId, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="9">
-                    <TextBox.Style>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Style.Triggers>
-                                <Trigger Property="Validation.HasError" Value="True">
-                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
+                <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" MinWidth="180" Margin="0,10"  Height="30" Text="{Binding Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="1"/>
+          
+                <TextBox x:Name="txtBoxSecondname" Grid.Row="0" Grid.Column="3" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Secondname, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="2"/>
+                    
+                <TextBox x:Name="txtBoxStree" Grid.Row="1" Grid.Column="1" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Street, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="3"/>
+                  
+                <TextBox x:Name="txtBoxStreetnumber" Grid.Row="1" Grid.Column="3" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Streetnumber, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="4"/>
+                   
+                <TextBox x:Name="txtBoxPostalcode" Grid.Row="2" Grid.Column="1" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Postalcode, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="5"/>
+                    
+                <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding City, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" MaxWidth="170" TabIndex="6"/>
+                    
+                <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Phonenumber, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="8"/>
+                    
+                <TextBox x:Name="txtBoxInsuranceId" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding InsuranceId, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="9"/>
+                   
                 <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Height="30" SelectedDate="{Binding Birthday, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error"/>
 
                 </Grid>
@@ -137,11 +65,11 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <Button x:Name="btnAddPatient" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Patient anlegen" Background="White" Margin="10,0" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Command="{Binding CreateCommand}" Width="130"/>
-                <Button x:Name="btnUpdatePatient" Grid.Column="1" Grid.Row="0" Content="Patient ändern" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Command="{Binding UpdateCommand}" Width="130"/>
-                <Button x:Name="btnAddTreatmentForPatient" Grid.Column="2" Grid.Row="0" Content="Behandlung erfassen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Command="{Binding CreateTreatmentCommand}" Width="130"/>
-                <Button x:Name="btnChooseHI" Grid.Column="3" Grid.Row="0" Content="KV wählen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Command="{Binding ChooseHealthinsuranceCommand}" Width="130"/>
-                <Button x:Name="btnDeletePatient" Grid.Column="4" Grid.Row="0" Content="Patient löschen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Command="{Binding DeleteCommand}" Width="130"/>
+                <Button x:Name="btnAddPatient" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Patient anlegen" Background="White" Margin="10,0" FontWeight="Bold"   Command="{Binding CreateCommand}" Width="130"/>
+                <Button x:Name="btnUpdatePatient" Grid.Column="1" Grid.Row="0" Content="Patient ändern" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White"  Margin="10,0" FontWeight="Bold"  Command="{Binding UpdateCommand}" Width="130"/>
+                <Button x:Name="btnAddTreatmentForPatient" Grid.Column="2" Grid.Row="0" Content="Behandlung erfassen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White"  Margin="10,0" FontWeight="Bold"  Command="{Binding CreateTreatmentCommand}" Width="140"/>
+                <Button x:Name="btnChooseHI" Grid.Column="3" Grid.Row="0" Content="KV wählen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" Margin="10,0" FontWeight="Bold"  Command="{Binding ChooseHealthinsuranceCommand}" Width="130"/>
+                <Button x:Name="btnDeletePatient" Grid.Column="4" Grid.Row="0" Content="Patient löschen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" Margin="10,0" Command="{Binding DeleteCommand}" Width="130" Foreground="IndianRed" BorderBrush="IndianRed"/>
 
             </Grid>
         </StackPanel>

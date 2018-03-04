@@ -9,7 +9,7 @@
         <Border
             BorderThickness="2"
             VerticalAlignment="Center"
-            CornerRadius="5" Background="LightGray">
+            CornerRadius="5" Background="WhiteSmoke">
             <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
                 <Canvas Name="Svg6" Width="24" Height="24">
                     <Canvas.RenderTransform>
@@ -21,7 +21,7 @@
                     <Ellipse Canvas.Left="3" Canvas.Top="3" Width="16" Height="16" Name="Circle2" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                     <Line X1="21" Y1="21" X2="16.65" Y2="16.65" Name="Line4" StrokeThickness="2" Stroke="#FF9B9B9B" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
                 </Canvas>
-                <TextBox x:Name="txtSearch" ToolTip="Suchen" Width="280" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF9B9B9B" HorizontalAlignment="Left" FontSize="18" SelectionBrush="{x:Null}" Margin="5,0,0,0" TextChanged="TextChanged"/>
+                <TextBox x:Name="txtSearch" ToolTip="Suchen" Width="280" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="WhiteSmoke" BorderBrush="{x:Null}" Foreground="#FF474747" HorizontalAlignment="Left" FontSize="18" Margin="5,0,0,0" TextChanged="TextChanged"/>
             </StackPanel>
         </Border>
     </Grid>

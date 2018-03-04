@@ -27,16 +27,7 @@
             <ColumnDefinition Width="160.862"/>
             <ColumnDefinition Width="49.978"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,183.762,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" Padding="0,2" TabIndex="1" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
+        <TextBox x:Name="txtBoxUsername" HorizontalAlignment="Right" Height="31.236" Margin="0,183.762,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321.862" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" TabIndex="1" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
         
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="18.828" Margin="0,164.934,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112.526" Foreground="White"><Run Text="Username"/><LineBreak/><Run/></TextBlock>

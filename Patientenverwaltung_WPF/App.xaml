@@ -9,9 +9,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Simple Styles.xaml"/>
                 <ResourceDictionary Source="Resources.xaml"/>
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Color x:Key="BackgroundColor">#FF194687</Color>
-        </ResourceDictionary>
 
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

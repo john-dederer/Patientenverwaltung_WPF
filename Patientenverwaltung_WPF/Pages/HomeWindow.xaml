@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patientenverwaltung_WPF"
         mc:Ignorable="d"
-        Title="Home" MinHeight="734" Height="734.262" MinWidth="1250" Width="1139.439" MaxHeight="1080" MaxWidth="1920">
+        Title="Home" MinHeight="734" Height="734.262" MinWidth="1300" MaxHeight="1080" MaxWidth="1300">
     <!-- SizeToContent="WidthAndHeight" -->
 
     <Grid x:Name="GridNavBarLeft">
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" Width="100" MaxWidth="100"/>
-            <ColumnDefinition Width="110*"/>
-            <ColumnDefinition Width="253*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -42,259 +42,22 @@
         <local:AddPatient x:Name="AddPatientCtrl" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="Auto" Margin="10,0,0,0"/>
 
         <local:CreatePatient x:Name="CreatePatientMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <!-- Create Patient mask -->
-        <!--
-        <Grid x:Name="CreatePatientMask" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" DataContext="{Binding Patient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="70"/>
-            </Grid.RowDefinitions>
-
-           
-            <Label x:Name="lblFirstname" Content="Vorname" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="0" Width="67.43"/>
-            <Label x:Name="lblSecondname" Content="Nachname" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="0" Grid.Column="2" Width="80.167"/>
-            <Label x:Name="lblStreet" Content="Straße" HorizontalAlignment="Left" Margin="10,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="1" Grid.Column="0" Width="48.477"/>
-            <Label x:Name="lblStreetnumber" Content="Straßennummer" HorizontalAlignment="Left" Margin="9.996,10,10,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="1" Width="121.854"/>
-            <Label x:Name="lblPostalcode" Content="Postleitzahl" HorizontalAlignment="Left" Margin="10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="2" Grid.Column="0" Width="86.827"/>
-            <Label x:Name="lblCity" Content="Stadt" HorizontalAlignment="Left" Margin="9.996,10,0,10" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="2" Width="39.54"/>
-            <Label x:Name="lblBirthday" Content="Geburtstag" HorizontalAlignment="Left" Margin="10,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Row="3" Grid.Column="0" Width="84.47"/>
-            <Label x:Name="lblPhonenumber" Content="Telefonnummer" HorizontalAlignment="Left" Margin="9.998,10.5,0,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3" Width="119.087"/>
-            <Label x:Name="lblInsuranceId" Content="Versicherungsnummer" HorizontalAlignment="Left" Margin="9.998,10.5,5,9.5" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="30" FontSize="16" Grid.Column="0" Grid.Row="4" Width="Auto"/>
-
-           
-            <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Firstname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="1"/>
-            <TextBox x:Name="txtBoxSecondname" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Secondname, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="2"/>
-            <TextBox x:Name="txtBoxStree" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Street, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="3"/>
-            <TextBox x:Name="txtBoxStreetnumber" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Streetnumber, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="4"/>
-            <TextBox x:Name="txtBoxPostalcode" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Postalcode, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="5"/>
-            <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.City, UpdateSourceTrigger=PropertyChanged}" TabIndex="6"/>
-            <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.Phonenumber, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="8"/>
-            <TextBox x:Name="txtBoxInsuranceId" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Margin="0,10" BorderBrush="{x:Null}" Background="#FFEAEAEA" Height="30" Text="{Binding Path=Patient.InsuranceId, UpdateSourceTrigger=PropertyChanged}" Width="Auto" TabIndex="9"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Height="30" SelectedDate="{Binding Path=Patient.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Button x:Name="btnAddPatient" IsEnabled="True" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="30" Content="Patient anlegen" Background="White" Margin="10,0" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Click="AddPatient"/>
-            <Button x:Name="btnUpdatePatient" Grid.Column="0" Grid.Row="5" Content="Patient ändern" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="UpdatePatient"/>
-            <Button x:Name="btnAddTreatmentForPatient" Grid.Column="1" Grid.Row="5" Content="Behandlung erfassen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="AddTreatment"/>
-            <Button x:Name="btnChooseHI" Grid.Column="2" Grid.Row="5" Content="Krankenversicherung wählen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="ChooseHealthinsurance"/>
-            <Button x:Name="btnDeletePatient" Grid.Column="3" Grid.Row="5" Content="Patient löschen" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Background="White" BorderBrush="LightGray" Margin="10,0" FontWeight="Bold" BorderThickness="2" Click="DeletePatient"/>
-        </Grid>
-        -->
 
 
         <local:SearchTreatments Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5"/>
 
         <local:TreatmentListControl Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="top" Margin="0, 80"/>
         <local:PatientListControl x:Name="Patientlist" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
-        
-        <!--
-        <Grid x:Name="Patientlist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Patients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            
- 
-                            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Loaded="PatientGridItem_Loaded">
-                                <Grid.ColumnDefinitions>
-
-                                    <ColumnDefinition Width="Auto"/>
-
-                                    <ColumnDefinition Width="Auto"/>
-
-                                    <ColumnDefinition Width="80*"/>
-                                </Grid.ColumnDefinitions>
-
-
-                                <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
-
-                                <Border Grid.Column="1" Padding="8">
-                                    
-                                    <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        
-                                        <TextBlock Text="{Binding Secondname}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
-                                    </Border>
-                                </Border>
-
-
-                                
-                                <StackPanel Grid.Column="2" VerticalAlignment="Center" >
-                                    
-                                    <TextBlock Text="{Binding Firstname}" FontFamily="Arial"/>
-
-                                    
-                                    <TextBlock Text="{Binding Birthday}"/>
-                                </StackPanel>
-                            </Grid>
-                            
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-        -->
+       
         
         <!-- Add Healthinsurance -->
         <local:AddHealthinsuranceCtrl x:Name="AddHealthinsuranceCtrl" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Margin="10,0,0,0"/>
 
-        <local:CreateHealthinsurance  x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
-        
-        <!-- Bleibt vorläufig bis code behind in MVVM pattern verschwunden ist -->
-        <!--
-        <Grid x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" Visibility="Hidden" DataContext="{Binding Healthinsurance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            
-
-            <Grid.Resources>
-                <conv:EnumBooleanConverter x:Key="enumBooleanConverter" />
-            </Grid.Resources>
-           
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-
-            <Label Grid.Column="0" Grid.Row="0" Content="Name"/>
-            <Label Grid.Column="0" Grid.Row="1" Content="Strasse"/>
-            <Label Grid.Column="2" Grid.Row="1" Content="Nummer"/>
-            <Label Grid.Column="0" Grid.Row="2" Content="PLZ"/>
-            <Label Grid.Column="2" Grid.Row="2" Content="Stadt"/>
-            <RadioButton IsChecked="{Binding State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Private}"  Grid.Column="0" Grid.Row="3" Content="Privatversicherung" Margin="10, 0" />
-            <RadioButton IsChecked="{Binding State, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ByLaw}" Grid.Column="1" Grid.Row="3" Content="Gesetzliche Versicherung" Margin="10, 0"/>
-
-            <TextBox x:Name="HIName" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5" MinWidth="100" Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox x:Name="HIStreet" Grid.Column="1" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Street, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-                </TextBox>
-            <TextBox x:Name="HIStreetnumber" Grid.Column="3" Grid.Row="1" Margin="5" MinWidth="100" Text="{Binding Streetnumber, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox x:Name="HIPostalcode" Grid.Column="1" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding Postalcode,  Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-            <TextBox x:Name="HICity" Grid.Column="3" Grid.Row="2" Margin="5" MinWidth="100" Text="{Binding City,  Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
-
-            <Button x:Name="btnAddHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung anlegen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding Path=Healthinsurancetest.NewHealthinsurance.CreateCommand}"/>
-            <Button x:Name="btnUpdateHI" Grid.Column="0" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung ändern" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding UpdateCommand}"/>
-            <Button x:Name="btnHIChosen" Grid.Column="1" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung wählen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding ChooseCommand}"/>
-            <Button x:Name="btnDeleteHI" Grid.Column="2" Grid.Row="4" Height="30" Margin="10" Content="Krankenversicherung löschen" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="2" Background="white" Command="{Binding DeleteCommand}"/>
-        </Grid>
-        -->
-        <!-- Healthinsurance Mask end -->
+        <local:CreateHealthinsurance  x:Name="CreateHealthinsuranceMask" Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+   
 
         <local:HealthinsuranceListControl x:Name="Healthinsurancelist" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        
-        <!-- Vorläufig nur auskommentiert lassen, bis Codebehind in MVVM Pattern verschwunden ist -->
-        <!--
-        <Grid x:Name="Healthinsurancelist" Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding Healthinsurances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" Visibility="Hidden">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="HIItemsCtrl" ItemsSource="{Binding}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-
-                            
-                            <Grid x:Name="PleaseGod" DataContext="{Binding}" Tag="{Binding}" Background="White" MouseLeftButtonDown="SelectHealthinsuranceFromList" Loaded="HIGridItem_Loaded" >
-                                <Grid.ColumnDefinitions>
-                                    
-                                    <ColumnDefinition Width="Auto"/>
-                                    
-                                    <ColumnDefinition Width="Auto"/>
-                                    
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                               
-                                <Border x:Name="selIndicator" Background="Orange" Width="5" Visibility="Hidden"/>
-
-                                
-                                <Border Grid.Column="1" Padding="8">
-                                    
-                                    <Border Background="LightGreen" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                                        
-                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"/>
-                                    </Border>
-                                </Border>
-
-
-                                
-                                <StackPanel Grid.Column="2" VerticalAlignment="Center" >
-                                    
-                                    <TextBlock Text="{Binding Street}" FontFamily="Arial"/>
-
-                                    
-                                    <TextBlock Text="{Binding City}"/>
-                                </StackPanel>
-                            </Grid>
-                            
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-        -->
+       
 
     </Grid>
 </Window>
