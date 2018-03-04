@@ -44,7 +44,7 @@
         <Button x:Name="btnCreateAccount" Content="Konto erstellen" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="86.84,506.09,0,0" Style="{DynamicResource SimpleButton}" VerticalAlignment="Top" Width="147.751" Background="#FF0414AE" Foreground="White" BorderBrush="{x:Null}" Grid.ColumnSpan="2" Click="btnCreateAccount_Click" TabIndex="5"/>
         <local1:Test Grid.ColumnSpan="2" Grid.Column="1" Margin="135.751,28.667,136.111,472.423"/>
         
-        <PasswordBox x:Name="passwordBox" local1:PasswordHelper.Attach="True" local1:PasswordHelper.Password="{Binding Text, ElementName=plainPw, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="321.862" Grid.ColumnSpan="2" Height="31.268" VerticalContentAlignment="Center" TabIndex="2"/>
+        <PasswordBox x:Name="passwordBox" local1:PasswordHelper.Attach="True" local1:PasswordHelper.Password="{Binding Text, ElementName=plainPw, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,283.876,0,0" VerticalAlignment="Top" Width="321.862" Grid.ColumnSpan="2" Height="31.268" VerticalContentAlignment="Center" TabIndex="2" KeyDown="PasswordBox_OnKeyDown"/>
         <TextBox x:Name="plainPw" Text="{Binding Passwordhash, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Visibility="Hidden"/>
         
         <Label x:Name="lblInfo" Grid.ColumnSpan="2" Content="" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="59.751,422,0,0" Style="{DynamicResource SimpleLabel}" VerticalAlignment="Top" Width="215" Foreground="White" HorizontalContentAlignment="Center"/>

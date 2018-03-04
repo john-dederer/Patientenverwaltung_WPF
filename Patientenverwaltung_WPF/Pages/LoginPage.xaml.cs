@@ -119,5 +119,13 @@ namespace Patientenverwaltung_WPF.Pages
             if (e.Action == ValidationErrorEventAction.Added) UserViewModel.Errors += 1;
             if (e.Action == ValidationErrorEventAction.Removed) UserViewModel.Errors -= 1;
         }
+
+        private void PasswordBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                UserViewModel.SharedViewModel().Login();
+            }
+        }
     }
 }

@@ -61,11 +61,20 @@ namespace Patientenverwaltung_WPF.ViewModel
             CreateCommand = new RelayCommand(CreateUser, CanCreate);
         }
 
+        /// <summary>
+        /// Predicate to check in no errors exist
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private static bool CanCreate(object obj)
         {
             return Errors == 0;
         }
 
+        /// <summary>
+        /// Executed when clicked on button
+        /// </summary>
+        /// <param name="parameter">Passwordbox</param>
         private static void CreateUser(object parameter)
         {
             // parameter is PasswordBox
@@ -88,6 +97,10 @@ namespace Patientenverwaltung_WPF.ViewModel
             }
         }
 
+        /// <summary>
+        /// Executed when clicked on button
+        /// </summary>
+        /// <param name="obj"></param>
         private static void LoginUser(object obj)
         {
             // Check if username exist
@@ -117,6 +130,14 @@ namespace Patientenverwaltung_WPF.ViewModel
                 // User does not exist yet
                 MainWindow.UpdatePage(Constants.AskToCreateAccountPageUri);
             }
+        }
+
+        /// <summary>
+        /// Helper method to trigger login after key enter down in pwbox control
+        /// </summary>
+        public void Login()
+        {
+            LoginUser(null);
         }
     }
 }
