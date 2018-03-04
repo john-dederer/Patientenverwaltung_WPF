@@ -52,6 +52,7 @@ namespace Patientenverwaltung_WPF.Notification
             
             HealthinsuranceViewModel.SharedViewModel().ShowAddHiUi = true;
             HealthinsuranceViewModel.SharedViewModel().ShowHiListUi = true;
+            HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = false;
 
             UiState = UIState.Healthinsurance;
         }
@@ -78,6 +79,8 @@ namespace Patientenverwaltung_WPF.Notification
 
             PatientViewModel.SharedViewModel().ShowAddPatientUi = true;
             PatientViewModel.SharedViewModel().ShowPatientListUi = true;
+            PatientViewModel.SharedViewModel().ShowCreateMaskUi = false;
+            PatientViewModel.SharedViewModel().ShowTreatmentListUi = false;
 
             UiState = UIState.Patient;
         }
