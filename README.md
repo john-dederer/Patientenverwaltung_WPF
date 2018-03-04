@@ -38,5 +38,3 @@ ___
 Präsentation:
 
 Eine Prezi zu diesem Projekt kann [hier](http://prezi.com/tdwwnjwaxdfe/?utm_campaign=share&utm_medium=copy&rc=ex0share) gefunden werden.
-___
-Viele Lösungen zu unseren Problemen kamen von Stackoverflow.
