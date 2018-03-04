@@ -9,7 +9,7 @@
     <Grid >
         <StackPanel Width="Auto">
             <!--Anfang ListItemCtrl -->
-            <Grid DataContext="{Binding}" Tag="{Binding}" Background="#FFEAEAEA" Margin="5">
+            <Grid DataContext="{Binding}" Tag="{Binding}" Background="White" Margin="5">
                 <Grid.ColumnDefinitions>
                     <!-- Selection Indicator -->
                     <ColumnDefinition Width="70"/>
@@ -22,8 +22,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,0,2">
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin="5"/>
+                <Border BorderBrush="#FF0576C5" BorderThickness="2,2,0,2">
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=dd.MM.yyyy}" TextWrapping="Wrap" Margin="5" Foreground="#FF0576C5" FontSize="11" FontWeight="Bold"/>
                 </Border>
 
                 <!-- When clicked on item, Textblock expands and button to edit appear -->
@@ -32,25 +32,25 @@
                 <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Center" >
                     <!-- Description -->
 
-                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,2,2,2">
+                    <Border BorderBrush="#FF0576C5" BorderThickness="2,2,2,2">
                         <StackPanel>
-                            <TextBlock Text="Beschreibung" Margin="5,5,5,0"/>
+                            <TextBlock Text="Beschreibung" Margin="5,5,5,0" Foreground="#FF0576C5" FontSize="14" FontWeight="Bold"/>
                             <TextBox x:Name="txtDescription" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" FontFamily="Arial" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}" GotFocus="TreatmentGotFocus" />
                         </StackPanel>
                     </Border>
 
-                    <Border BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2">
+                    <Border BorderBrush="#FF0576C5" BorderThickness="2,0,2,2">
                         <StackPanel>
-                            <TextBlock Text="Sonstiges" Margin="5,5,5,0"/>
-                            <TextBox x:Name="txtOther" Text="{Binding Other, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" Margin="5" IsReadOnly="True" AcceptsReturn="True" SelectionBrush="{x:Null}" GotFocus="TreatmentGotFocus" />
+                            <TextBlock Text="Sonstiges" Margin="5,5,5,0" Foreground="#FF0576C5" FontSize="14" FontWeight="Bold"/>
+                            <TextBox x:Name="txtOther" Text="{Binding Other, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLines="3" TextWrapping="Wrap" MinWidth="628" MaxWidth="628" Margin="5" IsReadOnly="True" AcceptsReturn="True" GotFocus="TreatmentGotFocus" />
                         </StackPanel>
                     </Border>
                     
                 </StackPanel>
-                <Border BorderBrush="#FFA6A6A6" BorderThickness="2,0,2,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                <Border BorderBrush="#FF0576C5" BorderThickness="2,0,2,2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnUpdateTreatment" Margin="10" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="UpdateTreatment"/>
-                        <Button x:Name="btnDeleteTreatment" Margin="10" HorizontalAlignment="Left" Content="Behandlung löschen" Visibility="Collapsed" Background="White" FontWeight="Bold" Height="30" BorderBrush="LightGray" BorderThickness="2" Click="DeleteTreatment"/>
+                        <Button x:Name="btnUpdateTreatment" Margin="10" HorizontalAlignment="Left" Content="Behandlung ändern" Visibility="Collapsed" Background="White" Height="30" Click="UpdateTreatment"/>
+                        <Button x:Name="btnDeleteTreatment" Margin="10" HorizontalAlignment="Left" Content="Behandlung löschen" Visibility="Collapsed" Background="White" Foreground="IndianRed" BorderBrush="IndianRed" Height="30" Click="DeleteTreatment"/>
                     </StackPanel>
                 </Border>
             </Grid>
