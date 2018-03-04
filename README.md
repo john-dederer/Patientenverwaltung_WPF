@@ -45,4 +45,4 @@ ___
 
 Eine Prezi zu diesem Projekt kann [hier](http://prezi.com/tdwwnjwaxdfe/?utm_campaign=share&utm_medium=copy&rc=ex0share) gefunden werden.
 
-<iframe id="iframe_container" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" src="https://prezi.com/embed/tdwwnjwaxdfe/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI0eXA4UzFYY1NSWXAxUGFtdDNyQlhnUkdnPT0&amp;landing_sign=ovYLSFPIXP-jS8WzE1RN3_W7E_SEpFuhmN71PkJtw2Y" width="550" height="400" frameborder="0"></iframe>
+<iframe id="iframe_container" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" src="https://prezi.com/embed/tdwwnjwaxdfe/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI0eXA4UzFYY1NSWXAxUGFtdDNyQlhnUkdnPT0&amp;landing_sign=ovYLSFPIXP-jS8WzE1RN3_W7E_SEpFuhmN71PkJtw2Y" width="1100" height="800" frameborder="0"></iframe>
