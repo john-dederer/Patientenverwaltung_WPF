@@ -30,11 +30,12 @@ namespace Patientenverwaltung_WPF.Pages
             InitializeComponent();
 
             // Initialize settings
-            InitializeSettings();
-
-            // Set DataContext
-            DataContext = UserViewModel.SharedViewModel();
-            btnLogin.DataContext = UserViewModel.SharedViewModel();
+            if (InitializeSettings())
+            {
+                // Set DataContext
+                DataContext = UserViewModel.SharedViewModel();
+                btnLogin.DataContext = UserViewModel.SharedViewModel();
+            }            
 
             Loaded += LoginPage_Loaded;
         }
@@ -44,7 +45,7 @@ namespace Patientenverwaltung_WPF.Pages
             UserViewModel.Errors = 0;
         }
 
-        private void InitializeSettings()
+        private bool InitializeSettings()
         {
             if (!CurrentContext.GetSettings().SettingsJSONExist())
             {
@@ -53,12 +54,13 @@ namespace Patientenverwaltung_WPF.Pages
 
                 // Load Initial Settings page
                 MainWindow.UpdatePage(Constants.InitialSettingsPageUri);
+
+                return false;
             }
-            else
-            {
-                // Read settings from file
-                CurrentContext.GetSettings().SetSettings(true);
-            }
+ 
+             // Read settings from file
+             CurrentContext.GetSettings().SetSettings(true);
+             return true;            
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
