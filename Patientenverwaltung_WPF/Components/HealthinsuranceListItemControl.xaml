@@ -55,12 +55,12 @@
         
         
         <!-- Main content -->
-            <StackPanel Grid.Column="2" VerticalAlignment="Center" >
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" MaxWidth="300">
                 <!-- Name -->
-            <TextBlock Style="{DynamicResource ItemControl}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Style="{DynamicResource ItemControl}" TextTrimming="CharacterEllipsis" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Birthday -->
-            <TextBlock  Style="{DynamicResource ItemControl}"  >
+            <TextBlock  Style="{DynamicResource ItemControl}" TextTrimming="CharacterEllipsis" >
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0} {1}">
                         <Binding Path="Postalcode" />
