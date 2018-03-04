@@ -77,6 +77,13 @@ namespace Patientenverwaltung_WPF
             set { SetValue(() => Birthday, value); }
         }
 
+        [Required(ErrorMessage = "Bitte Geschlecht angeben")]
+        public Gender Gender
+        {
+            get { return GetValue(() => Gender); }
+            set { SetValue(() => Gender, value); }
+        }
+
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Darf nur aus Nummern bestehen")]
         public string Phonenumber
         {

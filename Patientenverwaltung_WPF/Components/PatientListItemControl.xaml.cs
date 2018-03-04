@@ -47,27 +47,62 @@ namespace Patientenverwaltung_WPF
             if (age <= 3)
             {
                 // baby
-                BabyIcon.Visibility = Visibility.Visible;
+                if (patient.Gender == Gender.Male)
+                {
+                    BabyIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    BabyFemaleIcon.Visibility = Visibility.Visible;
+                }
             }
             else if (age <= 15)
             {
                 // child
-                ChildIcon.Visibility = Visibility.Visible;
+                if (patient.Gender == Gender.Male)
+                {
+                    ChildIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ChildFemaleIcon.Visibility = Visibility.Visible;
+                }
             }
             else if (age <= 21)
             {
                 // teenager
-                TeenagerIcon.Visibility = Visibility.Visible;
+                if (patient.Gender == Gender.Male)
+                {
+                    TeenagerIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    TeenagerFemaleIcon.Visibility = Visibility.Visible;
+                }
             }
             else if (age <= 55)
             {
                 // adult
-                AdultIcon.Visibility = Visibility.Visible;
+                if (patient.Gender == Gender.Male)
+                {
+                    AdultIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    AdultFemaleIcon.Visibility = Visibility.Visible;
+                }
             }
             else
             {
                 // elderly
-                ElderlyIcon.Visibility = Visibility.Visible;
+                if (patient.Gender == Gender.Male)
+                {
+                    ElderlyIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ElderlyFemaleIcon.Visibility = Visibility.Visible;
+                }
             }
         }
     }

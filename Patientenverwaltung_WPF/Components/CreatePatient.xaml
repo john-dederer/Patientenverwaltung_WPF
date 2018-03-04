@@ -3,10 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converter="clr-namespace:Patientenverwaltung_WPF.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="400">
 
     <Grid x:Name="Grid" Background="White" Visibility="{Binding ShowCreateMaskUi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.Resources>
+            <converter:EnumBooleanConverter x:Key="enumBooleanConverter" />
+        </Grid.Resources>
+        
         <StackPanel Width="Auto">
             <Grid Background="White" DataContext="{Binding NewPatient, ValidatesOnDataErrors=True}">
                     <Grid.ColumnDefinitions>
@@ -34,6 +39,8 @@
                     <Label x:Name="lblBirthday" Content="Geburtstag"  Margin="10,10.5,0,9.5" Height="30" FontSize="16" Grid.Row="3" Grid.Column="0"/>
                     <Label x:Name="lblPhonenumber" Content="Telefonnummer"  Margin="9.998,10.5,0,9.5" Height="30" FontSize="16" Grid.Column="2" Grid.Row="3"/>
                     <Label x:Name="lblInsuranceId" Content="Versicherungsnummer"  Margin="9.998,10.5,5,9.5" Height="30" FontSize="16" Grid.Column="0" Grid.Row="4"/>
+                    <Label x:Name="lblGender" Content="Geschlecht"  Margin="9.998,0,5,20" Height="30" FontSize="16" Grid.Column="0" Grid.Row="5"/>
+                           
 
                     <!-- Textboxes -->
                 <TextBox x:Name="txtBoxFirstname" Grid.Row="0" Grid.Column="1" MinWidth="180" Margin="0,10"  Height="30" Text="{Binding Firstname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="1"/>
@@ -49,12 +56,32 @@
                 <TextBox x:Name="txtBoxCity" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding City, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" MaxWidth="170" TabIndex="6"/>
                     
                 <TextBox x:Name="txtBoxPhonenumer" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding Phonenumber, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="8"/>
-                    
+
                 <TextBox x:Name="txtBoxInsuranceId" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="180" Margin="0,10"   Height="30" Text="{Binding InsuranceId, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error" Width="Auto" MaxWidth="170" TabIndex="9"/>
-                   
+
                 <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="180" Height="30" SelectedDate="{Binding Birthday, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Validation.Error="Validation_Error"/>
 
-                </Grid>
+                <Canvas Margin="0,13" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top" Name="GenderMaleIcon" Width="24" Height="24">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.Resources/>
+                    <Path Fill="#000000" Data="M16 2v2h3.586l-3.972 3.972c-1.54-1.231-3.489-1.972-5.614-1.972-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-2.125-.741-4.074-1.972-5.614l3.972-3.972v3.586h2v-7h-7zm-6 20c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
+                </Canvas>
+
+
+                <Canvas Margin="0,13" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top" Name="GenderFemaleIcon" Width="24" Height="24">
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="0" Y="0"/>
+                    </Canvas.RenderTransform>
+                    <Canvas.Resources/>
+                    <Path Fill="#000000" Data="M21 9c0-4.97-4.03-9-9-9s-9 4.03-9 9c0 4.632 3.501 8.443 8 8.941v2.059h-3v2h3v2h2v-2h3v-2h-3v-2.059c4.499-.498 8-4.309 8-8.941zm-16 0c0-3.86 3.14-7 7-7s7 3.14 7 7-3.14 7-7 7-7-3.14-7-7z"/>
+                </Canvas>
+
+                <RadioButton Margin="30,20" IsChecked="{Binding Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Male}"  Grid.Column="1" Grid.Row="5" Content="Männlich" />
+                <RadioButton Margin="30,20" IsChecked="{Binding Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Female}" Grid.Column="2" Grid.Row="5" Content="Weiblich"/>
+
+            </Grid>
             
             <Grid Margin="0, -100">
                 <Grid.ColumnDefinitions>

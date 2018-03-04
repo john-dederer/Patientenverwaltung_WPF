@@ -16,6 +16,13 @@
         ByLaw
     }
 
+    public enum Gender
+    {
+        Male,
+        Female,
+        Distinguished
+    }
+
     /// <summary>
     ///     Defines the current UIState
     /// </summary>
