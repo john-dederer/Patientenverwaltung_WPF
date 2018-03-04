@@ -31,8 +31,29 @@ namespace Patientenverwaltung_WPF.Notification
                 // Nothing to do since this is opened in a new window
             }
 
+            // Wenn ein HI schon ausgewählt wurde, diese in liste als selektiert anzeigen und in maske auswählen
+            if (PatientViewModel.SharedViewModel().NewPatient.HealthinsuranceId >= 0)
+            {
+                var index = HealthinsuranceViewModel.SharedViewModel().Healthinsurances.ToList().FindIndex(x =>
+                    x.HealthinsuranceId == PatientViewModel.SharedViewModel().NewPatient.HealthinsuranceId);
+
+                if (index >= 0)
+                {
+                    var hi = HealthinsuranceViewModel.SharedViewModel().Healthinsurances.ElementAt(index);
+
+                    HealthinsuranceViewModel.SharedViewModel().Healthinsurances.Remove(hi);
+                    HealthinsuranceViewModel.SharedViewModel().Healthinsurances.Insert(index, hi);
+
+
+                    HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = true;
+                    HealthinsuranceViewModel.SharedViewModel().NewHealthinsurance = HealthinsuranceViewModel.SharedViewModel().Healthinsurances.ElementAt(index);
+                }                
+            }
+            
             HealthinsuranceViewModel.SharedViewModel().ShowAddHiUi = true;
             HealthinsuranceViewModel.SharedViewModel().ShowHiListUi = true;
+
+            UiState = UIState.Healthinsurance;
         }
 
         public static void SwitchUiToPatient()
@@ -47,6 +68,8 @@ namespace Patientenverwaltung_WPF.Notification
                 HealthinsuranceViewModel.SharedViewModel().ShowCreateHiMask = false;
                 HealthinsuranceViewModel.SharedViewModel().ShowAddHiUi = false;
                 HealthinsuranceViewModel.SharedViewModel().ShowHiListUi = false;
+
+                HealthinsuranceViewModel.SharedViewModel().ChoosingHiForPatient = false;
             }
             else if (UiState == UIState.Settings)
             {
@@ -55,6 +78,8 @@ namespace Patientenverwaltung_WPF.Notification
 
             PatientViewModel.SharedViewModel().ShowAddPatientUi = true;
             PatientViewModel.SharedViewModel().ShowPatientListUi = true;
+
+            UiState = UIState.Patient;
         }
 
         public static void SwitchUiToSettings()

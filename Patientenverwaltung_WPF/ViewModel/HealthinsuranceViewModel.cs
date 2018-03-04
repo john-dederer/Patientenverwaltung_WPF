@@ -247,7 +247,7 @@ namespace Patientenverwaltung_WPF.ViewModel
         /// </summary>
         public bool CanChoose(object parameter)
         {
-            return ChoosingHiForPatient;
+            return ChoosingHiForPatient && PatientViewModel.SharedViewModel().NewPatient.HealthinsuranceId != NewHealthinsurance.HealthinsuranceId && NewHealthinsurance.LastChange != null;
         }
 
         /// <summary>
