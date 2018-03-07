@@ -83,7 +83,7 @@ namespace Patientenverwaltung_WPF.ViewModel
 
             if (Factory.Get(CurrentContext.GetSettings().Savetype).Create(SharedViewModel().NewUser))
             {
-                var info = new InfoMessageWindow("Benutzer Erfolreich angelegt");
+                var info = new InfoMessageWindow("Benutzer Erfolgreich angelegt");
                 info.ShowDialog();
 
                 Errors = 0;
