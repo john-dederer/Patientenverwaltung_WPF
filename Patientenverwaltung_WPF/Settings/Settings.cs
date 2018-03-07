@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,31 +24,60 @@ namespace Patientenverwaltung_WPF
 
         public void SetSettings(bool loadFromFile)
         {
-            if (!loadFromFile) return;
+            try
+            {
+                if (!loadFromFile) return;
 
-            var settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Settings.json"));
+                var settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText($@"{Logfile.AppFolder}\Settings.json"));
 
-            if (settings == null) throw new Exception("Settings Datei wurde noch nicht richtig initialisiert");
-            Savetype = settings.Savetype;
-            Savelocation = settings.Savelocation;
+                if (settings == null) throw new Exception("Settings Datei wurde noch nicht richtig initialisiert");
+                Savetype = settings.Savetype;
+                Savelocation = settings.Savelocation;
+            }
+            catch (Exception e)
+            {
+                Logfile.WriteToLog(e.Message).Wait();
+            }            
         }
 
         public bool SettingsJSONExist()
         {
-            return File.Exists($@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Settings.json");
+            try
+            {
+                return File.Exists($@"{Logfile.AppFolder}\Settings.json");
+            }
+            catch (Exception e)
+            {
+                Logfile.WriteToLog(e.Message).Wait();
+                return false;
+            }           
         }
 
         public void CreateSettingsJSON()
         {
             if (SettingsJSONExist()) return;
 
-            File.CreateText($@"{System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Settings.json");
+            try
+            {
+                using (File.CreateText($@"{Logfile.AppFolder}\Settings.json")) { }
+            }
+            catch (Exception e)
+            {
+                Logfile.WriteToLog(e.Message).Wait();
+            }            
         }
 
         public void UpdateJSON()
-        {
-            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText($@"{System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Settings.json", json);
+        {            
+            try
+            {
+                var json = JsonConvert.SerializeObject(this, Formatting.Indented);
+                File.WriteAllText($@"{Logfile.AppFolder}\Settings.json", json);
+            }
+            catch (Exception e)
+            {
+                Logfile.WriteToLog(e.Message).Wait();
+            }
         }
     }
 

@@ -27,17 +27,26 @@ namespace Patientenverwaltung_WPF.Pages
     {
         public LoginPage()
         {
-            InitializeComponent();
-
-            // Initialize settings
-            if (InitializeSettings())
+            try
             {
-                // Set DataContext
-                DataContext = UserViewModel.SharedViewModel();
-                btnLogin.DataContext = UserViewModel.SharedViewModel();
-            }            
+                InitializeComponent();
 
-            Loaded += LoginPage_Loaded;
+                Logfile.Initialize();
+
+                // Initialize settings
+                if (InitializeSettings())
+                {
+                    // Set DataContext
+                    DataContext = UserViewModel.SharedViewModel();
+                    btnLogin.DataContext = UserViewModel.SharedViewModel();
+                }
+
+                Loaded += LoginPage_Loaded;
+            }
+            catch (Exception e)
+            {
+                Logfile.WriteToLog(e.Message).Wait();
+            }            
         }
 
         private void LoginPage_Loaded(object sender, RoutedEventArgs e)
