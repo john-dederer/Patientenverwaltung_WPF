@@ -658,12 +658,63 @@ namespace Patientenverwaltung_WPF
     {
         public override bool Create(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                if (datamodel.GetType() == typeof(Patient))
+                {
+                    var patient = datamodel as Patient;
+                    patient.PatientId = CurrentContext.GetIdCounter().GetId("patient");
+                    patient.SetLogData();
+
+                    con.Patient.Add(patient);
+                }
+                if (datamodel.GetType() == typeof(Healthinsurance))
+                {
+                    var healthinsurance = datamodel as Healthinsurance;
+                    healthinsurance.HealthinsuranceId = CurrentContext.GetIdCounter().GetId("healthinsurance");
+                    healthinsurance.SetLogData();
+
+                    con.Healthinsurance.Add(healthinsurance);
+                }
+                if (datamodel.GetType() == typeof(Treatment))
+                {
+                    var treatment = datamodel as Treatment;
+                    treatment.TreatmentId = CurrentContext.GetIdCounter().GetId("treatment");
+                    treatment.SetLogData();
+
+                    con.Treatment.Add(treatment);
+                }
+                if (datamodel.GetType() == typeof(User))
+                {
+                    var user = datamodel as User;
+                    user.UserId = CurrentContext.GetIdCounter().GetId("user");
+                    user.SetLogData();
+
+                    con.User.Add(user);
+                }
+
+                con.SaveChanges();
+                return true;
+            }
         }
 
         public override bool Create(User user)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                con.User.Add(user);
+
+                try
+                {
+                    con.SaveChanges();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
 
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
@@ -673,52 +724,238 @@ namespace Patientenverwaltung_WPF
 
         public override bool Update(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                if (datamodel.GetType() == typeof(Patient))
+                {
+                    var patient = datamodel as Patient;
+                    var res = con.Patient.SingleOrDefault(patients => patients.PatientId == patient.PatientId);
+
+                    if (res != null)
+                    {
+                        res.SetValues(patient);
+                        res.SetLogData();
+                    }
+                }
+                if (datamodel.GetType() == typeof(Healthinsurance))
+                {
+                    var healthinsurance = datamodel as Healthinsurance;
+                    var res = con.Healthinsurance.SingleOrDefault(healthinsurances => healthinsurances.HealthinsuranceId == healthinsurance.HealthinsuranceId);
+
+                    if (res != null)
+                    {
+                        res.SetValues(healthinsurance);
+                        res.SetLogData();
+                    }
+                }
+                if (datamodel.GetType() == typeof(Treatment))
+                {
+                    var treatment = datamodel as Treatment;
+                    var res = con.Treatment.SingleOrDefault(treatments => treatments.PatientId == treatment.PatientId);
+
+                    if (res != null)
+                    {
+                        res.SetValues(treatment);
+                        res.SetLogData();
+                    }
+                }
+                if (datamodel.GetType() == typeof(User))
+                {
+                    var user = datamodel as User;
+                    var res = con.User.SingleOrDefault(users => users.UserId == user.UserId);
+
+                    if (res != null)
+                    {
+                        res.SetValues(user);
+                        res.SetLogData();
+                    }
+                }
+
+                con.SaveChanges();
+                return true;
+            }
         }
 
         public override bool Delete(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                if (datamodel.GetType() == typeof(Patient))
+                {
+                    var patient = datamodel as Patient;
+
+                    var res = con.Patient.SingleOrDefault(patients => patients.PatientId == patient.PatientId);
+
+                    if (res != null)
+                    {
+                        con.Treatment.RemoveRange(con.Treatment.Where(x => x.PatientId == res.PatientId).ToList());
+                        con.Patient.Remove(res);
+                    }
+                }
+                if (datamodel.GetType() == typeof(Healthinsurance))
+                {
+                    var healthinsurance = datamodel as Healthinsurance;
+
+                    var res = con.Healthinsurance.SingleOrDefault(healthinsurances => healthinsurances.HealthinsuranceId == healthinsurance.HealthinsuranceId);
+
+                    if (res != null)
+                    {
+                        con.Healthinsurance.Remove(res);
+                    }
+                }
+                if (datamodel.GetType() == typeof(Treatment))
+                {
+                    var treatment = datamodel as Treatment;
+
+                    var res = con.Treatment.SingleOrDefault(treatments => treatments.TreatmentId == treatment.TreatmentId);
+
+                    if (res != null)
+                    {
+                        con.Treatment.Remove(res);
+                    }
+                }
+                if (datamodel.GetType() == typeof(User))
+                {
+                    var user = datamodel as User;
+
+                    var res = con.User.SingleOrDefault(users => users.UserId == user.UserId);
+
+                    if (res != null)
+                    {
+                        con.User.Remove(res);
+                    }
+                }
+
+                con.SaveChanges();
+                return true;
+            }
         }
 
         internal override bool Select(User user, out User returned)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var res = con.User.SingleOrDefault(users => users.Username == user.Username);
+
+                if (res == null)
+                {
+                    returned = null;
+                    return false;
+                }
+
+                returned = res;
+                return true;
+            }
         }
 
         internal override bool Select(Patient patient, out Patient returned)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var res = con.Patient.SingleOrDefault(patients => patients.PatientId == patient.PatientId);
+
+                if (res == null)
+                {
+                    returned = null;
+                    return false;
+                }
+
+                returned = res;
+                return true;
+            }
         }
 
         internal override List<Patient> GetPatientList()
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var list = con.Patient.ToList();
+               
+                return list;
+            }
         }
 
         internal override List<User> GetUserList()
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var list = con.User.ToList();
+
+                var converted = new List<User>();
+
+                return list;
+            }
         }
 
         internal override bool Select(Treatment treatment, out Treatment returned)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var res = con.Treatment.Where(treatments => treatments.TreatmentId == treatment.TreatmentId);
+
+                if (res == null)
+                {
+                    returned = null;
+                    return false;
+                }
+
+                returned = res.First();
+                return true;
+            }
         }
 
         public override bool Select(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                if (datamodel.GetType() == typeof(Patient))
+                {
+                    var patient = datamodel as Patient;
+
+                    return con.Patient.SingleOrDefault(patients => patients.PatientId == patient.PatientId) != null;
+                }
+                if (datamodel.GetType() == typeof(Healthinsurance))
+                {
+                    var healthinsurance = datamodel as Healthinsurance;
+
+                    return con.Healthinsurance.SingleOrDefault(healthinsurances => healthinsurances.HealthinsuranceId == healthinsurance.HealthinsuranceId) != null;
+                }
+                if (datamodel.GetType() == typeof(Treatment))
+                {
+                    var treatment = datamodel as Treatment;
+
+                    return con.Treatment.SingleOrDefault(treatments => treatments.TreatmentId == treatment.TreatmentId) != null;
+
+                }
+                if (datamodel.GetType() == typeof(User))
+                {
+                    var user = datamodel as User;
+
+                    return con.User.SingleOrDefault(users => users.UserId == user.UserId) != null;
+                }
+
+                return false;
+            }
         }
 
         internal override List<Healthinsurance> GetHealthinsuranceList()
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var list = con.Healthinsurance.ToList();
+
+                return list;
+            }
         }
 
         internal override List<Treatment> GetTreatmentList()
         {
-            throw new NotImplementedException();
+            using (var con = new PatientContext())
+            {
+                var list = con.Treatment.ToList();
+
+                return list;
+            }
         }
     }
 
