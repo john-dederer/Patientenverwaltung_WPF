@@ -17,6 +17,14 @@ ___
 (Das Diagramm wurde auf [yuml.me](https://yuml.me) erstellt)
 
 ___
+
+## Entity-Relationship Diagramm:
+
+![ER](https://github.com/john-dederer/Patientenverwaltung_WPF/raw/master/Documentation/graphs/Use-Case.png)
+(Das Diagramm wurde auf [draw.io](https://draw.io) erstellt)
+
+___
+
 ## Voraussetzungen:
 
 Um das Programm zu benutzen muss mindestens das.NET Framework V4.0 installiert sein. 
