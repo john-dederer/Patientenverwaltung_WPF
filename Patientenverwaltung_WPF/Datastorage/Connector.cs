@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Patientenverwaltung_WPF
@@ -153,7 +156,7 @@ namespace Patientenverwaltung_WPF
                     list.Add(patient);
                 }
 
-                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
 
@@ -177,7 +180,7 @@ namespace Patientenverwaltung_WPF
                     list.Add(healthinsurance);
                 }
 
-                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}", json);
 
@@ -200,7 +203,7 @@ namespace Patientenverwaltung_WPF
                     list.Add(treatment);
                 }
 
-                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
 
@@ -223,7 +226,7 @@ namespace Patientenverwaltung_WPF
                     list.Add(user);
                 }
 
-                var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
 
@@ -248,7 +251,7 @@ namespace Patientenverwaltung_WPF
             // Add to list
             list.Add(user);
 
-            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented);
 
             File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
 
@@ -282,12 +285,12 @@ namespace Patientenverwaltung_WPF
                 if (treatmentList != null)
                 {
                     treatmentList.RemoveAll(x => patient != null && x.PatientId == patient.PatientId);
-                    var json = JsonConvert.SerializeObject(treatmentList, Formatting.Indented);
+                    var json = JsonConvert.SerializeObject(treatmentList, Newtonsoft.Json.Formatting.Indented);
 
                     File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
                 }
 
-                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
             }
             else if (datamodel.GetType() == typeof(Healthinsurance))
             {
@@ -304,7 +307,7 @@ namespace Patientenverwaltung_WPF
 
                 deserializedList.RemoveAt(index);
 
-                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
             }
             else if (datamodel.GetType() == typeof(Treatment))
             {
@@ -321,7 +324,7 @@ namespace Patientenverwaltung_WPF
 
                 deserializedList.RemoveAt(index);
 
-                jsonConv = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                jsonConv = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
             }
             else
             {
@@ -454,7 +457,7 @@ namespace Patientenverwaltung_WPF
                 deserializedList[index] = patient;
                 deserializedList[index]?.SetLogData();
 
-                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}", json);
 
@@ -476,7 +479,7 @@ namespace Patientenverwaltung_WPF
                 deserializedList[index] = healthinsurance;
                 deserializedList[index]?.SetLogData();
 
-                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}", json);
 
@@ -499,7 +502,7 @@ namespace Patientenverwaltung_WPF
                 deserializedList[index] = treatment;
                 deserializedList[index]?.SetLogData();
 
-                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}", json);
 
@@ -522,7 +525,7 @@ namespace Patientenverwaltung_WPF
                 if (user != null) deserializedList[index].Passwordhash = user.Passwordhash;
                 deserializedList[index].SetLogData();
 
-                var json = JsonConvert.SerializeObject(deserializedList, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(deserializedList, Newtonsoft.Json.Formatting.Indented);
 
                 File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", json);
 
@@ -961,14 +964,115 @@ namespace Patientenverwaltung_WPF
 
     public class ConnectorXml : Connector
     {
+        private const string UserPath = "User.xml";
+        private const string PatientPath = "Patient.xml";
+        private const string TreatmentPath = "Treatment.xml";
+        private const string HealthinsurancePath = "Healthinsurance.xml";
+
+        public ConnectorXml()
+        {
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                using (File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"))
+                using (var writer = File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{PatientPath}"))
+                {
+                }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+                using (File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{TreatmentPath}"))
+                {
+                }
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"))
+                using (File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{HealthinsurancePath}"))
+                {
+                }
+        }
+
         public override bool Create(Datamodel datamodel)
         {
-            throw new NotImplementedException();
+            if (datamodel.GetType() == typeof(Patient))
+            {
+                var patient = datamodel as Patient;
+
+                XmlSerializer xsSubmit = new XmlSerializer(typeof(Patient));
+                var xml = "";
+
+                using (var sww = new StringWriter())
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww))
+                    {
+                        xsSubmit.Serialize(writer, patient);
+                        xml = sww.ToString(); // Your XML
+                    }
+                }
+
+            }
+            if (datamodel.GetType() == typeof(Healthinsurance))
+            {
+                var healthinsurance = datamodel as Healthinsurance;
+
+            }
+            if (datamodel.GetType() == typeof(Treatment))
+            {
+                var treatment = datamodel as Treatment;
+
+
+            }
+            if (datamodel.GetType() == typeof(User))
+            {
+                var user = datamodel as User;
+
+            }
+
+            return false;
         }
 
         public override bool Create(User user)
         {
-            throw new NotImplementedException();
+            // safety measurement: check if  user exists
+            //if (Select(user, out var _)) return false;
+
+            XmlSerializer ser = new XmlSerializer(typeof(List<User>));
+            List<User> deserialzedList = new List<User>();
+
+            try
+            {
+                using (XmlReader reader = XmlReader.Create($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                    deserialzedList = (List<User>)ser.Deserialize(reader);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            // Set id
+            user.UserId = CurrentContext.GetIdCounter().GetId("user");
+
+            // Set log data
+            user.SetLogData();
+
+            deserialzedList.Add(user);
+
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(List<User>));
+            var xml = "";
+
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww,  new XmlWriterSettings() { Encoding = Encoding.UTF8, Indent = true }))
+                {
+                    xsSubmit.Serialize(writer, deserialzedList);
+                    xml = sww.ToString(); // Your XML
+                }
+            }
+
+            File.WriteAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}", xml);
+
+            return true;
         }
 
         public override bool Select(Datamodel datamodelIn, out Datamodel datamodelOut)
@@ -988,7 +1092,35 @@ namespace Patientenverwaltung_WPF
 
         internal override bool Select(User user, out User returned)
         {
-            throw new NotImplementedException();
+            returned = null;
+
+            if (!File.Exists($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+            {
+                using (File.CreateText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                }
+
+                return false;
+            }
+
+            // Deserialize JSON
+            XmlSerializer ser = new XmlSerializer(typeof(List<User>));
+            List<User> deserializedList;
+            using (XmlReader reader = XmlReader.Create($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+            {
+                deserializedList = (List<User>)ser.Deserialize(reader);
+            }
+
+            if (deserializedList == null) return false;
+
+            foreach (var userInList in deserializedList)
+                if (userInList.Username == user.Username)
+                {
+                    returned = userInList;
+                    return true;
+                }
+
+            return false;
         }
 
         internal override bool Select(Patient patient, out Patient returned)
@@ -1003,7 +1135,25 @@ namespace Patientenverwaltung_WPF
 
         internal override List<User> GetUserList()
         {
-            throw new NotImplementedException();
+            //var deserialzedList =
+            //    JsonConvert.DeserializeObject<List<User>>(
+            //        File.ReadAllText($@"{CurrentContext.GetSettings().Savelocation}{UserPath}")) ?? new List<User>();
+
+            try
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(List<User>));
+                List<User> deserialzedList;
+                using (XmlReader reader = XmlReader.Create($@"{CurrentContext.GetSettings().Savelocation}{UserPath}"))
+                {
+                    deserialzedList = (List<User>)ser.Deserialize(reader);
+                }
+
+                return deserialzedList;
+            }
+            catch (Exception)
+            {
+                return new List<User>();
+            }
         }
 
         internal override bool Select(Treatment treatment, out Treatment returned)
