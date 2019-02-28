@@ -20,7 +20,7 @@ ___
 
 ## Entity-Relationship Diagramm:
 
-![ER](https://github.com/john-dederer/Patientenverwaltung_WPF/blob/master/Documentation/pictures/ER-Diagramm.svg)
+![ER](https://raw.githubusercontent.com/john-dederer/Patientenverwaltung_WPF/master/Documentation/pictures/er.png)
 
 (Das Diagramm wurde auf [draw.io](https://draw.io) erstellt)
 
