@@ -13,7 +13,7 @@ Können hier gefunden werden: [Releases](https://github.com/john-dederer/Patient
 ___
 ## Use-Case Diagramm:
 
-![Use-case](https://github.com/john-dederer/Patientenverwaltung_WPF/raw/master/Documentation/graphs/Use-Case.png)
+![Use-case](https://raw.githubusercontent.com/john-dederer/Patientenverwaltung_WPF/master/Documentation/pictures/use-case.png)
 (Das Diagramm wurde auf [yuml.me](https://yuml.me) erstellt)
 
 ___
