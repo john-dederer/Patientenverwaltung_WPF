@@ -754,7 +754,7 @@ namespace Patientenverwaltung_WPF
                 if (datamodel.GetType() == typeof(Treatment))
                 {
                     var treatment = datamodel as Treatment;
-                    var res = con.Treatment.SingleOrDefault(treatments => treatments.PatientId == treatment.PatientId);
+                    var res = con.Treatment.SingleOrDefault(treatments => treatments.TreatmentId == treatment.TreatmentId);
 
                     if (res != null)
                     {
